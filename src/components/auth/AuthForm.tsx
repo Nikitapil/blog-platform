@@ -4,13 +4,23 @@ import { AppInput } from '../ui/AppInput';
 import styles from '../../assets/styles/auth.module.scss';
 import { AppButton } from '../ui/AppButton';
 import { createAuthValidation } from '../../helpers/auth-validation';
+import { AuthFormData } from '../../types/auth-form';
+import { useAppSelector } from '../../hooks/store/useAppSelector';
+import { ErrorMessage } from '../ui/ErrorMessage';
 
 interface AuthFormProps {
   isSignUp?: boolean;
   closeModal: () => void;
+  onSubmit: (values: AuthFormData) => void;
 }
 
-export const AuthForm = ({ closeModal, isSignUp = false }: AuthFormProps) => {
+export const AuthForm = ({
+  closeModal,
+  onSubmit,
+  isSignUp = false
+}: AuthFormProps) => {
+  const { signError } = useAppSelector((state) => state.auth);
+
   const form = useFormik({
     initialValues: {
       email: '',
@@ -19,8 +29,7 @@ export const AuthForm = ({ closeModal, isSignUp = false }: AuthFormProps) => {
     },
     validate: createAuthValidation(isSignUp),
     onSubmit: (values) => {
-      console.log('submit');
-      console.log(values);
+      onSubmit(values);
     }
   });
 
@@ -28,8 +37,13 @@ export const AuthForm = ({ closeModal, isSignUp = false }: AuthFormProps) => {
     return isSignUp ? 'Sign Up' : 'Sign in';
   }, [isSignUp]);
 
+  const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    form.handleSubmit();
+  };
+
   return (
-    <form className={styles.form} onSubmit={form.handleSubmit}>
+    <form className={styles.form} onSubmit={submitHandler}>
       <h2>{title}</h2>
       <AppInput
         id="email"
@@ -78,6 +92,7 @@ export const AuthForm = ({ closeModal, isSignUp = false }: AuthFormProps) => {
         />
         <AppButton text={title} type="submit" color="success" />
       </div>
+      {signError && <ErrorMessage message={signError} />}
     </form>
   );
 };

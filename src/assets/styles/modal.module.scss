@@ -1,0 +1,31 @@
+@import "vars";
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(34, 34, 34, 0.85);
+}
+
+.modal__content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: $main-background-dark;
+  min-width: 320px;
+  min-height: 150px;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 10px #2f2f2f;
+  overflow: hidden;
+}
+
+.close {
+  position: absolute;
+  font-size: 18px;
+  top: 5px;
+  right: 5px;
+}

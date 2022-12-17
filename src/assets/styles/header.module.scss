@@ -1,0 +1,19 @@
+@import "vars";
+.header {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0.2px 10px $main-color-dark;
+  font-weight: 700;
+
+  h1 {
+    font-size: 28px;
+  }
+
+  &__container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

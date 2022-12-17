@@ -1,0 +1,36 @@
+@import "vars";
+
+.button {
+  padding: 3px 8px;
+  background: #4e82fc;
+  border: none;
+  border-radius: 5px;
+  transition: 0.4s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+
+  &.success {
+    background: #7fff00;
+  }
+
+  &.danger {
+    background: #ff0000;
+  }
+
+  &.transparent {
+    background: none;
+    color: $main-color-dark;
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+    &:active {
+      background: none;
+    }
+  }
+}

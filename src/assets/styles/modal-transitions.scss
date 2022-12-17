@@ -1,0 +1,23 @@
+.modal {
+  &.entering {
+    .modal__content {
+      animation: modalOverlayEnter .2s linear;
+    }
+  }
+  &.exiting {
+    .modal__content {
+      animation: modalOverlayEnter .2s linear reverse;
+    }
+  }
+}
+
+@keyframes modalOverlayEnter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

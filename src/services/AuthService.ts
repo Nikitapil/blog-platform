@@ -12,4 +12,11 @@ export class AuthService {
     );
     return response;
   }
+
+  static async login(
+    formValues: AuthFormData
+  ): Promise<AxiosResponse<TAuthResponse>> {
+    const response = await $api.post<TAuthResponse>('/auth/login', formValues);
+    return response;
+  }
 }

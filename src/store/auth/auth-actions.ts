@@ -34,3 +34,34 @@ export const login = (formValues: AuthFormData) => {
     }
   };
 };
+
+export const checkAuth = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.setIsAuthLoading(true));
+      const response = await AuthService.checkAuth();
+      localStorage.setItem('token', response.data.accessToken);
+      dispatch(authSlice.actions.setUser(response.data.user));
+    } catch (e: any) {
+      console.error(e);
+      dispatch(authSlice.actions.setUser(null));
+    } finally {
+      dispatch(authSlice.actions.setIsAuthLoading(false));
+    }
+  };
+};
+
+export const logout = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.setIsAuthLoading(true));
+      await AuthService.logout();
+      localStorage.removeItem('token');
+      dispatch(authSlice.actions.setUser(null));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      dispatch(authSlice.actions.setIsAuthLoading(false));
+    }
+  };
+};

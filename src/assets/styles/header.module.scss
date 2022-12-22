@@ -22,4 +22,9 @@
     gap: 5px;
     align-items: center;
   }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
+  }
 }

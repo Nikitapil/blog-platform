@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../../assets/styles/header.module.scss';
 import { Modal } from '../ui/Modal';
 import { AppButton } from '../ui/AppButton';
@@ -49,7 +50,9 @@ export const AppHeader = () => {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.header__container}`}>
-        <h1>Blog Platform</h1>
+        <Link to="/" className={styles.header__link}>
+          <h1>Blog Platform</h1>
+        </Link>
         {!user && !isAuthLoading && (
           <div className={styles.header__btns}>
             <AppButton

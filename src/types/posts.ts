@@ -11,4 +11,6 @@ export type TPost = {
 
 export type PostsState = {
   posts: TPost[];
+  singlePost: TPost | null;
+  singlePostError: string;
 };

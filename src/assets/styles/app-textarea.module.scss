@@ -1,0 +1,29 @@
+@import "vars";
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  textarea {
+    height: 20rem;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #6e7a8f;
+    transition: 0.4s;
+    background: #373a3f;
+    color: #fff;
+    resize: none;
+    &:focus {
+      border: 1px solid #fff
+    }
+
+    &.input-error {
+      border: 1px solid #ff0000
+    }
+  }
+
+  .error {
+    color: #ff0000;
+    font-size: 14px;
+  }
+}

@@ -5,6 +5,7 @@ import { AppHeader } from './components/app/AppHeader';
 import { useAuthActions } from './hooks/store/useAuthActions';
 import { MainPage } from './pages/MainPage';
 import { SinglePostPage } from './pages/SinglePostPage';
+import { CreatePostPage } from './pages/CreatePostPage';
 
 function App() {
   const { checkAuth } = useAuthActions();
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/posts/:id" element={<SinglePostPage />} />
+        <Route path="/posts/create-post" element={<CreatePostPage />} />
       </Routes>
     </div>
   );

@@ -89,6 +89,7 @@
     margin-top: 10px;
     font-size: 18px;
     line-height: 110%;
+    white-space: pre-line;
   }
 }
 
@@ -100,5 +101,29 @@
 
   &__title {
     font-size: 24px;
+  }
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .preview {
+    max-width: 200px;
+    position: relative;
+    margin-top: 10px;
+
+    .delete-img {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.51);
+      right: 0;
+      color: black;
+    }
+
+    img {
+      max-width: 200px;
+    }
   }
 }

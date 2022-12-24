@@ -14,3 +14,8 @@ export type PostsState = {
   singlePost: TPost | null;
   singlePostError: string;
 };
+
+export type PostFormValues = {
+  title: string;
+  content: string;
+}

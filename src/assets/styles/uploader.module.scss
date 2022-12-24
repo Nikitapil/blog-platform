@@ -1,0 +1,17 @@
+.uploader {
+  input {
+    display: none;
+  }
+
+  label {
+    display: block;
+    padding: 5px;
+    border-radius: 5px;
+    background: #4e82fc;
+    max-width: fit-content;
+  }
+
+  .error {
+    color: red;
+  }
+}

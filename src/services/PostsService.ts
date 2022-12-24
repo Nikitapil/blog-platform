@@ -12,4 +12,6 @@ export class PostsService {
     const response = await $api.get<TPost>(`/posts/${id}`);
     return response;
   }
+
+  static async createPost(title: string, content: string, image: File) {}
 }

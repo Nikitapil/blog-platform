@@ -23,4 +23,6 @@ export type PostFormValues = {
 export type TPostRequest = PostFormValues & {
   image: File | null;
   userId: string;
+  id?: number;
+  imageName?: string;
 };

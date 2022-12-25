@@ -61,6 +61,8 @@ export const SinglePostPage = () => {
     }
   };
 
+  const navigateToEditPage = () => navigate(`/posts/${id}/edit`);
+
   if (!singlePost || singlePostError) {
     return (
       <div className="container">
@@ -83,7 +85,7 @@ export const SinglePostPage = () => {
               <IconButton
                 icon={faEdit}
                 type="button"
-                onClick={onDeleteModalChange}
+                onClick={navigateToEditPage}
               />
               <IconButton
                 icon={faTrash}

@@ -12,6 +12,7 @@ interface AppInputProps {
   touched?: boolean;
   placeholder: string;
   name: string;
+  disabled?: boolean;
 }
 
 export const AppInput = ({
@@ -24,7 +25,8 @@ export const AppInput = ({
   touched,
   placeholder,
   name,
-  onBlur
+  onBlur,
+  disabled = false
 }: AppInputProps) => {
   const inputClassName = useMemo(() => {
     return error && touched ? styles['input-error'] : '';
@@ -42,6 +44,7 @@ export const AppInput = ({
         onBlur={onBlur}
         placeholder={placeholder}
         name={name}
+        disabled={disabled}
       />
       {error && touched && <p className={styles.error}>{error}</p>}
     </div>

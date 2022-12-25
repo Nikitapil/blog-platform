@@ -13,5 +13,29 @@ export class PostsService {
     return response;
   }
 
-  static async createPost(title: string, content: string, image: File) {}
+  static async createPost(
+    title: string,
+    content: string,
+    image: File | null,
+    userId: string
+  ) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    if (image) {
+      formData.append('image', image);
+    }
+    formData.append('userId', userId);
+    const response = await $api.post('/posts', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response;
+  }
+
+  static async deletePost(id: string) {
+    const response = await $api.delete(`/posts/${id}`);
+    return response;
+  }
 }

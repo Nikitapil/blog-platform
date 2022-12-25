@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TAuthStore } from '../../types/auth-form';
 
 const initialState: TAuthStore = {
-  isAuthLoading: false,
+  isAuthLoading: true,
   user: null,
   signError: ''
 };

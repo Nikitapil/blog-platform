@@ -11,6 +11,7 @@ interface AppTextAreaProps {
   touched?: boolean;
   placeholder: string;
   name: string;
+  disabled?: boolean;
 }
 
 export const AppTexArea = ({
@@ -22,7 +23,8 @@ export const AppTexArea = ({
   touched,
   placeholder,
   name,
-  onBlur
+  onBlur,
+  disabled = false
 }: AppTextAreaProps) => {
   const inputClassName = useMemo(() => {
     return error && touched ? styles['input-error'] : '';
@@ -39,6 +41,7 @@ export const AppTexArea = ({
         onBlur={onBlur}
         placeholder={placeholder}
         name={name}
+        disabled={disabled}
       />
       {error && touched && <p className={styles.error}>{error}</p>}
     </div>

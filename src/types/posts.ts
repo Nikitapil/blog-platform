@@ -18,4 +18,9 @@ export type PostsState = {
 export type PostFormValues = {
   title: string;
   content: string;
-}
+};
+
+export type TPostRequest = PostFormValues & {
+  image: File | null;
+  userId: string;
+};

@@ -73,7 +73,31 @@
   &__title {
     font-weight: 700;
     font-size: 24px;
+  }
+
+  &__header {
     margin-bottom: 10px;
+    display: flex;
+    gap: 20px;
+  }
+
+  &__delete {
+    padding: 10px 0;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    &-btns {
+      display: flex;
+      gap: 10px;
+    }
   }
 
   &__image {
@@ -108,6 +132,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
+  }
+
+  &__error {
+    color: #ff0000;
   }
 
   .preview {

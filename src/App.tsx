@@ -7,6 +7,7 @@ import { MainPage } from './pages/MainPage';
 import { SinglePostPage } from './pages/SinglePostPage';
 import { CreatePostPage } from './pages/CreatePostPage';
 import { EditPostPage } from './pages/EditPostPage';
+import { ErrorPage } from './pages/ErrorPage';
 
 function App() {
   const { checkAuth } = useAuthActions();
@@ -20,6 +21,7 @@ function App() {
       <AppHeader />
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/posts/:id" element={<SinglePostPage />} />
         <Route path="/posts/:id/edit" element={<EditPostPage />} />
         <Route path="/posts/create-post" element={<CreatePostPage />} />

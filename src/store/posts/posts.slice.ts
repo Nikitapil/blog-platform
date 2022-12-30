@@ -3,8 +3,10 @@ import { PostsState } from '../../types/posts';
 
 const initialState: PostsState = {
   posts: [],
+  isPostsLoading: false,
   singlePost: null,
-  singlePostError: ''
+  singlePostError: '',
+  isSinglePostLoading: false
 };
 
 export const postsSlice = createSlice({
@@ -19,6 +21,12 @@ export const postsSlice = createSlice({
     },
     setSinglePostError(state, action) {
       state.singlePostError = action.payload;
+    },
+    setIsPostsLoading(state, action) {
+      state.isPostsLoading = action.payload;
+    },
+    setIsSinglePostLoading(state, action) {
+      state.isSinglePostLoading = action.payload;
     }
   }
 });

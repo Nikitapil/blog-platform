@@ -13,6 +13,8 @@ export type PostsState = {
   posts: TPost[];
   singlePost: TPost | null;
   singlePostError: string;
+  isPostsLoading: boolean;
+  isSinglePostLoading: boolean;
 };
 
 export type PostFormValues = {

@@ -11,13 +11,14 @@ import { Modal } from '../components/ui/Modal';
 import { AppButton } from '../components/ui/AppButton';
 import { useRequest } from '../hooks/utils/useRequest';
 import { PostsService } from '../services/PostsService';
+import { HorizontalLoader } from '../components/ui/loaders/HorizontalLoader';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
   const { getSinglePost } = usePostsActions();
-  const { singlePost, singlePostError } = useAppSelector(
+  const { singlePost, singlePostError, isSinglePostLoading } = useAppSelector(
     (state) => state.posts
   );
   const image = usePostImage(singlePost);
@@ -62,6 +63,14 @@ export const SinglePostPage = () => {
   };
 
   const navigateToEditPage = () => navigate(`/posts/${id}/edit`);
+
+  if (isSinglePostLoading) {
+    return (
+      <div className="container fit-content">
+        <HorizontalLoader />
+      </div>
+    );
+  }
 
   if (!singlePost || singlePostError) {
     return (

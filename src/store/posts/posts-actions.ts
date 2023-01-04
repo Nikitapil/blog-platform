@@ -2,12 +2,13 @@ import { PostsService } from '../../services/PostsService';
 import { postsSlice } from './posts.slice';
 import { AppDispatch } from '../index';
 
-export const getPosts = () => {
+export const getPosts = (page = 1) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(postsSlice.actions.setIsPostsLoading(true));
-      const response = await PostsService.getPosts();
-      dispatch(postsSlice.actions.setPosts(response.data));
+      const response = await PostsService.getPosts(page);
+      dispatch(postsSlice.actions.setPosts(response.data.posts));
+      dispatch(postsSlice.actions.setTotalCount(response.data.count));
     } catch (e) {
       console.error(e);
     } finally {

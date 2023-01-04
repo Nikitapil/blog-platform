@@ -9,12 +9,18 @@ export type TPost = {
   author: string;
 };
 
+export type TAllPostsResponse = {
+  count: number;
+  posts: TPost[];
+};
+
 export type PostsState = {
   posts: TPost[];
   singlePost: TPost | null;
   singlePostError: string;
   isPostsLoading: boolean;
   isSinglePostLoading: boolean;
+  totalPostsCount: number;
 };
 
 export type PostFormValues = {

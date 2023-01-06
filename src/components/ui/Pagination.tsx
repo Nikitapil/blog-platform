@@ -18,6 +18,10 @@ export const Pagination = ({
     const totalPagesCount = Math.ceil(totalCount / limit);
     return Array.from({ length: totalPagesCount }, (a, b) => b + 1);
   }, [totalCount, limit]);
+
+  if (pages.length <= 1) {
+    return null;
+  }
   return (
     <div className={styles.pagination}>
       {pages.map((page) => {

@@ -3,9 +3,12 @@ import { TAllPostsResponse, TPost } from '../types/posts';
 import $api from '../api/api';
 
 export class PostsService {
-  static async getPosts(page = 1): Promise<AxiosResponse<TAllPostsResponse>> {
+  static async getPosts(
+    page = 1,
+    search: string
+  ): Promise<AxiosResponse<TAllPostsResponse>> {
     const response = await $api.get<TAllPostsResponse>('/posts', {
-      params: { page }
+      params: { page, search }
     });
     return response;
   }

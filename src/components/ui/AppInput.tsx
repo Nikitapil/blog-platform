@@ -7,7 +7,7 @@ interface AppInputProps {
   type?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (e: FocusEvent<HTMLInputElement, Element>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement, Element>) => void;
   error?: string;
   touched?: boolean;
   placeholder: string;

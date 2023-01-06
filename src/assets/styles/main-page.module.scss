@@ -4,7 +4,9 @@
   flex-direction: column;
   gap: 15px;
 
-  &__create {
-    align-self: flex-end;
+  &__controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }

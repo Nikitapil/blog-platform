@@ -1,6 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTrash,
+  faEdit,
+  faHeart as faHeartSolid
+} from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { usePostsActions } from '../hooks/store/usePostsActions';
 import { useAppSelector } from '../hooks/store/useAppSelector';
 import styles from '../assets/styles/posts.module.scss';
@@ -17,10 +22,9 @@ export const SinglePostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
-  const { getSinglePost } = usePostsActions();
-  const { singlePost, singlePostError, isSinglePostLoading } = useAppSelector(
-    (state) => state.posts
-  );
+  const { getSinglePost, addPostLike, deletePostLike } = usePostsActions();
+  const { singlePost, singlePostError, isSinglePostLoading, singlePostLikes } =
+    useAppSelector((state) => state.posts);
   const image = usePostImage(singlePost);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const [deletePost, isDeleting, deletingError] = useRequest<void, null>(
@@ -39,6 +43,17 @@ export const SinglePostPage = () => {
     }
     return formatDate(singlePost.createdAt);
   }, [singlePost]);
+
+  const isUserLiked = useMemo(() => {
+    if (!user || !singlePost) {
+      return false;
+    }
+    return !!singlePostLikes.find((like) => like.userId === user.id);
+  }, [singlePost, singlePostLikes, user]);
+
+  const likeIcon = useMemo(() => {
+    return isUserLiked ? faHeartSolid : faHeart;
+  }, [isUserLiked]);
 
   useEffect(() => {
     if (!id) {
@@ -64,6 +79,17 @@ export const SinglePostPage = () => {
 
   const navigateToEditPage = () => navigate(`/posts/${id}/edit`);
 
+  const clickLike = async () => {
+    if (!singlePost || !user) {
+      return;
+    }
+    if (isUserLiked) {
+      await deletePostLike(singlePost.id);
+    } else {
+      await addPostLike(singlePost.id, user.id);
+    }
+  };
+
   if (isSinglePostLoading) {
     return (
       <div className="container fit-content">
@@ -84,6 +110,7 @@ export const SinglePostPage = () => {
       </div>
     );
   }
+
   return (
     <main className="container">
       <div className={styles['single-post']}>
@@ -103,6 +130,15 @@ export const SinglePostPage = () => {
               />
             </div>
           )}
+        </div>
+        <div className={styles['single-post__likes']}>
+          <IconButton
+            icon={likeIcon}
+            type="button"
+            disabled={!user}
+            onClick={clickLike}
+          />
+          <span>{singlePostLikes.length}</span>
         </div>
         <div className={styles.post__meta}>
           <p>{date}</p>

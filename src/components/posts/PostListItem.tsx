@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { TPost } from '../../types/posts';
 import styles from '../../assets/styles/posts.module.scss';
 import { formatDate } from '../../helpers/dates';
@@ -32,7 +34,13 @@ export const PostListItem = ({ post }: PostListItemProps) => {
         <h1>{post.title}</h1>
         <p className={styles.post__content}>{post.content}</p>
         <div className={styles.post__meta}>
-          <p>{date}</p>
+          <div className={styles['post__meta-info']}>
+            <p>{date}</p>
+            <div className={styles.post__likes}>
+              <FontAwesomeIcon icon={faHeart} />
+              <span>{post.likesCount}</span>
+            </div>
+          </div>
           <p>{post.author}</p>
         </div>
       </div>

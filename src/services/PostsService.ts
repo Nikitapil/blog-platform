@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { TAllPostsResponse, TPost } from '../types/posts';
+import { TAllPostsResponse, TPost, TPostLikesResponse } from '../types/posts';
 import $api from '../api/api';
 
 export class PostsService {
@@ -66,6 +66,33 @@ export class PostsService {
 
   static async deletePost(id: string) {
     const response = await $api.delete(`/posts/${id}`);
+    return response;
+  }
+
+  static async getPostLikes(
+    id: string
+  ): Promise<AxiosResponse<TPostLikesResponse>> {
+    const response = await $api.get<TPostLikesResponse>(`/posts/like/${id}`);
+    return response;
+  }
+
+  static async addPostLike(
+    postId: number,
+    userId: number
+  ): Promise<AxiosResponse<TPostLikesResponse>> {
+    const response = await $api.post<TPostLikesResponse>('/posts/like', {
+      postId,
+      userId
+    });
+    return response;
+  }
+
+  static async deletePostLike(
+    postId: number
+  ): Promise<AxiosResponse<TPostLikesResponse>> {
+    const response = await $api.delete<TPostLikesResponse>(
+      `/posts/like/${postId}`
+    );
     return response;
   }
 }

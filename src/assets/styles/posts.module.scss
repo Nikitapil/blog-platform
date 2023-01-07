@@ -51,6 +51,22 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+
+  &__meta-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__likes {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    span {
+      margin-top: 3px;
+    }
+  }
 }
 
 .single-post {
@@ -114,6 +130,11 @@
     font-size: 18px;
     line-height: 110%;
     white-space: pre-line;
+  }
+
+  &__likes {
+    font-size: 18px;
+    margin-bottom: 10px;
   }
 }
 

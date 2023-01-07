@@ -7,6 +7,18 @@ export type TPost = {
   createdAt: Date;
   updatedAt: Date;
   author: string;
+  likesCount: number;
+};
+
+export type TPostLike = {
+  id: number;
+  postId: number;
+  userId: number;
+};
+
+export type TPostLikesResponse = {
+  count: number;
+  rows: TPostLike[];
 };
 
 export type TAllPostsResponse = {
@@ -21,6 +33,7 @@ export type PostsState = {
   isPostsLoading: boolean;
   isSinglePostLoading: boolean;
   totalPostsCount: number;
+  singlePostLikes: TPostLike[];
 };
 
 export type PostFormValues = {

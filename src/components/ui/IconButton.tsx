@@ -6,12 +6,23 @@ import styles from '../../assets/styles/icon-button.module.scss';
 interface IconButtonProps {
   icon: IconProp;
   type: 'button' | 'submit';
+  disabled?: boolean;
   onClick: () => void;
 }
 
-export const IconButton = ({ icon, type, onClick }: IconButtonProps) => {
+export const IconButton = ({
+  icon,
+  type,
+  onClick,
+  disabled = false
+}: IconButtonProps) => {
   return (
-    <button type={type} onClick={onClick} className={styles.button}>
+    <button
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+      className={styles.button}
+    >
       <FontAwesomeIcon icon={icon} />
     </button>
   );

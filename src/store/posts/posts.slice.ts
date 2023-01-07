@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { PostsState, TPost } from '../../types/posts';
+import { PostsState, TPost, TPostLike } from '../../types/posts';
 import { TReduxAction } from '../../types/common';
 
 const initialState: PostsState = {
@@ -9,6 +9,7 @@ const initialState: PostsState = {
   singlePost: null,
   singlePostError: '',
   isSinglePostLoading: false,
+  singlePostLikes: [],
   totalPostsCount: 0
 };
 
@@ -33,6 +34,9 @@ export const postsSlice = createSlice({
     },
     setTotalCount(state, action: TReduxAction<number>) {
       state.totalPostsCount = action.payload;
+    },
+    setPostLikes(state, action: TReduxAction<TPostLike[]>) {
+      state.singlePostLikes = action.payload;
     }
   }
 });

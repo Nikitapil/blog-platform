@@ -16,6 +16,16 @@ export type TPostLike = {
   userId: number;
 };
 
+export type TPostComment = {
+  id: number;
+  text: string;
+  userId: number;
+  postId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  author: string;
+};
+
 export type TPostLikesResponse = {
   count: number;
   rows: TPostLike[];
@@ -34,6 +44,7 @@ export type PostsState = {
   isSinglePostLoading: boolean;
   totalPostsCount: number;
   singlePostLikes: TPostLike[];
+  singlePostComments: TPostComment[];
 };
 
 export type PostFormValues = {
@@ -47,3 +58,14 @@ export type TPostRequest = PostFormValues & {
   id?: number;
   imageName?: string;
 };
+
+export type AddCommentDto = {
+  userId: number;
+  postId: number;
+  text: string;
+};
+
+export type TPostCommentsResponse = {
+  count: number;
+  comments: TPostComment[];
+}

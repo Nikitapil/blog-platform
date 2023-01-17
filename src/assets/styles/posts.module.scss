@@ -136,6 +136,32 @@
     font-size: 18px;
     margin-bottom: 10px;
   }
+
+  &__comment-form {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  &__comments-title {
+    align-self: flex-start;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  &__comments-link {
+    color: $main-color-dark;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding: 3px 5px;
+    line-height: 1;
+    border-radius: 5px;
+    transition: 0.4s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+  }
 }
 
 .form {
@@ -174,5 +200,16 @@
     img {
       max-width: 200px;
     }
+  }
+}
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+
+  &__field {
+    flex: 1 1 auto;
   }
 }

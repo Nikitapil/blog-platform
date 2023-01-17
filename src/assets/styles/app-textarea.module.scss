@@ -20,6 +20,22 @@
     &.input-error {
       border: 1px solid #ff0000
     }
+
+    &.sm {
+      height: 4rem;
+    }
+
+    &.md {
+      height: 8rem;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      &::placeholder {
+        color: white;
+      }
+    }
   }
 
   .error {

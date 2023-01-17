@@ -12,6 +12,7 @@ interface AppTextAreaProps {
   placeholder: string;
   name: string;
   disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const AppTexArea = ({
@@ -24,7 +25,8 @@ export const AppTexArea = ({
   placeholder,
   name,
   onBlur,
-  disabled = false
+  disabled = false,
+  size = 'lg'
 }: AppTextAreaProps) => {
   const inputClassName = useMemo(() => {
     return error && touched ? styles['input-error'] : '';
@@ -34,7 +36,7 @@ export const AppTexArea = ({
     <div className={styles['input-container']}>
       {label && <label htmlFor={id}>{label}</label>}
       <textarea
-        className={inputClassName}
+        className={`${inputClassName} ${styles[size]}`}
         id={id}
         value={value}
         onChange={onChange}

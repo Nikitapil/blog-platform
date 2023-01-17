@@ -26,6 +26,10 @@ export const getSinglePost = (id: string) => {
       dispatch(postsSlice.actions.setSinglePost(response.data));
       const likesResponse = await PostsService.getPostLikes(id);
       dispatch(postsSlice.actions.setPostLikes(likesResponse.data.rows));
+      const commentsResponse = await PostsService.getPostComments(id);
+      dispatch(
+        postsSlice.actions.setPostComments(commentsResponse.data.comments)
+      );
     } catch (e: any) {
       dispatch(postsSlice.actions.setSinglePost(null));
       dispatch(postsSlice.actions.setSinglePostError(e.response.data.message));
@@ -51,6 +55,25 @@ export const deletePostLike = (postId: number) => {
     try {
       const response = await PostsService.deletePostLike(postId);
       dispatch(postsSlice.actions.setPostLikes(response.data.rows));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
+
+export const addPostComment = (
+  userId: number,
+  postId: number,
+  text: string
+) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await PostsService.addComment({
+        userId,
+        postId,
+        text
+      });
+      dispatch(postsSlice.actions.setPostComments(response.data.comments));
     } catch (e) {
       console.error(e);
     }

@@ -7,6 +7,7 @@ interface IconButtonProps {
   text: string;
   color?: 'primary' | 'success' | 'danger' | 'transparent';
   disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const AppButton = ({
@@ -14,13 +15,14 @@ export const AppButton = ({
   type = 'button',
   onClick,
   color = 'primary',
-  disabled = false
+  disabled = false,
+  size = 'sm'
 }: IconButtonProps) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`${style.button} ${style[color]}`}
+      className={`${style.button} ${style[color]} ${style[size]}`}
       disabled={disabled}
     >
       {text}

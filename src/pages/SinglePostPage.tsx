@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
+  faComment,
   faTrash,
   faEdit,
   faHeart as faHeartSolid
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePostsActions } from '../hooks/store/usePostsActions';
 import { useAppSelector } from '../hooks/store/useAppSelector';
 import styles from '../assets/styles/posts.module.scss';
@@ -17,14 +19,21 @@ import { AppButton } from '../components/ui/AppButton';
 import { useRequest } from '../hooks/utils/useRequest';
 import { PostsService } from '../services/PostsService';
 import { HorizontalLoader } from '../components/ui/loaders/HorizontalLoader';
+import { PostCommentForm } from '../components/posts/PostCommentForm';
+import { PostComment } from '../components/posts/PostComment';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
   const { getSinglePost, addPostLike, deletePostLike } = usePostsActions();
-  const { singlePost, singlePostError, isSinglePostLoading, singlePostLikes } =
-    useAppSelector((state) => state.posts);
+  const {
+    singlePost,
+    singlePostError,
+    isSinglePostLoading,
+    singlePostLikes,
+    singlePostComments
+  } = useAppSelector((state) => state.posts);
   const image = usePostImage(singlePost);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const [deletePost, isDeleting, deletingError] = useRequest<void, null>(
@@ -139,6 +148,10 @@ export const SinglePostPage = () => {
             onClick={clickLike}
           />
           <span>{singlePostLikes.length}</span>
+          <a href="#comments" className={styles['single-post__comments-link']}>
+            <FontAwesomeIcon icon={faComment} />
+          </a>
+          <span>{singlePostComments.length}</span>
         </div>
         <div className={styles.post__meta}>
           <p>{date}</p>
@@ -150,6 +163,15 @@ export const SinglePostPage = () => {
           </div>
         )}
         <p className={styles['single-post__content']}>{singlePost.content}</p>
+        <h3 className={styles['single-post__comments-title']} id="comments">
+          Comments
+        </h3>
+        <section className={styles['single-post__comment-form']}>
+          <PostCommentForm />
+          {singlePostComments.map(() => {
+            return <PostComment />;
+          })}
+        </section>
       </div>
       <Modal isOpened={isDeleteModalOpened} closeModal={onDeleteModalChange}>
         <div className={styles['single-post__delete']}>

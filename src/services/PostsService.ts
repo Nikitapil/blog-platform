@@ -1,5 +1,11 @@
 import { AxiosResponse } from 'axios';
-import { TAllPostsResponse, TPost, TPostLikesResponse } from '../types/posts';
+import {
+  AddCommentDto,
+  TAllPostsResponse,
+  TPost,
+  TPostCommentsResponse,
+  TPostLikesResponse
+} from '../types/posts';
 import $api from '../api/api';
 
 export class PostsService {
@@ -92,6 +98,25 @@ export class PostsService {
   ): Promise<AxiosResponse<TPostLikesResponse>> {
     const response = await $api.delete<TPostLikesResponse>(
       `/posts/like/${postId}`
+    );
+    return response;
+  }
+
+  static async addComment(
+    request: AddCommentDto
+  ): Promise<AxiosResponse<TPostCommentsResponse>> {
+    const response = await $api.post<TPostCommentsResponse>(
+      '/posts/comment',
+      request
+    );
+    return response;
+  }
+
+  static async getPostComments(
+    postId: string
+  ): Promise<AxiosResponse<TPostCommentsResponse>> {
+    const response = await $api.get<TPostCommentsResponse>(
+      `/posts/comment/${postId}`
     );
     return response;
   }

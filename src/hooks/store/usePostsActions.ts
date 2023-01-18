@@ -2,8 +2,9 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import {
   addPostComment,
-  addPostLike,
+  addPostLike, deletePostComment,
   deletePostLike,
+  editPostComment,
   getPosts,
   getSinglePost
 } from '../../store/posts/posts-actions';
@@ -14,7 +15,9 @@ export const usePostsActions = () => {
     getSinglePost,
     addPostLike,
     deletePostLike,
-    addPostComment
+    addPostComment,
+    editPostComment,
+    deletePostComment
   };
   const dispatch = useDispatch();
 

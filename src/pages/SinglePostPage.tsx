@@ -168,8 +168,8 @@ export const SinglePostPage = () => {
         </h3>
         <section className={styles['single-post__comment-form']}>
           <PostCommentForm />
-          {singlePostComments.map(() => {
-            return <PostComment />;
+          {singlePostComments.map((comment) => {
+            return <PostComment comment={comment} key={comment.id} />;
           })}
         </section>
       </div>

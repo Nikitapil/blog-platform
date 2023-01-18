@@ -1,15 +1,24 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AppTexArea } from '../ui/AppTextArea';
 import { AppButton } from '../ui/AppButton';
 import styles from '../../assets/styles/posts.module.scss';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { usePostsActions } from '../../hooks/store/usePostsActions';
+import { TPostComment } from '../../types/posts';
 
-export const PostCommentForm = () => {
+interface PostCommentFormProps {
+  existedComment?: TPostComment;
+  closeForm?: () => void;
+}
+
+export const PostCommentForm = ({
+  existedComment,
+  closeForm
+}: PostCommentFormProps) => {
   const [comment, setComment] = useState('');
   const { singlePost } = useAppSelector((state) => state.posts);
   const { user } = useAppSelector((state) => state.auth);
-  const { addPostComment } = usePostsActions();
+  const { addPostComment, editPostComment } = usePostsActions();
 
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -20,9 +29,20 @@ export const PostCommentForm = () => {
     if (!singlePost || !user) {
       return;
     }
-    await addPostComment(user.id, singlePost.id, comment);
+    if (existedComment && closeForm) {
+      await editPostComment(existedComment.id, comment);
+      closeForm();
+    } else {
+      await addPostComment(user.id, singlePost.id, comment);
+    }
     setComment('');
   };
+
+  useEffect(() => {
+    if (existedComment) {
+      setComment(existedComment.text);
+    }
+  }, [existedComment]);
 
   const isFieldDisabled = useMemo(() => {
     return !user || !singlePost;
@@ -35,6 +55,10 @@ export const PostCommentForm = () => {
   const placeHolder = useMemo(() => {
     return user ? 'Write your comment...' : 'Login first to add new comments';
   }, [user]);
+
+  const buttonText = useMemo(() => {
+    return existedComment ? 'Save' : 'Send';
+  }, [existedComment]);
 
   return (
     <form className={styles['comment-form']} onSubmit={submitHandler}>
@@ -52,7 +76,7 @@ export const PostCommentForm = () => {
       </div>
       <AppButton
         type="submit"
-        text="Send"
+        text={buttonText}
         size="lg"
         disabled={isButtonDisabled}
       />

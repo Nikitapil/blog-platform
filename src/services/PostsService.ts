@@ -120,4 +120,24 @@ export class PostsService {
     );
     return response;
   }
+
+  static async editPostComment(
+    commentId: number,
+    text: string
+  ): Promise<AxiosResponse<TPostCommentsResponse>> {
+    const response = await $api.put<TPostCommentsResponse>('/posts/comment', {
+      id: commentId,
+      text
+    });
+    return response;
+  }
+
+  static async deleteComment(
+    commentId: number
+  ): Promise<AxiosResponse<TPostCommentsResponse>> {
+    const response = await $api.delete<TPostCommentsResponse>(
+      `/posts/comment/${commentId}`
+    );
+    return response;
+  }
 }

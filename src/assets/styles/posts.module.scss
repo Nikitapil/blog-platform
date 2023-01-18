@@ -213,3 +213,23 @@
     flex: 1 1 auto;
   }
 }
+
+.comment {
+  margin-top: 10px;
+  background: $secondary-background-dark;
+  border: 1px solid $main-color-dark;
+  border-radius: 10px;
+  padding: 10px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    display: flex;
+    gap: 10px;
+  }
+}

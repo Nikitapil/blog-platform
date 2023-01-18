@@ -79,3 +79,25 @@ export const addPostComment = (
     }
   };
 };
+
+export const editPostComment = (commentId: number, text: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await PostsService.editPostComment(commentId, text);
+      dispatch(postsSlice.actions.setPostComments(response.data.comments));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
+
+export const deletePostComment = (commentId: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await PostsService.deleteComment(commentId);
+      dispatch(postsSlice.actions.setPostComments(response.data.comments));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};

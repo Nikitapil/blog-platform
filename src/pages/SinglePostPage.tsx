@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   faComment,
+  faEye,
   faTrash,
   faEdit,
   faHeart as faHeartSolid
@@ -152,6 +153,13 @@ export const SinglePostPage = () => {
             <FontAwesomeIcon icon={faComment} />
           </a>
           <span>{singlePostComments.length}</span>
+          <span
+            className={styles['single-post__comments-link']}
+            title="Views count"
+          >
+            <FontAwesomeIcon icon={faEye} />
+          </span>
+          <span>{singlePost.viewsCount}</span>
         </div>
         <div className={styles.post__meta}>
           <p>{date}</p>

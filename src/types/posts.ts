@@ -8,6 +8,8 @@ export type TPost = {
   updatedAt: Date;
   author: string;
   likesCount: number;
+  viewsCount: number;
+  commentsCount: number;
 };
 
 export type TPostLike = {
@@ -68,4 +70,4 @@ export type AddCommentDto = {
 export type TPostCommentsResponse = {
   count: number;
   comments: TPostComment[];
-}
+};

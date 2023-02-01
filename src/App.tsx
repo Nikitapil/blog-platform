@@ -8,6 +8,11 @@ import { SinglePostPage } from './pages/SinglePostPage';
 import { CreatePostPage } from './pages/CreatePostPage';
 import { EditPostPage } from './pages/EditPostPage';
 import { ErrorPage } from './pages/ErrorPage';
+import { Profile } from './pages/profile/Profile';
+import { Personal } from './pages/profile/Personal';
+import { UserComments } from './pages/profile/UserComments';
+import { UserLikes } from './pages/profile/UserLikes';
+import { UserPosts } from './pages/profile/UserPosts';
 
 function App() {
   const { checkAuth } = useAuthActions();
@@ -25,6 +30,12 @@ function App() {
         <Route path="/posts/:id" element={<SinglePostPage />} />
         <Route path="/posts/:id/edit" element={<EditPostPage />} />
         <Route path="/posts/create-post" element={<CreatePostPage />} />
+        <Route path="/profile/:id" element={<Profile />}>
+          <Route path="personal" element={<Personal />} />
+          <Route path="user-comments" element={<UserComments />} />
+          <Route path="user-likes" element={<UserLikes />} />
+          <Route path="user-posts" element={<UserPosts />} />
+        </Route>
       </Routes>
     </div>
   );

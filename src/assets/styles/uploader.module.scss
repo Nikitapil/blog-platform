@@ -9,6 +9,11 @@
     border-radius: 5px;
     background: #4e82fc;
     max-width: fit-content;
+    transition: 0.4s;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   .error {

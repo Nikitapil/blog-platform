@@ -2,7 +2,8 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import {
   addPostComment,
-  addPostLike, deletePostComment,
+  addPostLike,
+  deletePostComment,
   deletePostLike,
   editPostComment,
   getPosts,

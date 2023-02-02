@@ -26,6 +26,7 @@ export type TUser = {
   id: number;
   roles: TUserRole[];
   banned: boolean;
+  avatar: string;
 };
 
 export type TAuthStore = {

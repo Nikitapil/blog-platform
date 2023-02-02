@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import avatarLogo from '../../assets/img/avatarTemplate.jpg';
 import styles from '../../assets/styles/profile.module.scss';
@@ -15,7 +15,8 @@ export const Personal = () => {
   const [isNameModalOpened, setIsNameModalOpened] = useState(false);
   // const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
-  const { setProfileName } = useProfileActions();
+  const { isAvatarLoading } = useAppSelector((state) => state.profile);
+  const { setProfileName, updateAvatar } = useProfileActions();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -27,6 +28,12 @@ export const Personal = () => {
     setIsNameModalOpened(false);
   };
 
+  const avatar = useMemo(() => {
+    return user?.avatar
+      ? `${process.env.REACT_APP_API_URL}/${user.avatar}`
+      : avatarLogo;
+  }, [user, user?.avatar]);
+
   useEffect(() => {
     if (!isAuthLoading) {
       if (!user || user.id.toString() !== id) {
@@ -35,8 +42,13 @@ export const Personal = () => {
       }
       setProfileName(user.userName);
     }
-    console.log(file); // TODO delete this log
   }, [user, isAuthLoading, id]);
+
+  useEffect(() => {
+    if (file) {
+      updateAvatar(file);
+    }
+  }, [file]);
 
   if (isAuthLoading) {
     return (
@@ -49,7 +61,7 @@ export const Personal = () => {
   return (
     <div className={styles.personal}>
       <div className={styles.personal__avatar}>
-        <img src={avatarLogo} alt="User Avatar" />
+        {!isAvatarLoading && <img src={avatar} alt="User Avatar" />}
       </div>
       <div className={styles.personal__body}>
         <div className={styles['personal__avatar-btns']}>

@@ -3,7 +3,8 @@ import { TProfileState } from '../../types/profile';
 import { TReduxAction } from '../../types/common';
 
 const initialState: TProfileState = {
-  profileName: ''
+  profileName: '',
+  isAvatarLoading: false
 };
 
 export const profileSlice = createSlice({
@@ -12,6 +13,9 @@ export const profileSlice = createSlice({
   reducers: {
     setProfileName(state, action: TReduxAction<string>) {
       state.profileName = action.payload;
+    },
+    setIsAvatarLoading(state, action: TReduxAction<boolean>) {
+      state.isAvatarLoading = action.payload;
     }
   }
 });

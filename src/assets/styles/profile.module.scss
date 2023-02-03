@@ -59,8 +59,14 @@
 }
 
 .change-name {
+
+  h2 {
+    font-size: $font-m;
+  }
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 120px;
+  gap: 20px;
 }

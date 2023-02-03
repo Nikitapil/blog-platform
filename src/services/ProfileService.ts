@@ -16,4 +16,14 @@ export class ProfileService {
   static async updateUsername(userName: string): Promise<AxiosResponse<TUser>> {
     return $api.put<TUser>('/users/update-userName', { userName });
   }
+
+  static async updatePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Promise<AxiosResponse<TUser>> {
+    return $api.put<TUser>('/users/update-password', {
+      oldPassword,
+      newPassword
+    });
+  }
 }

@@ -9,11 +9,12 @@ import { FileUploader } from '../../components/ui/FileUploader';
 import { imageExtensions } from '../../constants/file-extensions';
 import { AppButton } from '../../components/ui/AppButton';
 import { ChangeNameModal } from '../../components/profile/ChangeNameModal';
+import { ChangePasswordModal } from '../../components/profile/ChangePasswordModal';
 
 export const Personal = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isNameModalOpened, setIsNameModalOpened] = useState(false);
-  // const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
+  const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const { isAvatarLoading } = useAppSelector((state) => state.profile);
   const { setProfileName, updateAvatar, deleteAvatar } = useProfileActions();
@@ -26,6 +27,14 @@ export const Personal = () => {
 
   const onCloseNameModal = () => {
     setIsNameModalOpened(false);
+  };
+
+  const onOpenPasswordModal = () => {
+    setIsPasswordModalOpened(true);
+  };
+
+  const onClosePasswordModal = () => {
+    setIsPasswordModalOpened(false);
   };
 
   const avatar = useMemo(() => {
@@ -74,11 +83,15 @@ export const Personal = () => {
           <AppButton text="Delete" onClick={deleteAvatar} />
         </div>
         <AppButton text="Change user name" onClick={onOpenNameModal} />
-        <AppButton text="Change password" />
+        <AppButton text="Change password" onClick={onOpenPasswordModal} />
       </div>
       <ChangeNameModal
         isOpened={isNameModalOpened}
         closeModal={onCloseNameModal}
+      />
+      <ChangePasswordModal
+        isOpened={isPasswordModalOpened}
+        closeModal={onClosePasswordModal}
       />
     </div>
   );

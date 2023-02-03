@@ -45,3 +45,17 @@ export const updateUserName = (userName: string) => {
     }
   };
 };
+
+export const updatePassword = (oldPassword: string, newPassword: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.updatePassword(
+        oldPassword,
+        newPassword
+      );
+      dispatch(authSlice.actions.setUser(response.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

@@ -4,6 +4,7 @@ import { profileActions } from '../../store/profile/profile.slice';
 import {
   deleteAvatar,
   updateAvatar,
+  updatePassword,
   updateUserName
 } from '../../store/profile/profile-actions';
 
@@ -13,7 +14,8 @@ export const useProfileActions = () => {
     ...profileActions,
     updateAvatar,
     deleteAvatar,
-    updateUserName
+    updateUserName,
+    updatePassword
   };
 
   return bindActionCreators(actions, dispatch);

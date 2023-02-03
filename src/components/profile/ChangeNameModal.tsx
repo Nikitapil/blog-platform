@@ -23,6 +23,7 @@ export const ChangeNameModal = ({
 
   const save = async () => {
     await updateUserName(userName);
+    closeModal();
   };
 
   return (

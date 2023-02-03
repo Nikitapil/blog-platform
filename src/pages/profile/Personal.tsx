@@ -16,7 +16,7 @@ export const Personal = () => {
   // const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const { isAvatarLoading } = useAppSelector((state) => state.profile);
-  const { setProfileName, updateAvatar } = useProfileActions();
+  const { setProfileName, updateAvatar, deleteAvatar } = useProfileActions();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -71,7 +71,7 @@ export const Personal = () => {
             setFile={setFile}
             formats={imageExtensions}
           />
-          <AppButton text="Delete" />
+          <AppButton text="Delete" onClick={deleteAvatar} />
         </div>
         <AppButton text="Change user name" onClick={onOpenNameModal} />
         <AppButton text="Change password" />

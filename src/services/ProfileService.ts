@@ -8,4 +8,12 @@ export class ProfileService {
     formData.append('image', image);
     return $api.post<TUser>('/users/update-avatar', formData);
   }
+
+  static async deleteAvatar(): Promise<AxiosResponse<TUser>> {
+    return $api.delete<TUser>('/users/delete-avatar');
+  }
+
+  static async updateUsername(userName: string): Promise<AxiosResponse<TUser>> {
+    return $api.put<TUser>('/users/update-userName', { userName });
+  }
 }

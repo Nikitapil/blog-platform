@@ -20,3 +20,28 @@ export const updateAvatar = (image: File) => {
     }
   };
 };
+
+export const deleteAvatar = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(profileSlice.actions.setIsAvatarLoading(true));
+      const response = await ProfileService.deleteAvatar();
+      dispatch(authSlice.actions.setUser(response.data));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(profileSlice.actions.setIsAvatarLoading(false));
+    }
+  };
+};
+
+export const updateUserName = (userName: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.updateUsername(userName);
+      dispatch(authSlice.actions.setUser(response.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

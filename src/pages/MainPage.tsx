@@ -11,7 +11,9 @@ import { SearchPostForm } from '../components/posts/SearchPostForm';
 export const MainPage = () => {
   const { getPosts } = usePostsActions();
   const { user } = useAppSelector((state) => state.auth);
-  const { totalPostsCount } = useAppSelector((state) => state.posts);
+  const { totalPostsCount, posts, isPostsLoading } = useAppSelector(
+    (state) => state.posts
+  );
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ export const MainPage = () => {
             <AppButton text="Create new post" onClick={navigateToCreation} />
           )}
         </div>
-        <PostList />
+        <PostList posts={posts} isPostsLoading={isPostsLoading} />
         <Pagination
           currentPage={page}
           totalCount={totalPostsCount}

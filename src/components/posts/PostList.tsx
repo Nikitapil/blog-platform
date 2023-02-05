@@ -1,10 +1,14 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { PostListItem } from './PostListItem';
 import { HorizontalLoader } from '../ui/loaders/HorizontalLoader';
+import { TPost } from '../../types/posts';
 
-export const PostList = () => {
-  const { posts, isPostsLoading } = useAppSelector((state) => state.posts);
+interface PostListProps {
+  posts: TPost[];
+  isPostsLoading: boolean;
+}
+
+export const PostList = ({ posts, isPostsLoading }: PostListProps) => {
   return (
     <div>
       {isPostsLoading && <HorizontalLoader />}

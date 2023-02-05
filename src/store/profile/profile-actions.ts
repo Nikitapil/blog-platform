@@ -59,3 +59,17 @@ export const updatePassword = (oldPassword: string, newPassword: string) => {
     }
   };
 };
+
+export const getUserPosts = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(profileSlice.actions.setIsUserPostsLoading(true));
+      const response = await ProfileService.getPostsByUserId(id);
+      dispatch(profileSlice.actions.setUserPosts(response.data.posts));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(profileSlice.actions.setIsUserPostsLoading(false));
+    }
+  };
+};

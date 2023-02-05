@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import $api from '../api/api';
 import { TUser } from '../types/auth-form';
+import { TAllPostsResponse } from '../types/posts';
 
 export class ProfileService {
   static async updateAvatar(image: File): Promise<AxiosResponse<TUser>> {
@@ -25,5 +26,11 @@ export class ProfileService {
       oldPassword,
       newPassword
     });
+  }
+
+  static async getPostsByUserId(
+    userId: string
+  ): Promise<AxiosResponse<TAllPostsResponse>> {
+    return $api.get<TAllPostsResponse>(`/posts/user/${userId}`);
   }
 }

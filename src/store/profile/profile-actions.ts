@@ -73,3 +73,19 @@ export const getUserPosts = (id: string) => {
     }
   };
 };
+
+export const getUser = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(profileSlice.actions.setIsUserLoading(true));
+      const response = await ProfileService.getUser(id);
+      dispatch(profileSlice.actions.setUser(response.data));
+      console.log(response);
+    } catch (e) {
+      dispatch(profileSlice.actions.setUser(null));
+      console.log(e);
+    } finally {
+      dispatch(profileSlice.actions.setIsUserLoading(false));
+    }
+  };
+};

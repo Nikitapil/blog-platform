@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TProfileState } from '../../types/profile';
+import { TProfileState, TProfileUser } from '../../types/profile';
 import { TReduxAction } from '../../types/common';
 import { TPost } from '../../types/posts';
 
 const initialState: TProfileState = {
-  profileName: '',
+  user: null,
+  isUserLoading: false,
   isAvatarLoading: false,
   userPosts: [],
   isUserPostsLoading: false
@@ -14,8 +15,11 @@ export const profileSlice = createSlice({
   name: 'profileSlice',
   initialState,
   reducers: {
-    setProfileName(state, action: TReduxAction<string>) {
-      state.profileName = action.payload;
+    setUser(state, action: TReduxAction<TProfileUser | null>) {
+      state.user = action.payload;
+    },
+    setIsUserLoading(state, action: TReduxAction<boolean>) {
+      state.isUserLoading = action.payload;
     },
     setIsAvatarLoading(state, action: TReduxAction<boolean>) {
       state.isAvatarLoading = action.payload;

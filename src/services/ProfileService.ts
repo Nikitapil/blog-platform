@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 import $api from '../api/api';
 import { TUser } from '../types/auth-form';
 import { TAllPostsResponse } from '../types/posts';
+import { TProfileUser } from '../types/profile';
 
 export class ProfileService {
   static async updateAvatar(image: File): Promise<AxiosResponse<TUser>> {
@@ -32,5 +33,9 @@ export class ProfileService {
     userId: string
   ): Promise<AxiosResponse<TAllPostsResponse>> {
     return $api.get<TAllPostsResponse>(`/posts/user/${userId}`);
+  }
+
+  static async getUser(userId: string): Promise<AxiosResponse<TProfileUser>> {
+    return $api.get<TProfileUser>(`/users/${userId}`);
   }
 }

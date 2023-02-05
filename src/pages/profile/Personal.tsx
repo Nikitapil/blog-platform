@@ -17,7 +17,7 @@ export const Personal = () => {
   const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const { isAvatarLoading } = useAppSelector((state) => state.profile);
-  const { setProfileName, updateAvatar, deleteAvatar } = useProfileActions();
+  const { updateAvatar, deleteAvatar } = useProfileActions();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -47,9 +47,7 @@ export const Personal = () => {
     if (!isAuthLoading) {
       if (!user || user.id.toString() !== id) {
         navigate('error');
-        return;
       }
-      setProfileName(user.userName);
     }
   }, [user, isAuthLoading, id]);
 

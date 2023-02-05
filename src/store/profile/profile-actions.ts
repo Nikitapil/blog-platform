@@ -40,6 +40,12 @@ export const updateUserName = (userName: string) => {
     try {
       const response = await ProfileService.updateUsername(userName);
       dispatch(authSlice.actions.setUser(response.data));
+      dispatch(
+        profileSlice.actions.setUser({
+          id: response.data.id,
+          userName: response.data.userName
+        })
+      );
     } catch (e) {
       console.log(e);
     }

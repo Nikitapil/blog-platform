@@ -2,40 +2,46 @@ import React, { useState } from 'react';
 import { Modal } from '../ui/Modal';
 import { AppInput } from '../ui/AppInput';
 import { AppButton } from '../ui/AppButton';
-import { useProfileActions } from '../../hooks/store/useProfileActions';
 import styles from '../../assets/styles/profile.module.scss';
 
-interface ChangeNameModalProps {
+interface ChangeTextParamModalProps {
   isOpened: boolean;
+  id: string;
+  placeholder: string;
+  title: string;
   closeModal: () => void;
+  submitHandler: (text: string) => void;
 }
 
-export const ChangeNameModal = ({
+export const ChangeTextParamModal = ({
   isOpened,
-  closeModal
-}: ChangeNameModalProps) => {
-  const [userName, setUserName] = useState('');
-  const { updateUserName } = useProfileActions();
+  closeModal,
+  submitHandler,
+  id,
+  placeholder,
+  title
+}: ChangeTextParamModalProps) => {
+  const [value, setValue] = useState('');
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
+    setValue(e.target.value);
   };
 
   const save = async () => {
-    await updateUserName(userName);
+    await submitHandler(value);
     closeModal();
   };
 
   return (
     <Modal isOpened={isOpened} closeModal={closeModal}>
       <div className={styles['change-name']}>
-        <h2 className={styles['change-name__title']}>Change username</h2>
+        <h2 className={styles['change-name__title']}>{title}</h2>
         <AppInput
-          id="username"
-          value={userName}
+          id={id}
+          value={value}
           onChange={inputHandler}
-          placeholder="Username..."
-          name="username"
+          placeholder={placeholder}
+          name={id}
         />
         <div className="flex-end">
           <AppButton text="Save" color="success" onClick={save} size="md" />

@@ -8,8 +8,8 @@ import { useProfileActions } from '../../hooks/store/useProfileActions';
 import { FileUploader } from '../../components/ui/FileUploader';
 import { imageExtensions } from '../../constants/file-extensions';
 import { AppButton } from '../../components/ui/AppButton';
-import { ChangeNameModal } from '../../components/profile/ChangeNameModal';
 import { ChangePasswordModal } from '../../components/profile/ChangePasswordModal';
+import { ChangeTextParamModal } from '../../components/profile/ChangeTextParamModal';
 
 export const Personal = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -17,7 +17,7 @@ export const Personal = () => {
   const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const { isAvatarLoading } = useAppSelector((state) => state.profile);
-  const { updateAvatar, deleteAvatar } = useProfileActions();
+  const { updateAvatar, deleteAvatar, updateUserName } = useProfileActions();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -83,9 +83,13 @@ export const Personal = () => {
         <AppButton text="Change user name" onClick={onOpenNameModal} />
         <AppButton text="Change password" onClick={onOpenPasswordModal} />
       </div>
-      <ChangeNameModal
+      <ChangeTextParamModal
         isOpened={isNameModalOpened}
+        id="name"
+        placeholder="Username..."
+        title="Change username"
         closeModal={onCloseNameModal}
+        submitHandler={updateUserName}
       />
       <ChangePasswordModal
         isOpened={isPasswordModalOpened}

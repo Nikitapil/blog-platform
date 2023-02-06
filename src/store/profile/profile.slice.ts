@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TProfileState, TProfileUser } from '../../types/profile';
 import { TReduxAction } from '../../types/common';
-import { TPost } from '../../types/posts';
+import { TPost, TPostComment } from '../../types/posts';
 
 const initialState: TProfileState = {
   user: null,
@@ -9,6 +9,7 @@ const initialState: TProfileState = {
   isAvatarLoading: false,
   userPosts: [],
   userPostsLikes: [],
+  userComments: [],
   isUserPostsLoading: false,
   passwordError: '',
   usernameError: '',
@@ -36,6 +37,9 @@ export const profileSlice = createSlice({
     },
     setUserPostsLikes(state, action: TReduxAction<TPost[]>) {
       state.userPostsLikes = action.payload;
+    },
+    setUserComments(state, action: TReduxAction<TPostComment[]>) {
+      state.userComments = action.payload;
     },
     setPasswordError(state, action: TReduxAction<string>) {
       state.passwordError = action.payload;

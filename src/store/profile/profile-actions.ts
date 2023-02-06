@@ -112,6 +112,17 @@ export const getUserPostsLikes = (id: string) => {
   };
 };
 
+export const getUserComments = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.getCommentsByUser(id);
+      dispatch(profileSlice.actions.setUserComments(response.data.comments));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
 export const getUser = (id: string) => {
   return async (dispatch: AppDispatch) => {
     try {

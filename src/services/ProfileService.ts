@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import $api from '../api/api';
 import { TUser } from '../types/auth-form';
-import { TAllPostsResponse } from '../types/posts';
+import { TAllPostsResponse, TPostCommentsResponse } from '../types/posts';
 import { TProfileUser } from '../types/profile';
 
 export class ProfileService {
@@ -43,6 +43,12 @@ export class ProfileService {
     userId: string
   ): Promise<AxiosResponse<TAllPostsResponse>> {
     return $api.get<TAllPostsResponse>(`/posts/user/likes/${userId}`);
+  }
+
+  static async getCommentsByUser(
+    userId: string
+  ): Promise<AxiosResponse<TPostCommentsResponse>> {
+    return $api.get<TPostCommentsResponse>(`/posts/comment/user/${userId}`);
   }
 
   static async getUser(userId: string): Promise<AxiosResponse<TProfileUser>> {

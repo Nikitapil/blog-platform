@@ -1,4 +1,4 @@
-import { TPost } from './posts';
+import { TPost, TPostComment } from './posts';
 
 export type TProfileState = {
   user: TProfileUser | null;
@@ -6,6 +6,7 @@ export type TProfileState = {
   isAvatarLoading: boolean;
   userPosts: TPost[];
   userPostsLikes: TPost[];
+  userComments: TPostComment[];
   isUserPostsLoading: boolean;
   passwordError: string;
   usernameError: string;

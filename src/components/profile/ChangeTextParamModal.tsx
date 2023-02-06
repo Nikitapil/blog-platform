@@ -3,6 +3,8 @@ import { Modal } from '../ui/Modal';
 import { AppInput } from '../ui/AppInput';
 import { AppButton } from '../ui/AppButton';
 import styles from '../../assets/styles/profile.module.scss';
+import { useModalError } from '../../hooks/utils/useModalError';
+import { ErrorMessage } from '../ui/ErrorMessage';
 
 interface ChangeTextParamModalProps {
   isOpened: boolean;
@@ -11,6 +13,7 @@ interface ChangeTextParamModalProps {
   title: string;
   closeModal: () => void;
   submitHandler: (text: string) => void;
+  error?: string;
 }
 
 export const ChangeTextParamModal = ({
@@ -19,17 +22,19 @@ export const ChangeTextParamModal = ({
   submitHandler,
   id,
   placeholder,
-  title
+  title,
+  error = ''
 }: ChangeTextParamModalProps) => {
   const [value, setValue] = useState('');
-
+  const { setSaved } = useModalError(isOpened, error, closeModal);
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   const save = async () => {
+    setSaved(false);
     await submitHandler(value);
-    closeModal();
+    setSaved(true);
   };
 
   return (
@@ -43,6 +48,7 @@ export const ChangeTextParamModal = ({
           placeholder={placeholder}
           name={id}
         />
+        {error && <ErrorMessage message={error} />}
         <div className="flex-end">
           <AppButton text="Save" color="success" onClick={save} size="md" />
         </div>

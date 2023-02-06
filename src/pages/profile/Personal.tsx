@@ -16,7 +16,9 @@ export const Personal = () => {
   const [isNameModalOpened, setIsNameModalOpened] = useState(false);
   const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
-  const { isAvatarLoading } = useAppSelector((state) => state.profile);
+  const { isAvatarLoading, usernameError } = useAppSelector(
+    (state) => state.profile
+  );
   const { updateAvatar, deleteAvatar, updateUserName } = useProfileActions();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -90,6 +92,7 @@ export const Personal = () => {
         title="Change username"
         closeModal={onCloseNameModal}
         submitHandler={updateUserName}
+        error={usernameError}
       />
       <ChangePasswordModal
         isOpened={isPasswordModalOpened}

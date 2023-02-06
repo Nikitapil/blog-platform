@@ -6,6 +6,8 @@ export type TProfileState = {
   isAvatarLoading: boolean;
   userPosts: TPost[];
   isUserPostsLoading: boolean;
+  passwordError: string;
+  usernameError: string;
 };
 
 export type TProfileUser = {

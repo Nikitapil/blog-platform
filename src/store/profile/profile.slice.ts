@@ -8,7 +8,9 @@ const initialState: TProfileState = {
   isUserLoading: false,
   isAvatarLoading: false,
   userPosts: [],
-  isUserPostsLoading: false
+  isUserPostsLoading: false,
+  passwordError: '',
+  usernameError: ''
 };
 
 export const profileSlice = createSlice({
@@ -29,6 +31,12 @@ export const profileSlice = createSlice({
     },
     setUserPosts(state, action: TReduxAction<TPost[]>) {
       state.userPosts = action.payload;
+    },
+    setPasswordError(state, action: TReduxAction<string>) {
+      state.passwordError = action.payload;
+    },
+    setUsernameError(state, action: TReduxAction<string>) {
+      state.usernameError = action.payload;
     }
   }
 });

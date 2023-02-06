@@ -38,6 +38,7 @@ export const deleteAvatar = () => {
 export const updateUserName = (userName: string) => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(profileSlice.actions.setUsernameError(''));
       const response = await ProfileService.updateUsername(userName);
       dispatch(authSlice.actions.setUser(response.data));
       dispatch(
@@ -46,8 +47,9 @@ export const updateUserName = (userName: string) => {
           userName: response.data.userName
         })
       );
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      const error = e.response.data[0] || e.response.data.message;
+      dispatch(profileSlice.actions.setUsernameError(error));
     }
   };
 };
@@ -55,13 +57,15 @@ export const updateUserName = (userName: string) => {
 export const updatePassword = (oldPassword: string, newPassword: string) => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(profileSlice.actions.setPasswordError(''));
       const response = await ProfileService.updatePassword(
         oldPassword,
         newPassword
       );
       dispatch(authSlice.actions.setUser(response.data));
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      const error = e.response.data[0] || e.response.data.message;
+      dispatch(profileSlice.actions.setPasswordError(error));
     }
   };
 };
@@ -86,7 +90,6 @@ export const getUser = (id: string) => {
       dispatch(profileSlice.actions.setIsUserLoading(true));
       const response = await ProfileService.getUser(id);
       dispatch(profileSlice.actions.setUser(response.data));
-      console.log(response);
     } catch (e) {
       dispatch(profileSlice.actions.setUser(null));
       console.log(e);

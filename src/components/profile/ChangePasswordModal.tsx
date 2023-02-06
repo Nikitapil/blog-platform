@@ -4,6 +4,9 @@ import { AppInput } from '../ui/AppInput';
 import { AppButton } from '../ui/AppButton';
 import styles from '../../assets/styles/profile.module.scss';
 import { useProfileActions } from '../../hooks/store/useProfileActions';
+import { useAppSelector } from '../../hooks/store/useAppSelector';
+import { ErrorMessage } from '../ui/ErrorMessage';
+import { useModalError } from '../../hooks/utils/useModalError';
 
 interface ChangeNameModalProps {
   isOpened: boolean;
@@ -17,7 +20,8 @@ export const ChangePasswordModal = ({
   const [password, setPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const { updatePassword } = useProfileActions();
-
+  const { passwordError } = useAppSelector((state) => state.profile);
+  const { setSaved } = useModalError(isOpened, passwordError, closeModal);
   const newPasswordInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -27,8 +31,9 @@ export const ChangePasswordModal = ({
   };
 
   const save = async () => {
+    setSaved(false);
     await updatePassword(oldPassword, password);
-    closeModal();
+    setSaved(true);
   };
 
   return (
@@ -53,6 +58,7 @@ export const ChangePasswordModal = ({
           label="New password:"
           type="password"
         />
+        {passwordError && <ErrorMessage message={passwordError} />}
         <div className="flex-end">
           <AppButton text="Save" color="success" onClick={save} size="md" />
         </div>

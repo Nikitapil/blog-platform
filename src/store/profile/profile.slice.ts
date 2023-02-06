@@ -8,9 +8,11 @@ const initialState: TProfileState = {
   isUserLoading: false,
   isAvatarLoading: false,
   userPosts: [],
+  userPostsLikes: [],
   isUserPostsLoading: false,
   passwordError: '',
-  usernameError: ''
+  usernameError: '',
+  emailError: ''
 };
 
 export const profileSlice = createSlice({
@@ -32,11 +34,17 @@ export const profileSlice = createSlice({
     setUserPosts(state, action: TReduxAction<TPost[]>) {
       state.userPosts = action.payload;
     },
+    setUserPostsLikes(state, action: TReduxAction<TPost[]>) {
+      state.userPostsLikes = action.payload;
+    },
     setPasswordError(state, action: TReduxAction<string>) {
       state.passwordError = action.payload;
     },
     setUsernameError(state, action: TReduxAction<string>) {
       state.usernameError = action.payload;
+    },
+    setEmailError(state, action: TReduxAction<string>) {
+      state.emailError = action.payload;
     }
   }
 });

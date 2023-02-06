@@ -29,10 +29,20 @@ export class ProfileService {
     });
   }
 
+  static async updateEmail(email: string): Promise<AxiosResponse<TUser>> {
+    return $api.put<TUser>('/users/update-email', { email });
+  }
+
   static async getPostsByUserId(
     userId: string
   ): Promise<AxiosResponse<TAllPostsResponse>> {
     return $api.get<TAllPostsResponse>(`/posts/user/${userId}`);
+  }
+
+  static async getPostsByUserLikes(
+    userId: string
+  ): Promise<AxiosResponse<TAllPostsResponse>> {
+    return $api.get<TAllPostsResponse>(`/posts/user/likes/${userId}`);
   }
 
   static async getUser(userId: string): Promise<AxiosResponse<TProfileUser>> {

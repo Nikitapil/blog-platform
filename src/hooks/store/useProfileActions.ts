@@ -2,9 +2,12 @@ import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { profileActions } from '../../store/profile/profile.slice';
 import {
-  deleteAvatar, getUser,
+  deleteAvatar,
+  getUser,
   getUserPosts,
+  getUserPostsLikes,
   updateAvatar,
+  updateEmail,
   updatePassword,
   updateUserName
 } from '../../store/profile/profile-actions';
@@ -18,7 +21,9 @@ export const useProfileActions = () => {
     updateUserName,
     updatePassword,
     getUserPosts,
-    getUser
+    getUser,
+    updateEmail,
+    getUserPostsLikes
   };
 
   return bindActionCreators(actions, dispatch);

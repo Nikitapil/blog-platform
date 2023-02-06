@@ -15,11 +15,13 @@ export const Personal = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isNameModalOpened, setIsNameModalOpened] = useState(false);
   const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
+  const [isEmailModalOpened, setIsEmailModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
-  const { isAvatarLoading, usernameError } = useAppSelector(
+  const { isAvatarLoading, usernameError, emailError } = useAppSelector(
     (state) => state.profile
   );
-  const { updateAvatar, deleteAvatar, updateUserName } = useProfileActions();
+  const { updateAvatar, deleteAvatar, updateUserName, updateEmail } =
+    useProfileActions();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -37,6 +39,14 @@ export const Personal = () => {
 
   const onClosePasswordModal = () => {
     setIsPasswordModalOpened(false);
+  };
+
+  const onOpenEmailModal = () => {
+    setIsEmailModalOpened(true);
+  };
+
+  const onCloseEmailModal = () => {
+    setIsEmailModalOpened(false);
   };
 
   const avatar = useMemo(() => {
@@ -82,7 +92,8 @@ export const Personal = () => {
           />
           <AppButton text="Delete" onClick={deleteAvatar} />
         </div>
-        <AppButton text="Change user name" onClick={onOpenNameModal} />
+        <AppButton text="Change username" onClick={onOpenNameModal} />
+        <AppButton text="Change email" onClick={onOpenEmailModal} />
         <AppButton text="Change password" onClick={onOpenPasswordModal} />
       </div>
       <ChangeTextParamModal
@@ -93,6 +104,15 @@ export const Personal = () => {
         closeModal={onCloseNameModal}
         submitHandler={updateUserName}
         error={usernameError}
+      />
+      <ChangeTextParamModal
+        isOpened={isEmailModalOpened}
+        id="email"
+        placeholder="Email..."
+        title="Change email"
+        closeModal={onCloseEmailModal}
+        submitHandler={updateEmail}
+        error={emailError}
       />
       <ChangePasswordModal
         isOpened={isPasswordModalOpened}

@@ -5,9 +5,11 @@ export type TProfileState = {
   isUserLoading: boolean;
   isAvatarLoading: boolean;
   userPosts: TPost[];
+  userPostsLikes: TPost[];
   isUserPostsLoading: boolean;
   passwordError: string;
   usernameError: string;
+  emailError: string;
 };
 
 export type TProfileUser = {

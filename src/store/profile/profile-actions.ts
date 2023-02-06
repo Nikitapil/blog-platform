@@ -70,12 +70,40 @@ export const updatePassword = (oldPassword: string, newPassword: string) => {
   };
 };
 
+export const updateEmail = (email: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(profileSlice.actions.setEmailError(''));
+      const response = await ProfileService.updateEmail(email);
+      console.log(response.data);
+      dispatch(authSlice.actions.setUser(response.data));
+    } catch (e: any) {
+      const error = e.response.data[0] || e.response.data.message;
+      dispatch(profileSlice.actions.setEmailError(error));
+    }
+  };
+};
+
 export const getUserPosts = (id: string) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(profileSlice.actions.setIsUserPostsLoading(true));
       const response = await ProfileService.getPostsByUserId(id);
       dispatch(profileSlice.actions.setUserPosts(response.data.posts));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(profileSlice.actions.setIsUserPostsLoading(false));
+    }
+  };
+};
+
+export const getUserPostsLikes = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(profileSlice.actions.setIsUserPostsLoading(true));
+      const response = await ProfileService.getPostsByUserLikes(id);
+      dispatch(profileSlice.actions.setUserPostsLikes(response.data.posts));
     } catch (e) {
       console.log(e);
     } finally {

@@ -4,9 +4,12 @@ import styles from '../../assets/styles/profile.module.scss';
 import { ProfileNavbar } from '../../components/profile/ProfileNavbar';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { useProfileActions } from '../../hooks/store/useProfileActions';
+import { UserAvatar } from '../../components/profile/userAvatar';
 
 export const Profile = () => {
-  const { user, isUserLoading } = useAppSelector((state) => state.profile);
+  const { user, isUserLoading, isAvatarLoading } = useAppSelector(
+    (state) => state.profile
+  );
   const { getUser } = useProfileActions();
   const { id } = useParams();
 
@@ -21,7 +24,10 @@ export const Profile = () => {
       {user && (
         <div className={styles.profile}>
           {user?.userName && (
-            <h2 className={styles['profile__user-name']}>{user.userName}</h2>
+            <div className={styles.profile__header}>
+              {!isAvatarLoading && <UserAvatar src={user.avatar} />}
+              <h2 className={styles['profile__user-name']}>{user.userName}</h2>
+            </div>
           )}
           <ProfileNavbar />
           <div className="mt-10 w-100">

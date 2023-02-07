@@ -10,6 +10,7 @@ export type TPost = {
   likesCount: number;
   viewsCount: number;
   commentsCount: number;
+  userAvatar: string;
 };
 
 export type TPostLike = {
@@ -26,6 +27,7 @@ export type TPostComment = {
   createdAt: Date;
   updatedAt: Date;
   author: string;
+  userAvatar: string;
 };
 
 export type TPostLikesResponse = {

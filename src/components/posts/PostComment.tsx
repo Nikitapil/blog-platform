@@ -7,6 +7,7 @@ import styles from '../../assets/styles/posts.module.scss';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { PostCommentForm } from './PostCommentForm';
 import { usePostsActions } from '../../hooks/store/usePostsActions';
+import { UserLink } from '../profile/UserLink';
 
 interface PostCommentProps {
   comment: TPostComment;
@@ -48,7 +49,11 @@ export const PostComment = ({ comment }: PostCommentProps) => {
     <article className={styles.comment}>
       <div className={styles.comment__header}>
         <div className={styles.comment__info}>
-          <p>{comment.author}</p>
+          <UserLink
+            username={comment.author}
+            userId={comment.userId}
+            avatar={comment.userAvatar}
+          />
           <p>{date}</p>
         </div>
         {isShowTools && (

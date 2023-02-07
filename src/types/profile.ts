@@ -16,4 +16,5 @@ export type TProfileState = {
 export type TProfileUser = {
   userName: string;
   id: number;
+  avatar: string;
 };

@@ -44,7 +44,8 @@ export const updateUserName = (userName: string) => {
       dispatch(
         profileSlice.actions.setUser({
           id: response.data.id,
-          userName: response.data.userName
+          userName: response.data.userName,
+          avatar: response.data.avatar
         })
       );
     } catch (e: any) {

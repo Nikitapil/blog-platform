@@ -22,6 +22,7 @@ import { PostsService } from '../services/PostsService';
 import { HorizontalLoader } from '../components/ui/loaders/HorizontalLoader';
 import { PostCommentForm } from '../components/posts/PostCommentForm';
 import { PostComment } from '../components/posts/PostComment';
+import { UserLink } from '../components/profile/UserLink';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
@@ -163,7 +164,11 @@ export const SinglePostPage = () => {
         </div>
         <div className={styles.post__meta}>
           <p>{date}</p>
-          <p>{singlePost.author}</p>
+          <UserLink
+            username={singlePost.author}
+            userId={singlePost.userId}
+            avatar={singlePost.userAvatar}
+          />
         </div>
         {image && (
           <div className={styles['single-post__image']}>

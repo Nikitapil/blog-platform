@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactMarkdown from 'react-markdown';
 import { usePostsActions } from '../hooks/store/usePostsActions';
 import { useAppSelector } from '../hooks/store/useAppSelector';
 import styles from '../assets/styles/posts.module.scss';
@@ -23,6 +24,7 @@ import { HorizontalLoader } from '../components/ui/loaders/HorizontalLoader';
 import { PostCommentForm } from '../components/posts/PostCommentForm';
 import { PostComment } from '../components/posts/PostComment';
 import { UserLink } from '../components/profile/UserLink';
+import 'github-markdown-css/github-markdown-dark.css';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
@@ -175,7 +177,9 @@ export const SinglePostPage = () => {
             <img src={image} alt={singlePost.title} />
           </div>
         )}
-        <p className={styles['single-post__content']}>{singlePost.content}</p>
+        <ReactMarkdown className="markdown-body mt-10 pa-10">
+          {singlePost.content}
+        </ReactMarkdown>
         <h3 className={styles['single-post__comments-title']} id="comments">
           Comments
         </h3>

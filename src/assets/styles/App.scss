@@ -24,3 +24,25 @@ body {
   padding: 0 20px;
   margin: 0 auto;
 }
+
+.editor-toolbar {
+  background: #181a1c !important;
+  button {
+    background: #D6E1FFFF !important;
+    margin-right: 5px !important;
+    transition: 0.4s;
+    &:hover {
+      background: #91befa !important;
+    }
+  }
+}
+
+.CodeMirror {
+  caret-color: red !important;
+  background: #181a1c !important;
+  color: $main-color-dark !important;
+}
+
+.CodeMirror-cursor {
+  border-color: $main-color-dark !important;
+}

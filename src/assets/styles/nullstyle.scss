@@ -461,6 +461,16 @@
     padding: 0.2em 0;
   }
 
-  .markdown-body ul {
+  .markdown-body ul, {
     list-style: unset;
+  }
+
+  .markdown-body {
+    width: 100%;
+    em {
+      font-style: italic;
+    }
+    ol {
+      list-style: decimal;
+    }
   }

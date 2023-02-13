@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
+import SimpleMdeReact, { SimpleMDEReactProps } from 'react-simplemde-editor';
 import { AppInput } from '../ui/AppInput';
-import { AppTexArea } from '../ui/AppTextArea';
 import { FileUploader } from '../ui/FileUploader';
 import { imageExtensions } from '../../constants/file-extensions';
 import { useImageLink } from '../../hooks/utils/useImageLink';
@@ -15,6 +15,7 @@ import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { TPost, TPostRequest } from '../../types/posts';
 import styles from '../../assets/styles/posts.module.scss';
 import { imgURLToFile } from '../../helpers/img-helpers';
+import 'easymde/dist/easymde.min.css';
 
 interface PostFormProps {
   submitFn: (params: TPostRequest) => Promise<AxiosResponse<TPost>>;
@@ -67,6 +68,30 @@ export const PostForm = ({
     form.handleSubmit();
   };
 
+  const contentChangeHandler = useCallback((value: string) => {
+    form.values.content = value;
+    form.validateForm();
+  }, []);
+
+  const contentOptions = useMemo(() => {
+    return {
+      autofocus: false,
+      spellChecker: false,
+      autosave: {
+        enabled: true,
+        uniqueId: 'ContentId',
+        delay: 1000
+      },
+      placeholder: 'Enter content text...',
+      status: false,
+      showIcons: ['code', 'horizontal-rule', 'undo', 'redo'],
+      hideIcons: ['guide', 'preview', 'side-by-side'],
+      renderingConfig: {
+        codeSyntaxHighlighting: true
+      }
+    } as SimpleMDEReactProps;
+  }, []);
+
   useEffect(() => {
     if (!user && !isAuthLoading) {
       navigate('/');
@@ -103,18 +128,14 @@ export const PostForm = ({
           error={form.errors.title}
           disabled={isSubmitting}
         />
-        <AppTexArea
-          id="content"
-          name="content"
-          label="Post content:"
-          placeholder=""
+        <SimpleMdeReact
           value={form.values.content}
-          onChange={form.handleChange}
-          onBlur={form.handleBlur}
-          error={form.errors.content}
-          touched={form.touched.content}
-          disabled={isSubmitting}
+          onChange={contentChangeHandler}
+          options={contentOptions}
         />
+        {form.errors.content && (
+          <p className={styles.form__error}>Content is required</p>
+        )}
         <div className={styles.form__controls}>
           <div>
             <FileUploader

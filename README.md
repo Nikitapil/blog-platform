@@ -2,7 +2,7 @@
 
 Simple blog platform for writing and reading blog posts based on markdown.
 
-## Technologies used  
+## Technologies used: 
 React, React-router-dom, React Hooks, Redux, Redux-toolkit, Formik, Font-awesome, Axios, react md editor, react-markdown, react-transition-group, scss, eslint, prettier
 
 ## Starting guide:

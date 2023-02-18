@@ -17,6 +17,34 @@ export const getPosts = (page = 1, search = '') => {
   };
 };
 
+export const getPostsWithLikes = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(postsSlice.actions.setIsPostsWithLikesLoading(true));
+      const response = await PostsService.getPostsWithLikes();
+      dispatch(postsSlice.actions.setPostsWithLikes(response.data.posts));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      dispatch(postsSlice.actions.setIsPostsWithLikesLoading(false));
+    }
+  };
+};
+
+export const getPostsWithViews = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(postsSlice.actions.setIsPostsWithViewsLoading(true));
+      const response = await PostsService.getPostsWithViews();
+      dispatch(postsSlice.actions.setPostsWithViews(response.data.posts));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      dispatch(postsSlice.actions.setIsPostsWithViewsLoading(false));
+    }
+  };
+};
+
 export const getSinglePost = (id: string) => {
   return async (dispatch: AppDispatch) => {
     try {

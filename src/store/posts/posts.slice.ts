@@ -5,7 +5,11 @@ import { TReduxAction } from '../../types/common';
 
 const initialState: PostsState = {
   posts: [],
+  postsWithLikes: [],
+  postsWithViews: [],
   isPostsLoading: false,
+  isPostsWithLikesLoading: false,
+  isPostsWithViewsLoading: false,
   singlePost: null,
   singlePostError: '',
   isSinglePostLoading: false,
@@ -21,6 +25,12 @@ export const postsSlice = createSlice({
     setPosts(state, action: TReduxAction<TPost[]>) {
       state.posts = action.payload;
     },
+    setPostsWithLikes(state, action: TReduxAction<TPost[]>) {
+      state.postsWithLikes = action.payload;
+    },
+    setPostsWithViews(state, action: TReduxAction<TPost[]>) {
+      state.postsWithViews = action.payload;
+    },
     setSinglePost(state, action: TReduxAction<TPost | null>) {
       state.singlePost = action.payload;
     },
@@ -29,6 +39,12 @@ export const postsSlice = createSlice({
     },
     setIsPostsLoading(state, action: TReduxAction<boolean>) {
       state.isPostsLoading = action.payload;
+    },
+    setIsPostsWithLikesLoading(state, action: TReduxAction<boolean>) {
+      state.isPostsWithLikesLoading = action.payload;
+    },
+    setIsPostsWithViewsLoading(state, action: TReduxAction<boolean>) {
+      state.isPostsWithViewsLoading = action.payload;
     },
     setIsSinglePostLoading(state, action: TReduxAction<boolean>) {
       state.isSinglePostLoading = action.payload;

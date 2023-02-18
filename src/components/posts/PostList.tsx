@@ -6,9 +6,14 @@ import { TPost } from '../../types/posts';
 interface PostListProps {
   posts: TPost[];
   isPostsLoading: boolean;
+  isShowContent?: boolean;
 }
 
-export const PostList = ({ posts, isPostsLoading }: PostListProps) => {
+export const PostList = ({
+  posts,
+  isPostsLoading,
+  isShowContent = true
+}: PostListProps) => {
   return (
     <div>
       {isPostsLoading && <HorizontalLoader />}
@@ -16,7 +21,7 @@ export const PostList = ({ posts, isPostsLoading }: PostListProps) => {
         <p className="font-m">No posts yet, create first one</p>
       )}
       {posts.map((post) => (
-        <PostListItem post={post} key={post.id} />
+        <PostListItem post={post} key={post.id} isShowContent={isShowContent} />
       ))}
     </div>
   );

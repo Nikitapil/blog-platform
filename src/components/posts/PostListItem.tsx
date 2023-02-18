@@ -9,9 +9,13 @@ import { usePostImage } from '../../hooks/posts/usePostImage';
 
 interface PostListItemProps {
   post: TPost;
+  isShowContent?: boolean;
 }
 
-export const PostListItem = ({ post }: PostListItemProps) => {
+export const PostListItem = ({
+  post,
+  isShowContent = true
+}: PostListItemProps) => {
   const navigate = useNavigate();
   const image = usePostImage(post);
 
@@ -24,15 +28,21 @@ export const PostListItem = ({ post }: PostListItemProps) => {
   };
 
   return (
-    <div className={styles.post} onClick={clickHandler}>
-      {image && (
+    <div
+      className={styles.post}
+      style={{ height: isShowContent ? 150 : 'initial' }}
+      onClick={clickHandler}
+    >
+      {image && isShowContent && (
         <div className={styles.post__image}>
           <img src={image} alt={post.title} />
         </div>
       )}
       <div className={styles.post__info}>
         <h1>{post.title}</h1>
-        <p className={styles.post__content}>{post.content}</p>
+        {isShowContent && (
+          <p className={styles.post__content}>{post.content}</p>
+        )}
         <div className={styles.post__meta}>
           <div className={styles['post__meta-info']}>
             <p>{date}</p>

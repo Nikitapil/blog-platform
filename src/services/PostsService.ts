@@ -19,6 +19,16 @@ export class PostsService {
     return response;
   }
 
+  static async getPostsWithLikes(): Promise<AxiosResponse<TAllPostsResponse>> {
+    const response = await $api.get<TAllPostsResponse>('/posts/posts_by_like');
+    return response;
+  }
+
+  static async getPostsWithViews(): Promise<AxiosResponse<TAllPostsResponse>> {
+    const response = await $api.get<TAllPostsResponse>('/posts/posts_by_views');
+    return response;
+  }
+
   static async getSinglePost(id: string): Promise<AxiosResponse<TPost>> {
     const response = await $api.get<TPost>(`/posts/${id}`);
     return response;

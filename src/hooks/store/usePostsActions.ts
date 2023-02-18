@@ -7,7 +7,8 @@ import {
   deletePostLike,
   editPostComment,
   getPosts,
-  getSinglePost
+  getSinglePost,
+  getPostsWithLikes, getPostsWithViews
 } from '../../store/posts/posts-actions';
 
 export const usePostsActions = () => {
@@ -18,7 +19,9 @@ export const usePostsActions = () => {
     deletePostLike,
     addPostComment,
     editPostComment,
-    deletePostComment
+    deletePostComment,
+    getPostsWithLikes,
+    getPostsWithViews
   };
   const dispatch = useDispatch();
 

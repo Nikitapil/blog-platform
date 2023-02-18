@@ -7,9 +7,10 @@ import { AppButton } from '../components/ui/AppButton';
 import { useAppSelector } from '../hooks/store/useAppSelector';
 import { Pagination } from '../components/ui/Pagination';
 import { SearchPostForm } from '../components/posts/SearchPostForm';
+import { PostSidebar } from '../components/posts/post-sidebar/PostSidebar';
 
 export const MainPage = () => {
-  const { getPosts } = usePostsActions();
+  const { getPosts, getPostsWithLikes, getPostsWithViews } = usePostsActions();
   const { user } = useAppSelector((state) => state.auth);
   const { totalPostsCount, posts, isPostsLoading } = useAppSelector(
     (state) => state.posts
@@ -19,6 +20,8 @@ export const MainPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     getPosts(page, searchQuery);
+    getPostsWithLikes();
+    getPostsWithViews();
   }, [page, searchQuery]);
 
   const navigateToCreation = () => {
@@ -31,7 +34,7 @@ export const MainPage = () => {
   };
 
   return (
-    <main className="container">
+    <main className={`container ${styles.page}`}>
       <div className={styles['main-page']}>
         <div className={styles['main-page__controls']}>
           <SearchPostForm onSearch={onSearch} />
@@ -45,6 +48,9 @@ export const MainPage = () => {
           totalCount={totalPostsCount}
           setPage={setPage}
         />
+      </div>
+      <div className="mt-60 pt-5">
+        <PostSidebar />
       </div>
     </main>
   );

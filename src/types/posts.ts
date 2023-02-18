@@ -42,9 +42,13 @@ export type TAllPostsResponse = {
 
 export type PostsState = {
   posts: TPost[];
+  postsWithLikes: TPost[];
+  postsWithViews: TPost[];
   singlePost: TPost | null;
   singlePostError: string;
   isPostsLoading: boolean;
+  isPostsWithLikesLoading: boolean;
+  isPostsWithViewsLoading: boolean;
   isSinglePostLoading: boolean;
   totalPostsCount: number;
   singlePostLikes: TPostLike[];

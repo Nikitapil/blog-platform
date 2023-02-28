@@ -7,7 +7,6 @@ import SimpleMdeReact, { SimpleMDEReactProps } from 'react-simplemde-editor';
 import { AppInput } from '../ui/AppInput';
 import { FileUploader } from '../ui/FileUploader';
 import { imageExtensions } from '../../constants/file-extensions';
-import { useImageLink } from '../../hooks/utils/useImageLink';
 import { IconButton } from '../ui/IconButton';
 import { postValidation } from '../../helpers/post-validation';
 import { AppButton } from '../ui/AppButton';
@@ -34,7 +33,6 @@ export const PostForm = ({
 }: PostFormProps) => {
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const [image, setImage] = useState<File | null>(null);
-  const previewLink = useImageLink(image);
   const navigate = useNavigate();
   const form = useFormik({
     initialValues: {
@@ -144,7 +142,7 @@ export const PostForm = ({
               setFile={setImage}
               formats={imageExtensions}
             />
-            {previewLink && (
+            {image && (
               <div className={styles.preview}>
                 <div className={styles['delete-img']}>
                   <IconButton
@@ -153,7 +151,7 @@ export const PostForm = ({
                     onClick={deleteImage}
                   />
                 </div>
-                <img src={previewLink} alt="preview" />
+                <img src={URL.createObjectURL(image)} alt="preview" />
               </div>
             )}
           </div>

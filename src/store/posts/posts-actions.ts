@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { PostsService } from '../../services/PostsService';
 import { postsSlice } from './posts.slice';
 import { AppDispatch } from '../index';
@@ -9,8 +10,8 @@ export const getPosts = (page = 1, search = '') => {
       const response = await PostsService.getPosts(page, search);
       dispatch(postsSlice.actions.setPosts(response.data.posts));
       dispatch(postsSlice.actions.setTotalCount(response.data.count));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     } finally {
       dispatch(postsSlice.actions.setIsPostsLoading(false));
     }
@@ -23,8 +24,8 @@ export const getPostsWithLikes = () => {
       dispatch(postsSlice.actions.setIsPostsWithLikesLoading(true));
       const response = await PostsService.getPostsWithLikes();
       dispatch(postsSlice.actions.setPostsWithLikes(response.data.posts));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     } finally {
       dispatch(postsSlice.actions.setIsPostsWithLikesLoading(false));
     }
@@ -37,8 +38,8 @@ export const getPostsWithViews = () => {
       dispatch(postsSlice.actions.setIsPostsWithViewsLoading(true));
       const response = await PostsService.getPostsWithViews();
       dispatch(postsSlice.actions.setPostsWithViews(response.data.posts));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     } finally {
       dispatch(postsSlice.actions.setIsPostsWithViewsLoading(false));
     }
@@ -72,8 +73,8 @@ export const addPostLike = (postId: number, userId: number) => {
     try {
       const response = await PostsService.addPostLike(postId, userId);
       dispatch(postsSlice.actions.setPostLikes(response.data.rows));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     }
   };
 };
@@ -83,8 +84,8 @@ export const deletePostLike = (postId: number) => {
     try {
       const response = await PostsService.deletePostLike(postId);
       dispatch(postsSlice.actions.setPostLikes(response.data.rows));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     }
   };
 };
@@ -102,8 +103,8 @@ export const addPostComment = (
         text
       });
       dispatch(postsSlice.actions.setPostComments(response.data.comments));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     }
   };
 };
@@ -113,8 +114,8 @@ export const editPostComment = (commentId: number, text: string) => {
     try {
       const response = await PostsService.editPostComment(commentId, text);
       dispatch(postsSlice.actions.setPostComments(response.data.comments));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     }
   };
 };
@@ -124,8 +125,8 @@ export const deletePostComment = (commentId: number) => {
     try {
       const response = await PostsService.deleteComment(commentId);
       dispatch(postsSlice.actions.setPostComments(response.data.comments));
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
     }
   };
 };

@@ -24,6 +24,7 @@ export const CreatePostPage = () => {
         isSubmitting={isCreating}
         submitError={creatingError}
         submitButtonText="Create"
+        submitToast="Post created!"
       />
     </main>
   );

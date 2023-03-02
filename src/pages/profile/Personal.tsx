@@ -90,7 +90,12 @@ export const Personal = () => {
             setFile={setFile}
             formats={imageExtensions}
           />
-          <AppButton text="Delete" onClick={deleteAvatar} />
+          <AppButton
+            text="Delete avatar"
+            color="danger"
+            onClick={deleteAvatar}
+            disabled={!user?.avatar}
+          />
         </div>
         <AppButton text="Change username" onClick={onOpenNameModal} />
         <AppButton text="Change email" onClick={onOpenEmailModal} />

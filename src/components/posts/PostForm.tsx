@@ -4,6 +4,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import SimpleMdeReact, { SimpleMDEReactProps } from 'react-simplemde-editor';
+import { toast } from 'react-toastify';
 import { AppInput } from '../ui/AppInput';
 import { FileUploader } from '../ui/FileUploader';
 import { imageExtensions } from '../../constants/file-extensions';
@@ -22,6 +23,7 @@ interface PostFormProps {
   submitError: string;
   submitButtonText: string;
   post?: TPost;
+  submitToast?: string;
 }
 
 export const PostForm = ({
@@ -29,10 +31,12 @@ export const PostForm = ({
   isSubmitting,
   submitError,
   post,
-  submitButtonText
+  submitButtonText,
+  submitToast = ''
 }: PostFormProps) => {
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const [image, setImage] = useState<File | null>(null);
+  // const [content, setContent] = useState('');
   const navigate = useNavigate();
   const form = useFormik({
     initialValues: {
@@ -51,6 +55,9 @@ export const PostForm = ({
       });
       if (!submitError) {
         navigate(`/posts/${response.data.id}`);
+        if (submitToast) {
+          toast.success(submitToast);
+        }
       }
     }
   });
@@ -68,7 +75,7 @@ export const PostForm = ({
 
   const contentChangeHandler = useCallback((value: string) => {
     form.values.content = value;
-    form.validateForm();
+    form.setFieldValue('content', value);
   }, []);
 
   const contentOptions = useMemo(() => {

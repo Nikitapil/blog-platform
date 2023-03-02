@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './assets/styles/App.scss';
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { AppHeader } from './components/app/AppHeader';
 import { useAuthActions } from './hooks/store/useAuthActions';
 import { MainPage } from './pages/MainPage';
@@ -13,6 +14,7 @@ import { Personal } from './pages/profile/Personal';
 import { UserComments } from './pages/profile/UserComments';
 import { UserLikes } from './pages/profile/UserLikes';
 import { UserPosts } from './pages/profile/UserPosts';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { checkAuth } = useAuthActions();
@@ -37,6 +39,7 @@ function App() {
           <Route path="user-posts" element={<UserPosts />} />
         </Route>
       </Routes>
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 }

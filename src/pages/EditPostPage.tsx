@@ -62,6 +62,7 @@ export const EditPostPage = () => {
         submitError={editError}
         post={singlePost}
         submitButtonText="Edit"
+        submitToast="Post saved!"
       />
     </main>
   );

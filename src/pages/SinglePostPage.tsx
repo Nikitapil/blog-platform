@@ -10,6 +10,7 @@ import {
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactMarkdown from 'react-markdown';
+import { toast } from 'react-toastify';
 import { usePostsActions } from '../hooks/store/usePostsActions';
 import { useAppSelector } from '../hooks/store/useAppSelector';
 import styles from '../assets/styles/posts.module.scss';
@@ -87,6 +88,7 @@ export const SinglePostPage = () => {
     if (!deletingError) {
       onDeleteModalChange();
       navigate('/');
+      toast.error('Post deleted');
     }
   };
 

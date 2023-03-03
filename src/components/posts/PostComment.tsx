@@ -8,6 +8,8 @@ import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { PostCommentForm } from './PostCommentForm';
 import { usePostsActions } from '../../hooks/store/usePostsActions';
 import { UserLink } from '../profile/UserLink';
+import { AppButton } from '../ui/AppButton';
+import { Modal } from '../ui/Modal';
 
 interface PostCommentProps {
   comment: TPostComment;
@@ -16,6 +18,7 @@ interface PostCommentProps {
 export const PostComment = ({ comment }: PostCommentProps) => {
   const { user } = useAppSelector((state) => state.auth);
   const [isEdditing, setIsEdditing] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { deletePostComment } = usePostsActions();
   const date = useMemo(() => {
     return formatDate(comment.createdAt);
@@ -36,6 +39,8 @@ export const PostComment = ({ comment }: PostCommentProps) => {
   const onDeleteComment = async () => {
     await deletePostComment(comment.id);
   };
+
+  const onDeleteModalChange = () => setIsDeleteModalOpen((prev) => !prev);
 
   if (isEdditing) {
     return (
@@ -62,12 +67,21 @@ export const PostComment = ({ comment }: PostCommentProps) => {
             <IconButton
               icon={faTrash}
               type="button"
-              onClick={onDeleteComment}
+              onClick={onDeleteModalChange}
             />
           </div>
         )}
       </div>
       <p>{comment.text}</p>
+      <Modal isOpened={isDeleteModalOpen} closeModal={onDeleteModalChange}>
+        <div className={styles['single-post__delete']}>
+          <h3>Are you sure, you want to delete this comment?</h3>
+          <div className={styles['single-post__delete-btns']}>
+            <AppButton text="Cancel" onClick={onDeleteModalChange} />
+            <AppButton text="Delete" color="danger" onClick={onDeleteComment} />
+          </div>
+        </div>
+      </Modal>
     </article>
   );
 };

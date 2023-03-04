@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { TPost } from '../../types/posts';
 import styles from '../../assets/styles/posts.module.scss';
 import { formatDate } from '../../helpers/dates';
 import { usePostImage } from '../../hooks/posts/usePostImage';
+import { UserLink } from '../profile/UserLink';
 
 interface PostListItemProps {
   post: TPost;
@@ -16,22 +17,16 @@ export const PostListItem = ({
   post,
   isShowContent = true
 }: PostListItemProps) => {
-  const navigate = useNavigate();
   const image = usePostImage(post);
 
   const date = useMemo(() => {
     return formatDate(post.createdAt);
   }, [post]);
 
-  const clickHandler = () => {
-    navigate(`/posts/${post.id}`);
-  };
-
   return (
     <div
       className={styles.post}
-      style={{ height: isShowContent ? 150 : 'initial' }}
-      onClick={clickHandler}
+      style={{ height: isShowContent ? 160 : 'initial' }}
     >
       {image && isShowContent && (
         <div className={styles.post__image}>
@@ -39,7 +34,9 @@ export const PostListItem = ({
         </div>
       )}
       <div className={styles.post__info}>
-        <h1>{post.title}</h1>
+        <Link className={styles.post__title} to={`/posts/${post.id}`}>
+          <h1>{post.title}</h1>
+        </Link>
         {isShowContent && (
           <p className={styles.post__content}>{post.content}</p>
         )}
@@ -61,7 +58,11 @@ export const PostListItem = ({
               <span>{post.viewsCount}</span>
             </div>
           </div>
-          <p>{post.author}</p>
+          <UserLink
+            username={post.author}
+            userId={post.userId}
+            avatar={post.userAvatar}
+          />
         </div>
       </div>
     </div>

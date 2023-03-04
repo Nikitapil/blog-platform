@@ -10,7 +10,6 @@
   gap: 20px;
   align-items: flex-start;
   margin-bottom: 10px;
-  cursor: pointer;
 
   &__image {
     max-width: 300px;
@@ -38,6 +37,10 @@
     }
   }
 
+  &__title {
+    color: inherit;
+  }
+
   &__meta {
     display: flex;
     align-items: center;
@@ -51,6 +54,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    margin-bottom: 5px;
   }
 
   &__meta-info {
@@ -62,7 +66,7 @@
   &__likes {
     display: flex;
     gap: 5px;
-    align-items: center;
+    align-items: flex-end;
 
     span {
       margin-top: 3px;

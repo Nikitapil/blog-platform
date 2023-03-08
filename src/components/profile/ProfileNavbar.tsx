@@ -12,6 +12,10 @@ export const ProfileNavbar = () => {
     return user?.id === currentUser?.id;
   }, [user, currentUser]);
 
+  const isShowAdminLink = useMemo(() => {
+    return isShowPersonalLink && currentUser?.isAdmin;
+  }, [user, isShowPersonalLink]);
+
   return (
     <nav className={styles['profile-navbar']}>
       {isShowPersonalLink && (
@@ -40,6 +44,14 @@ export const ProfileNavbar = () => {
       >
         Comments
       </NavLink>
+      {isShowAdminLink && (
+        <NavLink
+          className={({ isActive }) => (isActive ? styles.active : undefined)}
+          to={`/profile/${id}/admin`}
+        >
+          Admin
+        </NavLink>
+      )}
     </nav>
   );
 };

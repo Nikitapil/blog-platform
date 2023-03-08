@@ -44,9 +44,10 @@
   &__meta {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
     justify-content: space-between;
     margin-top: auto;
+    flex-wrap: wrap;
   }
 
   &__content {

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TAuthStore } from '../../types/auth-form';
+import { TAuthStore, TUser } from '../../types/auth-form';
+import { TReduxAction } from '../../types/common';
+import { EAuthRoles } from '../../constants/auth-constants';
 
 const initialState: TAuthStore = {
   isAuthLoading: true,
@@ -11,13 +13,16 @@ export const authSlice = createSlice({
   name: 'auth-slice',
   initialState,
   reducers: {
-    setIsAuthLoading(state, action) {
+    setIsAuthLoading(state, action: TReduxAction<boolean>) {
       state.isAuthLoading = action.payload;
     },
-    setUser(state, action) {
-      state.user = action.payload;
+    setUser(state, action: TReduxAction<TUser | null>) {
+      const isAdmin = !!action.payload?.roles.find(
+        (role) => role.value === EAuthRoles.ADMIN
+      );
+      state.user = action.payload ? { ...action.payload, isAdmin } : null;
     },
-    setSignError(state, action) {
+    setSignError(state, action: TReduxAction<string>) {
       state.signError = action.payload;
     }
   }

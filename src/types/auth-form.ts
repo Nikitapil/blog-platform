@@ -27,6 +27,7 @@ export type TUser = {
   roles: TUserRole[];
   banned: boolean;
   avatar: string;
+  isAdmin: boolean;
 };
 
 export type TAuthStore = {

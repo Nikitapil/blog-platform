@@ -13,7 +13,7 @@ export const UserLink = ({ userId, username, avatar }: UserLinkProps) => {
   return (
     <Link to={`/profile/${userId}/user-posts`} className={styles['user-link']}>
       <UserAvatar src={avatar} />
-      <p>{username}</p>
+      <p className={styles.username}>{username}</p>
     </Link>
   );
 };

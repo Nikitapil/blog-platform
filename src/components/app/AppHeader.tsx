@@ -18,12 +18,12 @@ export const AppHeader = () => {
 
   const onSignInModalChange = () => {
     setIsSignInModalOpened(!isSignInModalOpened);
-    setSignError(false);
+    setSignError('');
   };
 
   const onSignUpModalChange = () => {
     setIsSignUpModalOpened(!isSignUpModalOpened);
-    setSignError(false);
+    setSignError('');
   };
 
   const onSignIn = async (values: AuthFormData) => {

@@ -49,7 +49,7 @@ export const MainPage = () => {
           setPage={setPage}
         />
       </div>
-      <div className="mt-60 pt-5">
+      <div className={styles.sidebar}>
         <PostSidebar />
       </div>
     </main>

@@ -47,7 +47,7 @@ export const ProfileNavbar = () => {
       {isShowAdminLink && (
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to={`/profile/${id}/admin`}
+          to={`/profile/${id}/admin/users`}
         >
           Admin
         </NavLink>

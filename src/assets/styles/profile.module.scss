@@ -107,3 +107,52 @@
   height: 28px;
   border-radius: 50%;
 }
+
+.admin-page {
+  display: flex;
+  gap: 20px;
+
+  &__nav {
+    width: 180px;
+  }
+
+  &__child {
+    flex: 1 1 auto;
+  }
+}
+
+.admin-sidebar {
+  height: 60vh;
+  background: #22272c;
+  padding: 10px;
+  border-radius: 10px;
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    color: $main-color-dark;
+    text-decoration: none;
+    border-radius: 5px;
+
+    &:hover {
+      background: #6e7a8f;
+    }
+
+    &.active {
+      background: #3f4452;
+      color: $color-success;
+    }
+  }
+}
+
+.users-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: $font-l;
+    font-weight: 700;
+  }
+}

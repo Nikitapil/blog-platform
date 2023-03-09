@@ -15,6 +15,8 @@ import { UserComments } from './pages/profile/UserComments';
 import { UserLikes } from './pages/profile/UserLikes';
 import { UserPosts } from './pages/profile/UserPosts';
 import 'react-toastify/dist/ReactToastify.css';
+import { Admin } from './pages/profile/admin/Admin';
+import { AppUsers } from './pages/profile/admin/AppUsers';
 
 function App() {
   const { checkAuth } = useAuthActions();
@@ -37,6 +39,9 @@ function App() {
           <Route path="user-comments" element={<UserComments />} />
           <Route path="user-likes" element={<UserLikes />} />
           <Route path="user-posts" element={<UserPosts />} />
+          <Route path="admin" element={<Admin />}>
+            <Route path="users" element={<AppUsers />} />
+          </Route>
         </Route>
       </Routes>
       <ToastContainer position="bottom-right" autoClose={3000} />

@@ -156,3 +156,20 @@
     font-weight: 700;
   }
 }
+
+.user {
+  width: 100%;
+  background: $secondary-background-dark;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}

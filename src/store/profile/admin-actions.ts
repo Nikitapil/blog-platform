@@ -1,0 +1,15 @@
+import { toast } from 'react-toastify';
+import { AppDispatch } from '../index';
+import { ProfileService } from '../../services/ProfileService';
+import { adminSlice } from './admin.slice';
+
+export const getUsers = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.getUsers();
+      dispatch(adminSlice.actions.setUsers(response.data));
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
+  };
+};

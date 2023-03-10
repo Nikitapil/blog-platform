@@ -3,6 +3,7 @@ import $api from '../api/api';
 import { TUser } from '../types/auth-form';
 import { TAllPostsResponse, TPostCommentsResponse } from '../types/posts';
 import { TProfileUser } from '../types/profile';
+import { TAdminUserDto } from '../types/admin';
 
 export class ProfileService {
   static async updateAvatar(image: File): Promise<AxiosResponse<TUser>> {
@@ -53,5 +54,9 @@ export class ProfileService {
 
   static async getUser(userId: string): Promise<AxiosResponse<TProfileUser>> {
     return $api.get<TProfileUser>(`/users/${userId}`);
+  }
+
+  static async getUsers(): Promise<AxiosResponse<TAdminUserDto[]>> {
+    return $api.get<TAdminUserDto[]>('/users');
   }
 }

@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux';
 import { profileActions } from '../../store/profile/profile.slice';
 import {
   deleteAvatar,
-  getUser, getUserComments,
+  getUser,
+  getUserComments,
   getUserPosts,
   getUserPostsLikes,
   updateAvatar,
@@ -11,6 +12,7 @@ import {
   updatePassword,
   updateUserName
 } from '../../store/profile/profile-actions';
+import { getUsers } from '../../store/profile/admin-actions';
 
 export const useProfileActions = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,8 @@ export const useProfileActions = () => {
     getUser,
     updateEmail,
     getUserPostsLikes,
-    getUserComments
+    getUserComments,
+    getUsers
   };
 
   return bindActionCreators(actions, dispatch);

@@ -59,4 +59,11 @@ export class ProfileService {
   static async getUsers(): Promise<AxiosResponse<TAdminUserDto[]>> {
     return $api.get<TAdminUserDto[]>('/users');
   }
+
+  static async banUser(
+    userId: number,
+    banReason: string
+  ): Promise<AxiosResponse<TAdminUserDto>> {
+    return $api.post<TAdminUserDto>('/ban', { userId, banReason });
+  }
 }

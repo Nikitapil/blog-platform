@@ -13,3 +13,14 @@ export const getUsers = () => {
     }
   };
 };
+
+export const banUser = (userId: number, banReason: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.banUser(userId, banReason);
+      dispatch(adminSlice.actions.changeOneUser(response.data));
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
+  };
+};

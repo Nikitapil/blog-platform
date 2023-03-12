@@ -12,7 +12,7 @@ import {
   updatePassword,
   updateUserName
 } from '../../store/profile/profile-actions';
-import { getUsers } from '../../store/profile/admin-actions';
+import { banUser, getUsers } from '../../store/profile/admin-actions';
 
 export const useProfileActions = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,8 @@ export const useProfileActions = () => {
     updateEmail,
     getUserPostsLikes,
     getUserComments,
-    getUsers
+    getUsers,
+    banUser
   };
 
   return bindActionCreators(actions, dispatch);

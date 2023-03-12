@@ -12,6 +12,15 @@ export const adminSlice = createSlice({
   reducers: {
     setUsers(state, action: TReduxAction<TAdminUserDto[]>) {
       state.users = action.payload;
+    },
+
+    changeOneUser(state, action: TReduxAction<TAdminUserDto>) {
+      state.users = state.users.map((user) => {
+        if (user.id === action.payload.id) {
+          return action.payload;
+        }
+        return user;
+      });
     }
   }
 });

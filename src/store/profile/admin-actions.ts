@@ -24,3 +24,14 @@ export const banUser = (userId: number, banReason: string) => {
     }
   };
 };
+
+export const unbanUser = (userId: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.unbanUser(userId);
+      dispatch(adminSlice.actions.changeOneUser(response.data));
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
+  };
+};

@@ -157,13 +157,17 @@
   }
 }
 
-.user {
+.user-container {
   width: 100%;
   background: $secondary-background-dark;
   border-radius: 15px;
   padding: 20px;
+}
+
+.user {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .user-list {

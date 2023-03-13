@@ -3,22 +3,32 @@ import { Modal } from '../../ui/Modal';
 import { AppTexArea } from '../../ui/AppTextArea';
 import { AppButton } from '../../ui/AppButton';
 import styles from '../../../assets/styles/profile.module.scss';
+import { useProfileActions } from '../../../hooks/store/useProfileActions';
 
 interface BanUserModalProps {
   isOpened: boolean;
   closeModal: () => void;
   userName: string;
+  userId: number;
 }
 
 export const BanUserModal = ({
   isOpened,
   closeModal,
-  userName
+  userName,
+  userId
 }: BanUserModalProps) => {
-  const [banReason, serBanReason] = useState('');
+  const [banReason, setBanReason] = useState('');
+  const { banUser } = useProfileActions();
 
   const onBanReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    serBanReason(e.target.value);
+    setBanReason(e.target.value);
+  };
+
+  const onBanUser = async () => {
+    // TODO add validation for banReason
+    await banUser(userId, banReason);
+    closeModal();
   };
 
   return (
@@ -39,7 +49,7 @@ export const BanUserModal = ({
         />
         <div className={styles['ban-modal__btns']}>
           <AppButton text="cancel" onClick={closeModal} />
-          <AppButton text="Ban" color="danger" />
+          <AppButton text="Ban" color="danger" onClick={onBanUser} />
         </div>
       </div>
     </Modal>

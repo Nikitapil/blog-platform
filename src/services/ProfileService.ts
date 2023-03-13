@@ -64,6 +64,12 @@ export class ProfileService {
     userId: number,
     banReason: string
   ): Promise<AxiosResponse<TAdminUserDto>> {
-    return $api.post<TAdminUserDto>('/ban', { userId, banReason });
+    return $api.post<TAdminUserDto>('/users/ban', { userId, banReason });
+  }
+
+  static async unbanUser(
+    userId: number
+  ): Promise<AxiosResponse<TAdminUserDto>> {
+    return $api.post<TAdminUserDto>('/users/unban', { userId });
   }
 }

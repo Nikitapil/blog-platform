@@ -1,3 +1,5 @@
+@import "vars";
+
 .font-m {
   font-size: 20px;
 }
@@ -48,4 +50,10 @@
 
 .flex-end {
   align-self: flex-end;
+}
+
+// =============================
+
+.color-red {
+  color: $color-red;
 }

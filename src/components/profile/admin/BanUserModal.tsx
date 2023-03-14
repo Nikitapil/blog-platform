@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Modal } from '../../ui/Modal';
 import { AppTexArea } from '../../ui/AppTextArea';
 import { AppButton } from '../../ui/AppButton';
@@ -25,9 +25,13 @@ export const BanUserModal = ({
     setBanReason(e.target.value);
   };
 
+  const isBanReasonExist = useMemo(() => {
+    return !!banReason.trim();
+  }, [banReason]);
+
   const onBanUser = async () => {
-    // TODO add validation for banReason
     await banUser(userId, banReason);
+    setBanReason('');
     closeModal();
   };
 
@@ -49,7 +53,12 @@ export const BanUserModal = ({
         />
         <div className={styles['ban-modal__btns']}>
           <AppButton text="cancel" onClick={closeModal} />
-          <AppButton text="Ban" color="danger" onClick={onBanUser} />
+          <AppButton
+            text="Ban"
+            color="danger"
+            onClick={onBanUser}
+            disabled={!isBanReasonExist}
+          />
         </div>
       </div>
     </Modal>

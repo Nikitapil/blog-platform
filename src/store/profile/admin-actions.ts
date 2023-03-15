@@ -35,3 +35,14 @@ export const unbanUser = (userId: number) => {
     }
   };
 };
+
+export const getRoles = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.getRoles();
+      dispatch(adminSlice.actions.setRoles(response.data));
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
+  };
+};

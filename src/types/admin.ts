@@ -12,4 +12,5 @@ export type TAdminUserDto = {
 
 export type TAdminInitialState = {
   users: TAdminUserDto[];
+  roles: TUserRole[];
 };

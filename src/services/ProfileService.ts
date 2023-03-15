@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import $api from '../api/api';
-import { TUser } from '../types/auth-form';
+import {TUser, TUserRole} from '../types/auth-form';
 import { TAllPostsResponse, TPostCommentsResponse } from '../types/posts';
 import { TProfileUser } from '../types/profile';
 import { TAdminUserDto } from '../types/admin';
@@ -71,5 +71,9 @@ export class ProfileService {
     userId: number
   ): Promise<AxiosResponse<TAdminUserDto>> {
     return $api.post<TAdminUserDto>('/users/unban', { userId });
+  }
+
+  static async getRoles(): Promise<AxiosResponse<TUserRole[]>> {
+    return $api.get<TUserRole[]>('/roles');
   }
 }

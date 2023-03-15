@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TAdminInitialState, TAdminUserDto } from '../../types/admin';
 import { TReduxAction } from '../../types/common';
+import { TUserRole } from '../../types/auth-form';
 
 const initialState: TAdminInitialState = {
-  users: []
+  users: [],
+  roles: []
 };
 
 export const adminSlice = createSlice({
@@ -21,6 +23,10 @@ export const adminSlice = createSlice({
         }
         return user;
       });
+    },
+
+    setRoles(state, action: TReduxAction<TUserRole[]>) {
+      state.roles = action.payload;
     }
   }
 });

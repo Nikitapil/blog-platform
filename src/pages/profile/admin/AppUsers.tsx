@@ -5,11 +5,12 @@ import { useAppSelector } from '../../../hooks/store/useAppSelector';
 import { UserListItem } from '../../../components/profile/admin/UserListItem';
 
 export const AppUsers = () => {
-  const { getUsers } = useProfileActions();
+  const { getUsers, getRoles } = useProfileActions();
   const { users } = useAppSelector((state) => state.admin);
 
   useEffect(() => {
     getUsers();
+    getRoles();
   }, []);
 
   return (

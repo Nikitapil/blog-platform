@@ -14,6 +14,7 @@ import {
 } from '../../store/profile/profile-actions';
 import {
   banUser,
+  getRoles,
   getUsers,
   unbanUser
 } from '../../store/profile/admin-actions';
@@ -33,7 +34,8 @@ export const useProfileActions = () => {
     getUserComments,
     getUsers,
     banUser,
-    unbanUser
+    unbanUser,
+    getRoles
   };
 
   return bindActionCreators(actions, dispatch);

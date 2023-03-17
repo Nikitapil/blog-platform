@@ -52,7 +52,7 @@ export const BanUserModal = ({
           size="sm"
         />
         <div className={styles['ban-modal__btns']}>
-          <AppButton text="cancel" onClick={closeModal} />
+          <AppButton text="Cancel" onClick={closeModal} />
           <AppButton
             text="Ban"
             color="danger"

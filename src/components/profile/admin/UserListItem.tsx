@@ -33,7 +33,7 @@ export const UserListItem = ({ user }: UserListItemProps) => {
             userId={user.id}
             avatar={user.avatar}
           />
-          <div>
+          <div className="d-flex gap-10">
             {!user.banned && (
               <AppButton
                 text="Ban user"
@@ -48,15 +48,17 @@ export const UserListItem = ({ user }: UserListItemProps) => {
                 onClick={unbanUserHandler}
               />
             )}
-            <AppButton text="User roles" onClick={onOpenRolesModal} />
+            {!user.banned && (
+              <AppButton text="User roles" onClick={onOpenRolesModal} />
+            )}
           </div>
         </div>
         {user.banned && (
           <p className="color-red">Ban reason: {user.banReason}</p>
         )}
-        <p>
+        <p className="d-flex gap-10">
           Roles:
-          {user.roles.map((role) => (
+          {user.roles?.map((role) => (
             <span key={role.id}>{role.value}</span>
           ))}
         </p>
@@ -72,6 +74,7 @@ export const UserListItem = ({ user }: UserListItemProps) => {
         closeModal={onCloseRolesModal}
         userName={user.userName}
         userRoles={user.roles}
+        userId={user.id}
       />
     </>
   );

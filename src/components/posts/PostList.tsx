@@ -18,7 +18,7 @@ export const PostList = ({
     <div className="w-100">
       {isPostsLoading && <HorizontalLoader />}
       {posts.length === 0 && !isPostsLoading && (
-        <p className="font-m">No posts yet, create first one</p>
+        <p className="font-m">No posts yet</p>
       )}
       {posts.map((post) => (
         <PostListItem post={post} key={post.id} isShowContent={isShowContent} />

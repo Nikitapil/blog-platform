@@ -18,7 +18,7 @@ export const AppCheckBox = ({
   };
 
   return (
-    <label htmlFor={id}>
+    <label htmlFor={id} className="d-flex gap-10">
       <input type="checkbox" id={id} checked={value} onChange={onChange} />
       {label}
     </label>

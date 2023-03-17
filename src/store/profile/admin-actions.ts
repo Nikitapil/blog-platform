@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { AppDispatch } from '../index';
 import { ProfileService } from '../../services/ProfileService';
 import { adminSlice } from './admin.slice';
+import { TUserUiRole } from '../../types/auth-form';
 
 export const getUsers = () => {
   return async (dispatch: AppDispatch) => {
@@ -29,6 +30,17 @@ export const unbanUser = (userId: number) => {
   return async (dispatch: AppDispatch) => {
     try {
       const response = await ProfileService.unbanUser(userId);
+      dispatch(adminSlice.actions.changeOneUser(response.data));
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
+  };
+};
+
+export const changeUserRoles = (roles: TUserUiRole[], userId: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ProfileService.changeRoles(roles, userId);
       dispatch(adminSlice.actions.changeOneUser(response.data));
     } catch (e: any) {
       toast.error(e.response.data.message);

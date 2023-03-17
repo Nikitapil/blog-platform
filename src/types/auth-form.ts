@@ -19,6 +19,10 @@ export type TUserRole = {
   UserRoles: TUserRoles;
 };
 
+export type TUserUiRole = TUserRole & {
+  checked: boolean;
+};
+
 export type TUser = {
   banReason: string;
   userName: string;

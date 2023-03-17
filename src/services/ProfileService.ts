@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import $api from '../api/api';
-import {TUser, TUserRole} from '../types/auth-form';
+import { TUser, TUserRole, TUserUiRole } from '../types/auth-form';
 import { TAllPostsResponse, TPostCommentsResponse } from '../types/posts';
 import { TProfileUser } from '../types/profile';
 import { TAdminUserDto } from '../types/admin';
@@ -75,5 +75,16 @@ export class ProfileService {
 
   static async getRoles(): Promise<AxiosResponse<TUserRole[]>> {
     return $api.get<TUserRole[]>('/roles');
+  }
+
+  static async changeRoles(
+    roles: TUserUiRole[],
+    userId: number
+  ): Promise<AxiosResponse<TAdminUserDto>> {
+    const request = {
+      values: roles.filter((role) => role.checked).map((role) => role.value),
+      userId
+    };
+    return $api.post<TAdminUserDto>('/users/role', request);
   }
 }

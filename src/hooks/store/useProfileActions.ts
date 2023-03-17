@@ -14,6 +14,7 @@ import {
 } from '../../store/profile/profile-actions';
 import {
   banUser,
+  changeUserRoles,
   getRoles,
   getUsers,
   unbanUser
@@ -35,7 +36,8 @@ export const useProfileActions = () => {
     getUsers,
     banUser,
     unbanUser,
-    getRoles
+    getRoles,
+    changeUserRoles
   };
 
   return bindActionCreators(actions, dispatch);

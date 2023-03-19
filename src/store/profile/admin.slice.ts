@@ -1,19 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TAdminInitialState, TAdminUserDto } from '../../types/admin';
+import {
+  TAdminAllUsersResponse,
+  TAdminInitialState,
+  TAdminUserDto
+} from '../../types/admin';
 import { TReduxAction } from '../../types/common';
 import { TUserRole } from '../../types/auth-form';
 
 const initialState: TAdminInitialState = {
   users: [],
-  roles: []
+  roles: [],
+  usersCount: 0
 };
 
 export const adminSlice = createSlice({
   name: 'adminSlice',
   initialState,
   reducers: {
-    setUsers(state, action: TReduxAction<TAdminUserDto[]>) {
-      state.users = action.payload;
+    setUsers(state, action: TReduxAction<TAdminAllUsersResponse>) {
+      state.users = action.payload.users;
+      state.usersCount = action.payload.count;
     },
 
     changeOneUser(state, action: TReduxAction<TAdminUserDto>) {

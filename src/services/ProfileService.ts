@@ -3,7 +3,7 @@ import $api from '../api/api';
 import { TUser, TUserRole, TUserUiRole } from '../types/auth-form';
 import { TAllPostsResponse, TPostCommentsResponse } from '../types/posts';
 import { TProfileUser } from '../types/profile';
-import { TAdminUserDto } from '../types/admin';
+import { TAdminAllUsersResponse, TAdminUserDto } from '../types/admin';
 
 export class ProfileService {
   static async updateAvatar(image: File): Promise<AxiosResponse<TUser>> {
@@ -56,8 +56,13 @@ export class ProfileService {
     return $api.get<TProfileUser>(`/users/${userId}`);
   }
 
-  static async getUsers(): Promise<AxiosResponse<TAdminUserDto[]>> {
-    return $api.get<TAdminUserDto[]>('/users');
+  static async getUsers(
+    page = 1,
+    limit = 10
+  ): Promise<AxiosResponse<TAdminAllUsersResponse>> {
+    return $api.get<TAdminAllUsersResponse>('/users', {
+      params: { page, limit }
+    });
   }
 
   static async banUser(

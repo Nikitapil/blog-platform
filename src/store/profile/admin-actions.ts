@@ -4,10 +4,10 @@ import { ProfileService } from '../../services/ProfileService';
 import { adminSlice } from './admin.slice';
 import { TUserUiRole } from '../../types/auth-form';
 
-export const getUsers = () => {
+export const getUsers = (page: number) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await ProfileService.getUsers();
+      const response = await ProfileService.getUsers(page);
       dispatch(adminSlice.actions.setUsers(response.data));
     } catch (e: any) {
       toast.error(e.response.data.message);

@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../assets/styles/profile.module.scss';
 import { useProfileActions } from '../../../hooks/store/useProfileActions';
 import { useAppSelector } from '../../../hooks/store/useAppSelector';
 import { UserListItem } from '../../../components/profile/admin/UserListItem';
+import { Pagination } from '../../../components/ui/Pagination';
 
 export const AppUsers = () => {
+  const [page, setPage] = useState(1);
   const { getUsers, getRoles } = useProfileActions();
-  const { users } = useAppSelector((state) => state.admin);
+  const { users, usersCount } = useAppSelector((state) => state.admin);
 
   useEffect(() => {
-    getUsers();
+    getUsers(page);
     getRoles();
-  }, []);
+  }, [page]);
 
   return (
     <div className={styles['users-page']}>
@@ -21,6 +23,11 @@ export const AppUsers = () => {
           <UserListItem key={user.id} user={user} />
         ))}
       </div>
+      <Pagination
+        currentPage={page}
+        totalCount={usersCount}
+        setPage={setPage}
+      />
     </div>
   );
 };

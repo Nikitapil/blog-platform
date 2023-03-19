@@ -10,7 +10,13 @@ export type TAdminUserDto = {
   avatar: string;
 };
 
+export type TAdminAllUsersResponse = {
+  count: number;
+  users: TAdminUserDto[];
+};
+
 export type TAdminInitialState = {
   users: TAdminUserDto[];
   roles: TUserRole[];
+  usersCount: number;
 };

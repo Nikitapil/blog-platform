@@ -76,11 +76,15 @@ export const SinglePostPage = () => {
     getSinglePost(id);
   }, [id]);
 
-  const isShowButtons = useMemo(() => {
+  const buttonRules = useMemo(() => {
     if (!user || !singlePost) {
-      return false;
+      return { canEdit: false, canDelete: false };
     }
-    return user?.id === singlePost?.userId;
+    const isUserEqual = user?.id === singlePost?.userId;
+    return {
+      canEdit: isUserEqual,
+      canDelete: isUserEqual || user.isAdmin
+    };
   }, [user, singlePost]);
 
   const onDeletePost = async () => {
@@ -131,20 +135,22 @@ export const SinglePostPage = () => {
       <div className={styles['single-post']}>
         <div className={styles['single-post__header']}>
           <h2 className={styles['single-post__title']}>{singlePost.title}</h2>
-          {isShowButtons && (
-            <div>
+          <div>
+            {buttonRules.canEdit && (
               <IconButton
                 icon={faEdit}
                 type="button"
                 onClick={navigateToEditPage}
               />
+            )}
+            {buttonRules.canDelete && (
               <IconButton
                 icon={faTrash}
                 type="button"
                 onClick={onDeleteModalChange}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div className={styles['single-post__likes']}>
           <IconButton

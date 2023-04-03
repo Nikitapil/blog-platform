@@ -24,8 +24,15 @@ export const PostComment = ({ comment }: PostCommentProps) => {
     return formatDate(comment.createdAt);
   }, [comment]);
 
-  const isShowTools = useMemo(() => {
-    return comment.userId === user?.id;
+  const buttonRules = useMemo(() => {
+    if (!user) {
+      return { canEdit: false, canDelete: false };
+    }
+    const isUserEqual = user?.id === comment?.userId;
+    return {
+      canEdit: isUserEqual,
+      canDelete: isUserEqual || user.isAdmin
+    };
   }, [user, comment]);
 
   const onCloseForm = () => {
@@ -61,16 +68,18 @@ export const PostComment = ({ comment }: PostCommentProps) => {
           />
           <p>{date}</p>
         </div>
-        {isShowTools && (
-          <div>
+        <div>
+          {buttonRules.canEdit && (
             <IconButton icon={faEdit} type="button" onClick={onOpenForm} />
+          )}
+          {buttonRules.canDelete && (
             <IconButton
               icon={faTrash}
               type="button"
               onClick={onDeleteModalChange}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <p>{comment.text}</p>
       <Modal isOpened={isDeleteModalOpen} closeModal={onDeleteModalChange}>

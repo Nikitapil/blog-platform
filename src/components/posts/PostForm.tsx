@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import SimpleMdeReact, { SimpleMDEReactProps } from 'react-simplemde-editor';
 import { toast } from 'react-toastify';
@@ -97,12 +97,6 @@ export const PostForm = ({
     } as SimpleMDEReactProps;
   }, []);
 
-  useEffect(() => {
-    if (!user && !isAuthLoading) {
-      navigate('/');
-    }
-  }, [user, isAuthLoading]);
-
   const getImage = async (link: string) => {
     const img = await imgURLToFile(link);
     setImage(img);
@@ -113,6 +107,10 @@ export const PostForm = ({
       getImage(post.image);
     }
   }, [post]);
+
+  if (!user && !isAuthLoading) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <main className="container">

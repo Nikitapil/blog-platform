@@ -17,7 +17,7 @@ interface PostCommentProps {
 
 export const PostComment = ({ comment }: PostCommentProps) => {
   const { user } = useAppSelector((state) => state.auth);
-  const [isEdditing, setIsEdditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { deletePostComment } = usePostsActions();
   const date = useMemo(() => {
@@ -36,11 +36,11 @@ export const PostComment = ({ comment }: PostCommentProps) => {
   }, [user, comment]);
 
   const onCloseForm = () => {
-    setIsEdditing(false);
+    setIsEditing(false);
   };
 
   const onOpenForm = () => {
-    setIsEdditing(true);
+    setIsEditing(true);
   };
 
   const onDeleteComment = async () => {
@@ -49,7 +49,7 @@ export const PostComment = ({ comment }: PostCommentProps) => {
 
   const onDeleteModalChange = () => setIsDeleteModalOpen((prev) => !prev);
 
-  if (isEdditing) {
+  if (isEditing) {
     return (
       <div className="mt-10">
         <PostCommentForm existedComment={comment} closeForm={onCloseForm} />

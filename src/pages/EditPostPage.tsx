@@ -18,14 +18,7 @@ export const EditPostPage = () => {
   );
   const [editPost, isEditing, editError] = useRequest<TPostRequest, TPost>(
     async (values: TPostRequest) => {
-      return PostsService.editPost(
-        values.title,
-        values.content,
-        values.image,
-        values.userId,
-        values.id!,
-        values.imageName!
-      );
+      return PostsService.editPost(values);
     }
   );
 

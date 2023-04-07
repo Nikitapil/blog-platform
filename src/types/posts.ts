@@ -11,6 +11,7 @@ export type TPost = {
   viewsCount: number;
   commentsCount: number;
   userAvatar: string;
+  hashtags: string[];
 };
 
 export type TPostLike = {
@@ -63,6 +64,7 @@ export type PostFormValues = {
 export type TPostRequest = PostFormValues & {
   image: File | null;
   userId: string;
+  tags: string[];
   id?: number;
   imageName?: string;
 };

@@ -9,12 +9,7 @@ export const CreatePostPage = () => {
     TPostRequest,
     TPost
   >(async (values: TPostRequest) => {
-    return PostsService.createPost(
-      values.title,
-      values.content,
-      values.image,
-      values.userId
-    );
+    return PostsService.createPost(values);
   });
 
   return (

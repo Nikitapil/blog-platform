@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePostsActions } from '../hooks/store/usePostsActions';
 import { PostList } from '../components/posts/PostList';
 import styles from '../assets/styles/main-page.module.scss';
@@ -18,11 +18,14 @@ export const MainPage = () => {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   useEffect(() => {
     getPosts(page, searchQuery);
     getPostsWithLikes();
     getPostsWithViews();
-  }, [page, searchQuery]);
+    console.log(searchParams.get('tag'));
+  }, [page, searchQuery, searchParams]);
 
   const navigateToCreation = () => {
     navigate('/posts/create-post');

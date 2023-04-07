@@ -7,6 +7,7 @@ import styles from '../../assets/styles/posts.module.scss';
 import { formatDate } from '../../helpers/dates';
 import { usePostImage } from '../../hooks/posts/usePostImage';
 import { UserLink } from '../profile/UserLink';
+import { PostHashTag } from './PostHashTag';
 
 interface PostListItemProps {
   post: TPost;
@@ -64,6 +65,13 @@ export const PostListItem = ({
             avatar={post.userAvatar}
           />
         </div>
+        {isShowContent && (
+          <div className={styles.post__tags}>
+            {post.hashtags.map((tag) => (
+              <PostHashTag tag={tag} key={tag} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

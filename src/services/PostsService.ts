@@ -4,7 +4,8 @@ import {
   TAllPostsResponse,
   TPost,
   TPostCommentsResponse,
-  TPostLikesResponse
+  TPostLikesResponse,
+  TPostRequest
 } from '../types/posts';
 import $api from '../api/api';
 
@@ -34,12 +35,13 @@ export class PostsService {
     return response;
   }
 
-  static async createPost(
-    title: string,
-    content: string,
-    image: File | null,
-    userId: string
-  ) {
+  static async createPost({
+    title,
+    content,
+    image,
+    userId,
+    tags
+  }: TPostRequest) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
@@ -47,6 +49,9 @@ export class PostsService {
       formData.append('image', image);
     }
     formData.append('userId', userId);
+    tags.forEach((tag) => {
+      formData.append('hashtags', tag);
+    });
     const response = await $api.post('/posts', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -55,23 +60,29 @@ export class PostsService {
     return response;
   }
 
-  static async editPost(
-    title: string,
-    content: string,
-    image: File | null,
-    userId: string,
-    id: number,
-    imageName: string
-  ) {
+  static async editPost({
+    title,
+    content,
+    image,
+    userId,
+    id,
+    imageName,
+    tags
+  }: TPostRequest) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('id', id.toString());
-    formData.append('imageName', imageName);
+    formData.append('id', id!.toString());
+    formData.append('imageName', imageName!);
     if (image) {
       formData.append('image', image);
     }
     formData.append('userId', userId);
+
+    tags.forEach((tag) => {
+      formData.append('hashtags', tag);
+    });
+
     const response = await $api.put('/posts', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'

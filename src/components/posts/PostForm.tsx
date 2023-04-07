@@ -16,6 +16,7 @@ import { TPost, TPostRequest } from '../../types/posts';
 import styles from '../../assets/styles/posts.module.scss';
 import { imgURLToFile } from '../../helpers/img-helpers';
 import 'easymde/dist/easymde.min.css';
+import { TagInput } from '../ui/TagInput';
 
 interface PostFormProps {
   submitFn: (params: TPostRequest) => Promise<AxiosResponse<TPost>>;
@@ -36,7 +37,8 @@ export const PostForm = ({
 }: PostFormProps) => {
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const [image, setImage] = useState<File | null>(null);
-  // const [content, setContent] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
+
   const navigate = useNavigate();
   const form = useFormik({
     initialValues: {
@@ -51,7 +53,8 @@ export const PostForm = ({
         userId: user!.id.toString(),
         id: post?.id,
         imageName: post?.image,
-        image
+        image,
+        tags
       });
       if (!submitError) {
         navigate(`/posts/${response.data.id}`);
@@ -73,10 +76,13 @@ export const PostForm = ({
     form.handleSubmit();
   };
 
-  const contentChangeHandler = useCallback((value: string) => {
-    form.values.content = value;
-    form.setFieldValue('content', value);
-  }, []);
+  const contentChangeHandler = useCallback(
+    (value: string) => {
+      form.values.content = value;
+      form.setFieldValue('content', value);
+    },
+    [form]
+  );
 
   const contentOptions = useMemo(() => {
     return {
@@ -105,6 +111,9 @@ export const PostForm = ({
   useEffect(() => {
     if (post && post.image) {
       getImage(post.image);
+    }
+    if (post) {
+      setTags([...post.hashtags]);
     }
   }, [post]);
 
@@ -139,6 +148,13 @@ export const PostForm = ({
         {form.errors.content && (
           <p className={styles.form__error}>Content is required</p>
         )}
+        <TagInput
+          id="post-hashtag"
+          name="post-hashtag"
+          placeholder="Hashtag..."
+          tags={tags}
+          setTags={setTags}
+        />
         <div className={styles.form__controls}>
           <div>
             <FileUploader

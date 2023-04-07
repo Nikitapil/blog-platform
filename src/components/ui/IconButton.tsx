@@ -7,21 +7,23 @@ interface IconButtonProps {
   icon: IconProp;
   type: 'button' | 'submit';
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
+  className?: string;
 }
 
 export const IconButton = ({
   icon,
   type,
   onClick,
-  disabled = false
+  disabled = false,
+  className
 }: IconButtonProps) => {
   return (
     <button
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className={styles.button}
+      className={`${styles.button} ${className}`}
     >
       <FontAwesomeIcon icon={icon} />
     </button>

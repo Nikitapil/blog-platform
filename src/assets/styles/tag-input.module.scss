@@ -1,0 +1,19 @@
+@import "vars";
+
+.tag-area {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-area {
+  display: flex;
+  gap: 5px;
+}
+
+.submit {
+  color: $color-success;
+  font-size: 22px;
+}

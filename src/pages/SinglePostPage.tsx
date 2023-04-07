@@ -26,6 +26,7 @@ import { PostCommentForm } from '../components/posts/PostCommentForm';
 import { PostComment } from '../components/posts/PostComment';
 import { UserLink } from '../components/profile/UserLink';
 import 'github-markdown-css/github-markdown-dark.css';
+import { PostHashTag } from '../components/posts/PostHashTag';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
@@ -135,7 +136,7 @@ export const SinglePostPage = () => {
       <div className={styles['single-post']}>
         <div className={styles['single-post__header']}>
           <h2 className={styles['single-post__title']}>{singlePost.title}</h2>
-          <div>
+          <div className={styles['single-post__tools']}>
             {buttonRules.canEdit && (
               <IconButton
                 icon={faEdit}
@@ -188,6 +189,11 @@ export const SinglePostPage = () => {
         <ReactMarkdown className="markdown-body mt-10 pa-10">
           {singlePost.content}
         </ReactMarkdown>
+        <section className="w-100 mt-10 d-flex gap-10">
+          {singlePost.hashtags.map((tag) => (
+            <PostHashTag tag={tag} key={tag} />
+          ))}
+        </section>
         <h3 className={styles['single-post__comments-title']} id="comments">
           Comments
         </h3>

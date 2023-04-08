@@ -1,0 +1,12 @@
+@import "vars";
+
+.app-checkbox {
+  display: flex;
+  gap: 10px;
+  accent-color: $color-success;
+
+  input {
+    width: 16px;
+    height: 16px;
+  }
+}

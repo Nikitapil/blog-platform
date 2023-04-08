@@ -56,6 +56,11 @@
   align-self: flex-end;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .align-center {
   align-items: center;
 }
@@ -64,4 +69,8 @@
 
 .color-red {
   color: $color-red;
+}
+
+.accent-success {
+  accent-color: $color-success;
 }

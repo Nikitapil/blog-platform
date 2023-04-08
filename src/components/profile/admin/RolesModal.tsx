@@ -34,7 +34,7 @@ export const RolesModal = ({
         checked: !!userRoles?.find((r) => r.id === role.id)
       }))
     );
-  }, [roles]);
+  }, [roles, userRoles]);
 
   const selectedRoles = useMemo(() => {
     return internalRoles.filter((role) => role.checked);
@@ -62,7 +62,7 @@ export const RolesModal = ({
         <div>
           <h2 className="font-m">Choose roles for {userName}:</h2>
         </div>
-        <div className="mt-10">
+        <div className="mt-10 flex-col gap-10">
           {internalRoles.map((role) => (
             <AppCheckBox
               key={role.id}

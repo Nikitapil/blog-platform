@@ -8,8 +8,7 @@ import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { PostCommentForm } from './PostCommentForm';
 import { usePostsActions } from '../../hooks/store/usePostsActions';
 import { UserLink } from '../profile/UserLink';
-import { AppButton } from '../ui/AppButton';
-import { Modal } from '../ui/Modal';
+import { ConfirmModal } from '../common/ConfirmModal';
 
 interface PostCommentProps {
   comment: TPostComment;
@@ -68,7 +67,7 @@ export const PostComment = ({ comment }: PostCommentProps) => {
           />
           <p>{date}</p>
         </div>
-        <div>
+        <div className="d-flex gap-5 align-center">
           {buttonRules.canEdit && (
             <IconButton icon={faEdit} type="button" onClick={onOpenForm} />
           )}
@@ -82,15 +81,14 @@ export const PostComment = ({ comment }: PostCommentProps) => {
         </div>
       </div>
       <p>{comment.text}</p>
-      <Modal isOpened={isDeleteModalOpen} closeModal={onDeleteModalChange}>
-        <div className={styles['single-post__delete']}>
-          <h3>Are you sure, you want to delete this comment?</h3>
-          <div className={styles['single-post__delete-btns']}>
-            <AppButton text="Cancel" onClick={onDeleteModalChange} />
-            <AppButton text="Delete" color="danger" onClick={onDeleteComment} />
-          </div>
-        </div>
-      </Modal>
+      <ConfirmModal
+        title="Are you sure, you want to delete this comment?"
+        isOpened={isDeleteModalOpen}
+        confirmText="Delete"
+        cancelText="Cancel"
+        onCancel={onDeleteModalChange}
+        onConfirm={onDeleteComment}
+      />
     </article>
   );
 };

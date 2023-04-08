@@ -1,0 +1,18 @@
+.confirm-modal {
+  padding: 10px 0;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &-btns {
+    display: flex;
+    gap: 10px;
+  }
+}

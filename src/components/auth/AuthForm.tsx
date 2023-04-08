@@ -8,7 +8,7 @@ import { AuthFormData } from '../../types/auth-form';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { ErrorMessage } from '../ui/ErrorMessage';
 
-interface AuthFormProps {
+interface IAuthFormProps {
   isSignUp?: boolean;
   closeModal: () => void;
   onSubmit: (values: AuthFormData) => void;
@@ -18,7 +18,7 @@ export const AuthForm = ({
   closeModal,
   onSubmit,
   isSignUp = false
-}: AuthFormProps) => {
+}: IAuthFormProps) => {
   const { signError } = useAppSelector((state) => state.auth);
 
   const form = useFormik({

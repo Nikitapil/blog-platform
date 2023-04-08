@@ -36,20 +36,13 @@ export class PostsService {
     return response;
   }
 
-  static async createPost({
-    title,
-    content,
-    image,
-    userId,
-    tags
-  }: TPostRequest) {
+  static async createPost({ title, content, image, tags }: TPostRequest) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
     if (image) {
       formData.append('image', image);
     }
-    formData.append('userId', userId);
     tags.forEach((tag) => {
       formData.append('hashtags', tag);
     });

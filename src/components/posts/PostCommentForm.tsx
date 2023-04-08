@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { usePostsActions } from '../../hooks/store/usePostsActions';
 import { TPostComment } from '../../types/posts';
 
-interface PostCommentFormProps {
+interface IPostCommentFormProps {
   existedComment?: TPostComment;
   closeForm?: () => void;
 }
@@ -14,7 +14,7 @@ interface PostCommentFormProps {
 export const PostCommentForm = ({
   existedComment,
   closeForm
-}: PostCommentFormProps) => {
+}: IPostCommentFormProps) => {
   const [comment, setComment] = useState('');
   const { singlePost } = useAppSelector((state) => state.posts);
   const { user } = useAppSelector((state) => state.auth);

@@ -11,7 +11,7 @@ export const PostHashTag = ({ tag }: IPostHashTagProps) => {
 
   const clickHandler = useCallback(() => {
     navigate(`/?tag=${tag}`);
-  }, []);
+  }, [navigate, tag]);
 
   return <Tag text={`#${tag}`} size="sm" onClick={clickHandler} />;
 };

@@ -12,10 +12,11 @@ import $api from '../api/api';
 export class PostsService {
   static async getPosts(
     page = 1,
-    search: string
+    search: string,
+    tag?: string
   ): Promise<AxiosResponse<TAllPostsResponse>> {
     const response = await $api.get<TAllPostsResponse>('/posts', {
-      params: { page, search }
+      params: { page, search, tag }
     });
     return response;
   }

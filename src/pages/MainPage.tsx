@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePostsActions } from '../hooks/store/usePostsActions';
 import { PostList } from '../components/posts/PostList';
 import styles from '../assets/styles/main-page.module.scss';
@@ -8,6 +8,7 @@ import { useAppSelector } from '../hooks/store/useAppSelector';
 import { Pagination } from '../components/ui/Pagination';
 import { SearchPostForm } from '../components/posts/SearchPostForm';
 import { PostSidebar } from '../components/posts/post-sidebar/PostSidebar';
+import { useQuery } from '../hooks/utils/useQuery';
 
 export const MainPage = () => {
   const { getPosts, getPostsWithLikes, getPostsWithViews } = usePostsActions();
@@ -15,17 +16,16 @@ export const MainPage = () => {
   const { totalPostsCount, posts, isPostsLoading } = useAppSelector(
     (state) => state.posts
   );
+  const { query: hashTag } = useQuery('tag');
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    getPosts(page, searchQuery);
+    getPosts(page, searchQuery, hashTag);
     getPostsWithLikes();
     getPostsWithViews();
-    console.log(searchParams.get('tag'));
-  }, [page, searchQuery, searchParams]);
+  }, [page, searchQuery, hashTag]);
 
   const navigateToCreation = () => {
     navigate('/posts/create-post');

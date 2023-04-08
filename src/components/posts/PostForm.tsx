@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import SimpleMdeReact, { SimpleMDEReactProps } from 'react-simplemde-editor';
@@ -8,7 +7,6 @@ import { toast } from 'react-toastify';
 import { AppInput } from '../ui/AppInput';
 import { FileUploader } from '../ui/FileUploader';
 import { imageExtensions } from '../../constants/file-extensions';
-import { IconButton } from '../ui/IconButton';
 import { postValidation } from '../../helpers/post-validation';
 import { AppButton } from '../ui/AppButton';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
@@ -17,6 +15,7 @@ import styles from '../../assets/styles/posts.module.scss';
 import { imgURLToFile } from '../../helpers/img-helpers';
 import 'easymde/dist/easymde.min.css';
 import { TagInput } from '../ui/TagInput';
+import { ImagePreview } from '../ui/ImagePreview';
 
 interface PostFormProps {
   submitFn: (params: TPostRequest) => Promise<AxiosResponse<TPost>>;
@@ -163,18 +162,7 @@ export const PostForm = ({
               setFile={setImage}
               formats={imageExtensions}
             />
-            {image && (
-              <div className={styles.preview}>
-                <div className={styles['delete-img']}>
-                  <IconButton
-                    icon={faXmark}
-                    type="button"
-                    onClick={deleteImage}
-                  />
-                </div>
-                <img src={URL.createObjectURL(image)} alt="preview" />
-              </div>
-            )}
+            <ImagePreview image={image} deleteImage={deleteImage} />
           </div>
           <AppButton text={submitButtonText} color="success" type="submit" />
         </div>

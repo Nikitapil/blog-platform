@@ -1,0 +1,16 @@
+.preview {
+  max-width: 200px;
+  position: relative;
+  margin-top: 10px;
+
+  .delete-img {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.51);
+    right: 0;
+    color: black;
+  }
+
+  img {
+    max-width: 200px;
+  }
+}

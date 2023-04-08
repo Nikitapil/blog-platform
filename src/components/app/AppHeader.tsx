@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../assets/styles/header.module.scss';
 import { Modal } from '../ui/Modal';
@@ -16,10 +16,10 @@ export const AppHeader = () => {
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const onSignInModalChange = () => {
+  const onSignInModalChange = useCallback(() => {
     setIsSignInModalOpened(!isSignInModalOpened);
     setSignError('');
-  };
+  }, [isSignInModalOpened, setSignError]);
 
   const onSignUpModalChange = () => {
     setIsSignUpModalOpened(!isSignUpModalOpened);
@@ -48,7 +48,7 @@ export const AppHeader = () => {
     if (user && isSignInModalOpened) {
       setIsSignInModalOpened(false);
     }
-  }, [user]);
+  }, [isSignInModalOpened, isSignUpModalOpened, user]);
 
   return (
     <header className={styles.header}>

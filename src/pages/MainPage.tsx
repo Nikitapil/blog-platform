@@ -13,9 +13,15 @@ import { useQuery } from '../hooks/utils/useQuery';
 export const MainPage = () => {
   const { getPosts, getPostsWithLikes, getPostsWithViews } = usePostsActions();
   const { user } = useAppSelector((state) => state.auth);
-  const { totalPostsCount, posts, isPostsLoading } = useAppSelector(
-    (state) => state.posts
-  );
+  const {
+    totalPostsCount,
+    posts,
+    isPostsLoading,
+    postsWithViews,
+    postsWithLikes,
+    isPostsWithViewsLoading,
+    isPostsWithLikesLoading
+  } = useAppSelector((state) => state.posts);
   const { query: hashTag } = useQuery('tag');
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,7 +59,12 @@ export const MainPage = () => {
         />
       </div>
       <div className={styles.sidebar}>
-        <PostSidebar />
+        <PostSidebar
+          isPostsWithLikesLoading={isPostsWithLikesLoading}
+          isPostsWithViewsLoading={isPostsWithViewsLoading}
+          postsWithLikes={postsWithLikes}
+          postsWithViews={postsWithViews}
+        />
       </div>
     </main>
   );

@@ -1,16 +1,22 @@
 import React from 'react';
 import { PostSidebarBlock } from './PostSidebarBlock';
-import { useAppSelector } from '../../../hooks/store/useAppSelector';
 import { PostList } from '../PostList';
 import styles from '../../../assets/styles/posts.module.scss';
+import { TPost } from '../../../types/posts';
 
-export const PostSidebar = () => {
-  const {
-    postsWithLikes,
-    isPostsWithLikesLoading,
-    postsWithViews,
-    isPostsWithViewsLoading
-  } = useAppSelector((state) => state.posts);
+export interface IPostSidebarProps {
+  postsWithLikes: TPost[];
+  isPostsWithLikesLoading: boolean;
+  postsWithViews: TPost[];
+  isPostsWithViewsLoading: boolean;
+}
+
+export const PostSidebar = ({
+  postsWithLikes,
+  isPostsWithLikesLoading,
+  postsWithViews,
+  isPostsWithViewsLoading
+}: IPostSidebarProps) => {
   return (
     <div className={styles.sidebar}>
       <PostSidebarBlock title="Top liked posts">

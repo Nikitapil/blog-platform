@@ -22,24 +22,33 @@ export const AppHeader = () => {
     setSignError('');
   }, [isSignInModalOpened, setSignError]);
 
-  const onSignUpModalChange = () => {
+  const onSignUpModalChange = useCallback(() => {
     setIsSignUpModalOpened(!isSignUpModalOpened);
     setSignError('');
-  };
+  }, [isSignUpModalOpened, setSignError]);
 
-  const onSignIn = async (values: AuthFormData) => {
-    await login(values);
-  };
+  const onSignIn = useCallback(
+    async (values: AuthFormData) => {
+      await login(values);
+    },
+    [login]
+  );
 
-  const logOut = async () => {
+  const logOut = useCallback(async () => {
     await logout();
-  };
+  }, [logout]);
 
-  const onSignUp = async (values: AuthFormData) => {
-    await registration(values);
-  };
+  const onSignUp = useCallback(
+    async (values: AuthFormData) => {
+      await registration(values);
+    },
+    [registration]
+  );
 
-  const goToProfile = () => navigate(`/profile/${user?.id}/personal`);
+  const goToProfile = useCallback(
+    () => navigate(`/profile/${user?.id}/personal`),
+    [navigate, user?.id]
+  );
 
   useEffect(() => {
     if (user && isSignUpModalOpened) {

@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { AppTexArea } from '../ui/AppTextArea';
-import { AppButton } from '../ui/AppButton';
-import styles from '../../assets/styles/posts.module.scss';
-import { useAppSelector } from '../../hooks/store/useAppSelector';
-import { usePostsActions } from '../../hooks/store/usePostsActions';
-import { TPostComment } from '../../types/posts';
+import { AppTexArea } from '../../ui/AppTextArea';
+import { AppButton } from '../../ui/AppButton';
+import styles from '../../../assets/styles/posts.module.scss';
+import { useAppSelector } from '../../../hooks/store/useAppSelector';
+import { usePostsActions } from '../../../hooks/store/usePostsActions';
+import { TPostComment } from '../../../types/posts';
 
 interface IPostCommentFormProps {
   existedComment?: TPostComment;

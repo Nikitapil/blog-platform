@@ -1,24 +1,28 @@
 import React, { useMemo, useState } from 'react';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { TPostComment } from '../../types/posts';
-import { formatDate } from '../../helpers/dates';
-import { IconButton } from '../ui/IconButton';
-import styles from '../../assets/styles/posts.module.scss';
+import { TPostComment } from '../../../types/posts';
+import { formatDate } from '../../../helpers/dates';
+import { IconButton } from '../../ui/IconButton';
+import styles from '../../../assets/styles/posts.module.scss';
 import { PostCommentForm } from './PostCommentForm';
-import { usePostsActions } from '../../hooks/store/usePostsActions';
-import { UserLink } from '../profile/UserLink';
-import { ConfirmModal } from '../common/ConfirmModal';
-import { TUser } from '../../types/auth-form';
+import { UserLink } from '../../profile/UserLink';
+import { ConfirmModal } from '../../common/ConfirmModal';
+import { TUser } from '../../../types/auth-form';
 
 interface PostCommentProps {
   comment: TPostComment;
   user: TUser | null;
+  deletePostComment: (id: number) => void;
 }
 
-export const PostComment = ({ comment, user }: PostCommentProps) => {
+export const PostComment = ({
+  comment,
+  user,
+  deletePostComment
+}: PostCommentProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const { deletePostComment } = usePostsActions();
+
   const date = useMemo(() => {
     return formatDate(comment.createdAt);
   }, [comment]);

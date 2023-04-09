@@ -22,8 +22,8 @@ import { AppButton } from '../components/ui/AppButton';
 import { useRequest } from '../hooks/utils/useRequest';
 import { PostsService } from '../services/PostsService';
 import { HorizontalLoader } from '../components/ui/loaders/HorizontalLoader';
-import { PostCommentForm } from '../components/posts/PostCommentForm';
-import { PostComment } from '../components/posts/PostComment';
+import { PostCommentForm } from '../components/posts/post-comment/PostCommentForm';
+import { PostComment } from '../components/posts/post-comment/PostComment';
 import { UserLink } from '../components/profile/UserLink';
 import 'github-markdown-css/github-markdown-dark.css';
 import { PostHashTag } from '../components/posts/PostHashTag';
@@ -32,7 +32,8 @@ export const SinglePostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
-  const { getSinglePost, addPostLike, deletePostLike } = usePostsActions();
+  const { getSinglePost, addPostLike, deletePostLike, deletePostComment } =
+    usePostsActions();
   const {
     singlePost,
     singlePostError,
@@ -201,7 +202,12 @@ export const SinglePostPage = () => {
           <PostCommentForm />
           {singlePostComments.map((comment) => {
             return (
-              <PostComment comment={comment} key={comment.id} user={user} />
+              <PostComment
+                comment={comment}
+                key={comment.id}
+                user={user}
+                deletePostComment={deletePostComment}
+              />
             );
           })}
         </section>

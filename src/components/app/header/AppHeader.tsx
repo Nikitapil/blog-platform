@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../assets/styles/header.module.scss';
-import { Modal } from '../ui/Modal';
-import { AppButton } from '../ui/AppButton';
-import { AuthForm } from '../auth/AuthForm';
-import { AuthFormData } from '../../types/auth-form';
-import { useAuthActions } from '../../hooks/store/useAuthActions';
-import { useAppSelector } from '../../hooks/store/useAppSelector';
-import { HorizontalLoader } from '../ui/loaders/HorizontalLoader';
+import styles from '../../../assets/styles/header.module.scss';
+import { Modal } from '../../ui/Modal';
+import { AuthForm } from '../../auth/AuthForm';
+import { AuthFormData } from '../../../types/auth-form';
+import { useAuthActions } from '../../../hooks/store/useAuthActions';
+import { useAppSelector } from '../../../hooks/store/useAppSelector';
+import { AuthButtons } from './AuthButtons';
 
 export const AppHeader = () => {
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
@@ -56,39 +55,14 @@ export const AppHeader = () => {
         <Link to="/" className={styles.header__link}>
           <h1>Blog Platform</h1>
         </Link>
-        {!user && !isAuthLoading && (
-          <div className={styles.header__btns}>
-            <AppButton
-              onClick={onSignInModalChange}
-              type="button"
-              text="Sign in"
-              color="transparent"
-            />
-            <AppButton
-              onClick={onSignUpModalChange}
-              type="button"
-              text="Sign up"
-              color="transparent"
-            />
-          </div>
-        )}
-        {isAuthLoading && <HorizontalLoader />}
-        {user && !isAuthLoading && (
-          <div className={styles.header__btns}>
-            <AppButton
-              type="button"
-              text={user.userName}
-              color="transparent"
-              onClick={goToProfile}
-            />
-            <AppButton
-              type="button"
-              text="Logout"
-              color="danger"
-              onClick={logOut}
-            />
-          </div>
-        )}
+        <AuthButtons
+          user={user}
+          isAuthLoading={isAuthLoading}
+          onSignIn={onSignInModalChange}
+          onSignUp={onSignUpModalChange}
+          openProfile={goToProfile}
+          logOut={logOut}
+        />
       </div>
       <Modal isOpened={isSignInModalOpened} closeModal={onSignInModalChange}>
         <AuthForm

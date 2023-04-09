@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './assets/styles/App.scss';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { AppHeader } from './components/app/AppHeader';
+import { AppHeader } from './components/app/header/AppHeader';
 import { useAuthActions } from './hooks/store/useAuthActions';
 import { MainPage } from './pages/MainPage';
 import { SinglePostPage } from './pages/SinglePostPage';

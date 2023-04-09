@@ -5,22 +5,21 @@ import styles from '../../assets/styles/auth.module.scss';
 import { AppButton } from '../ui/AppButton';
 import { createAuthValidation } from '../../helpers/auth-validation';
 import { AuthFormData } from '../../types/auth-form';
-import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { ErrorMessage } from '../ui/ErrorMessage';
 
 interface IAuthFormProps {
   isSignUp?: boolean;
   closeModal: () => void;
   onSubmit: (values: AuthFormData) => void;
+  signError: string;
 }
 
 export const AuthForm = ({
   closeModal,
   onSubmit,
+  signError,
   isSignUp = false
 }: IAuthFormProps) => {
-  const { signError } = useAppSelector((state) => state.auth);
-
   const form = useFormik({
     initialValues: {
       email: '',

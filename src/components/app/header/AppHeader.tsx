@@ -12,7 +12,9 @@ export const AppHeader = () => {
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
   const [isSignUpModalOpened, setIsSignUpModalOpened] = useState(false);
   const { registration, setSignError, logout, login } = useAuthActions();
-  const { user, isAuthLoading } = useAppSelector((state) => state.auth);
+  const { user, isAuthLoading, signError } = useAppSelector(
+    (state) => state.auth
+  );
   const navigate = useNavigate();
 
   const onSignInModalChange = useCallback(() => {
@@ -67,6 +69,7 @@ export const AppHeader = () => {
       <Modal isOpened={isSignInModalOpened} closeModal={onSignInModalChange}>
         <AuthForm
           isSignUp={false}
+          signError={signError}
           closeModal={onSignInModalChange}
           onSubmit={onSignIn}
         />
@@ -74,6 +77,7 @@ export const AppHeader = () => {
       <Modal isOpened={isSignUpModalOpened} closeModal={onSignUpModalChange}>
         <AuthForm
           isSignUp
+          signError={signError}
           closeModal={onSignUpModalChange}
           onSubmit={onSignUp}
         />

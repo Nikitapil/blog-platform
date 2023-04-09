@@ -200,7 +200,9 @@ export const SinglePostPage = () => {
         <section className={styles['single-post__comment-form']}>
           <PostCommentForm />
           {singlePostComments.map((comment) => {
-            return <PostComment comment={comment} key={comment.id} />;
+            return (
+              <PostComment comment={comment} key={comment.id} user={user} />
+            );
           })}
         </section>
       </div>

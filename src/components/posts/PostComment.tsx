@@ -4,18 +4,18 @@ import { TPostComment } from '../../types/posts';
 import { formatDate } from '../../helpers/dates';
 import { IconButton } from '../ui/IconButton';
 import styles from '../../assets/styles/posts.module.scss';
-import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { PostCommentForm } from './PostCommentForm';
 import { usePostsActions } from '../../hooks/store/usePostsActions';
 import { UserLink } from '../profile/UserLink';
 import { ConfirmModal } from '../common/ConfirmModal';
+import { TUser } from '../../types/auth-form';
 
 interface PostCommentProps {
   comment: TPostComment;
+  user: TUser | null;
 }
 
-export const PostComment = ({ comment }: PostCommentProps) => {
-  const { user } = useAppSelector((state) => state.auth);
+export const PostComment = ({ comment, user }: PostCommentProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { deletePostComment } = usePostsActions();

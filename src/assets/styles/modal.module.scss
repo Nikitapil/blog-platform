@@ -21,6 +21,7 @@
   backdrop-filter: blur(4px);
   box-shadow: 0 0 10px #2f2f2f;
   overflow: hidden;
+  z-index: 1;
 }
 
 .close {

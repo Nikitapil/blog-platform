@@ -1,9 +1,9 @@
 import React from 'react';
 import { PostListItem } from './PostListItem';
-import { HorizontalLoader } from '../ui/loaders/HorizontalLoader';
-import { TPost } from '../../types/posts';
+import { HorizontalLoader } from '../../ui/loaders/HorizontalLoader';
+import { TPost } from '../../../types/posts';
 
-interface PostListProps {
+interface IPostListProps {
   posts: TPost[];
   isPostsLoading: boolean;
   isShowContent?: boolean;
@@ -13,7 +13,7 @@ export const PostList = ({
   posts,
   isPostsLoading,
   isShowContent = true
-}: PostListProps) => {
+}: IPostListProps) => {
   if (isPostsLoading) {
     return <HorizontalLoader />;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PostSidebarBlock } from './PostSidebarBlock';
-import { PostList } from '../PostList';
+import { PostList } from '../post-list/PostList';
 import styles from '../../../assets/styles/posts.module.scss';
 import { TPost } from '../../../types/posts';
 

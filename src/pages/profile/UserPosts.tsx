@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
-import { PostList } from '../../components/posts/PostList';
 import { useProfileActions } from '../../hooks/store/useProfileActions';
+import { PostListWithToggle } from '../../components/posts/post-list/PostListWithToggle';
 
 export const UserPosts = () => {
   const { id } = useParams();
@@ -17,5 +17,7 @@ export const UserPosts = () => {
     }
   }, [id]);
 
-  return <PostList posts={userPosts} isPostsLoading={isUserPostsLoading} />;
+  return (
+    <PostListWithToggle posts={userPosts} isPostsLoading={isUserPostsLoading} />
+  );
 };

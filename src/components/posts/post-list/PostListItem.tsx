@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { TPost } from '../../types/posts';
-import styles from '../../assets/styles/posts.module.scss';
-import { formatDate } from '../../helpers/dates';
-import { usePostImage } from '../../hooks/posts/usePostImage';
-import { UserLink } from '../profile/UserLink';
-import { PostHashTag } from './PostHashTag';
+import { TPost } from '../../../types/posts';
+import styles from '../../../assets/styles/posts.module.scss';
+import { formatDate } from '../../../helpers/dates';
+import { usePostImage } from '../../../hooks/posts/usePostImage';
+import { UserLink } from '../../profile/UserLink';
+import { PostHashTag } from '../PostHashTag';
 
-interface PostListItemProps {
+interface IPostListItemProps {
   post: TPost;
   isShowContent?: boolean;
 }
@@ -17,7 +17,7 @@ interface PostListItemProps {
 export const PostListItem = ({
   post,
   isShowContent = true
-}: PostListItemProps) => {
+}: IPostListItemProps) => {
   const image = usePostImage(post);
 
   const date = useMemo(() => {

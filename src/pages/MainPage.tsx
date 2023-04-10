@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePostsActions } from '../hooks/store/usePostsActions';
-import { PostList } from '../components/posts/PostList';
 import styles from '../assets/styles/main-page.module.scss';
 import { AppButton } from '../components/ui/AppButton';
 import { useAppSelector } from '../hooks/store/useAppSelector';
@@ -9,6 +8,7 @@ import { Pagination } from '../components/ui/Pagination';
 import { SearchPostForm } from '../components/posts/SearchPostForm';
 import { PostSidebar } from '../components/posts/post-sidebar/PostSidebar';
 import { useQuery } from '../hooks/utils/useQuery';
+import { PostListWithToggle } from '../components/posts/post-list/PostListWithToggle';
 
 export const MainPage = () => {
   const { getPosts, getPostsWithLikes, getPostsWithViews } = usePostsActions();
@@ -51,7 +51,7 @@ export const MainPage = () => {
             <AppButton text="Create new post" onClick={navigateToCreation} />
           )}
         </div>
-        <PostList posts={posts} isPostsLoading={isPostsLoading} />
+        <PostListWithToggle posts={posts} isPostsLoading={isPostsLoading} />
         <Pagination
           currentPage={page}
           totalCount={totalPostsCount}

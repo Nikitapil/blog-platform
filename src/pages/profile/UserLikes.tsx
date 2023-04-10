@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProfileActions } from '../../hooks/store/useProfileActions';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
-import { PostList } from '../../components/posts/PostList';
+import { PostListWithToggle } from '../../components/posts/post-list/PostListWithToggle';
 
 export const UserLikes = () => {
   const { id } = useParams();
@@ -18,6 +18,9 @@ export const UserLikes = () => {
   }, [id]);
 
   return (
-    <PostList posts={userPostsLikes} isPostsLoading={isUserPostsLoading} />
+    <PostListWithToggle
+      posts={userPostsLikes}
+      isPostsLoading={isUserPostsLoading}
+    />
   );
 };

@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from 'react';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TPostComment } from '../../../types/posts';
 import { formatDate } from '../../../helpers/dates';
-import { IconButton } from '../../ui/IconButton';
 import styles from '../../../assets/styles/posts.module.scss';
 import { PostCommentForm } from './PostCommentForm';
 import { UserLink } from '../../profile/UserLink';
 import { ConfirmModal } from '../../common/ConfirmModal';
 import { TUser } from '../../../types/auth-form';
+import { usePostEditButtonRules } from '../../../hooks/posts/usePostEditButtonRules';
+import { EditDeletePostButtons } from '../EditDeletePostButtons';
 
 interface PostCommentProps {
   comment: TPostComment;
@@ -22,21 +22,10 @@ export const PostComment = ({
 }: PostCommentProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+  const buttonRules = usePostEditButtonRules({ user, editableItem: comment });
   const date = useMemo(() => {
     return formatDate(comment.createdAt);
   }, [comment]);
-
-  const buttonRules = useMemo(() => {
-    if (!user) {
-      return { canEdit: false, canDelete: false };
-    }
-    const isUserEqual = user?.id === comment?.userId;
-    return {
-      canEdit: isUserEqual,
-      canDelete: isUserEqual || user.isAdmin
-    };
-  }, [user, comment]);
 
   const onCloseForm = () => {
     setIsEditing(false);
@@ -71,18 +60,12 @@ export const PostComment = ({
           />
           <p>{date}</p>
         </div>
-        <div className="d-flex gap-5 align-center">
-          {buttonRules.canEdit && (
-            <IconButton icon={faEdit} type="button" onClick={onOpenForm} />
-          )}
-          {buttonRules.canDelete && (
-            <IconButton
-              icon={faTrash}
-              type="button"
-              onClick={onDeleteModalChange}
-            />
-          )}
-        </div>
+        <EditDeletePostButtons
+          canEdit={buttonRules.canEdit}
+          canDelete={buttonRules.canDelete}
+          onEdit={onOpenForm}
+          onDelete={onDeleteModalChange}
+        />
       </div>
       <p>{comment.text}</p>
       <ConfirmModal

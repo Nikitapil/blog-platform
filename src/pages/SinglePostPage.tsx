@@ -3,8 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   faComment,
   faEye,
-  faTrash,
-  faEdit,
   faHeart as faHeartSolid
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -27,6 +25,8 @@ import { PostComment } from '../components/posts/post-comment/PostComment';
 import { UserLink } from '../components/profile/UserLink';
 import 'github-markdown-css/github-markdown-dark.css';
 import { PostHashTag } from '../components/posts/PostHashTag';
+import { usePostEditButtonRules } from '../hooks/posts/usePostEditButtonRules';
+import { EditDeletePostButtons } from '../components/posts/EditDeletePostButtons';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
@@ -49,6 +49,12 @@ export const SinglePostPage = () => {
       return response;
     }
   );
+
+  const buttonRules = usePostEditButtonRules({
+    user,
+    editableItem: singlePost
+  });
+
   const onDeleteModalChange = () => {
     setIsDeleteModalOpened(!isDeleteModalOpened);
   };
@@ -77,17 +83,6 @@ export const SinglePostPage = () => {
     }
     getSinglePost(id);
   }, [id]);
-
-  const buttonRules = useMemo(() => {
-    if (!user || !singlePost) {
-      return { canEdit: false, canDelete: false };
-    }
-    const isUserEqual = user?.id === singlePost?.userId;
-    return {
-      canEdit: isUserEqual,
-      canDelete: isUserEqual || user.isAdmin
-    };
-  }, [user, singlePost]);
 
   const onDeletePost = async () => {
     await deletePost();
@@ -137,22 +132,12 @@ export const SinglePostPage = () => {
       <div className={styles['single-post']}>
         <div className={styles['single-post__header']}>
           <h2 className={styles['single-post__title']}>{singlePost.title}</h2>
-          <div className={styles['single-post__tools']}>
-            {buttonRules.canEdit && (
-              <IconButton
-                icon={faEdit}
-                type="button"
-                onClick={navigateToEditPage}
-              />
-            )}
-            {buttonRules.canDelete && (
-              <IconButton
-                icon={faTrash}
-                type="button"
-                onClick={onDeleteModalChange}
-              />
-            )}
-          </div>
+          <EditDeletePostButtons
+            canEdit={buttonRules.canEdit}
+            canDelete={buttonRules.canDelete}
+            onEdit={navigateToEditPage}
+            onDelete={onDeleteModalChange}
+          />
         </div>
         <div className={styles['single-post__likes']}>
           <IconButton

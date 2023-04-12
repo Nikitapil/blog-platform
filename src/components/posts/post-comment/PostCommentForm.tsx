@@ -2,23 +2,21 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { AppTexArea } from '../../ui/AppTextArea';
 import { AppButton } from '../../ui/AppButton';
 import styles from '../../../assets/styles/posts.module.scss';
-import { useAppSelector } from '../../../hooks/store/useAppSelector';
-import { usePostsActions } from '../../../hooks/store/usePostsActions';
 import { TPostComment } from '../../../types/posts';
+import { TUser } from '../../../types/auth-form';
 
 interface IPostCommentFormProps {
   existedComment?: TPostComment;
-  closeForm?: () => void;
+  user: TUser | null;
+  submitFn: (comment: string) => void;
 }
 
 export const PostCommentForm = ({
   existedComment,
-  closeForm
+  user,
+  submitFn
 }: IPostCommentFormProps) => {
   const [comment, setComment] = useState('');
-  const { singlePost } = useAppSelector((state) => state.posts);
-  const { user } = useAppSelector((state) => state.auth);
-  const { addPostComment, editPostComment } = usePostsActions();
 
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -26,27 +24,13 @@ export const PostCommentForm = ({
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!singlePost || !user) {
-      return;
-    }
-    if (existedComment && closeForm) {
-      await editPostComment(existedComment.id, comment);
-      closeForm();
-    } else {
-      await addPostComment(user.id, singlePost.id, comment);
-    }
+    submitFn(comment);
     setComment('');
   };
 
-  useEffect(() => {
-    if (existedComment) {
-      setComment(existedComment.text);
-    }
-  }, [existedComment]);
-
   const isFieldDisabled = useMemo(() => {
-    return !user || !singlePost;
-  }, [user, singlePost]);
+    return !user;
+  }, [user]);
 
   const isButtonDisabled = useMemo(() => {
     return !comment.trim() || isFieldDisabled;
@@ -58,6 +42,12 @@ export const PostCommentForm = ({
 
   const buttonText = useMemo(() => {
     return existedComment ? 'Save' : 'Send';
+  }, [existedComment]);
+
+  useEffect(() => {
+    if (existedComment) {
+      setComment(existedComment.text);
+    }
   }, [existedComment]);
 
   return (

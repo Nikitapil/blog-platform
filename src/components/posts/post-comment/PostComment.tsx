@@ -8,21 +8,18 @@ import { ConfirmModal } from '../../common/ConfirmModal';
 import { TUser } from '../../../types/auth-form';
 import { usePostEditButtonRules } from '../../../hooks/posts/usePostEditButtonRules';
 import { EditDeletePostButtons } from '../EditDeletePostButtons';
+import { usePostsActions } from '../../../hooks/store/usePostsActions';
 
 interface PostCommentProps {
   comment: TPostComment;
   user: TUser | null;
-  deletePostComment: (id: number) => void;
 }
 
-export const PostComment = ({
-  comment,
-  user,
-  deletePostComment
-}: PostCommentProps) => {
+export const PostComment = ({ comment, user }: PostCommentProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const buttonRules = usePostEditButtonRules({ user, editableItem: comment });
+  const { editPostComment, deletePostComment } = usePostsActions();
   const date = useMemo(() => {
     return formatDate(comment.createdAt);
   }, [comment]);
@@ -41,10 +38,19 @@ export const PostComment = ({
 
   const onDeleteModalChange = () => setIsDeleteModalOpen((prev) => !prev);
 
+  const onEdit = async (value: string) => {
+    await editPostComment(comment.id, value);
+    onCloseForm();
+  };
+
   if (isEditing) {
     return (
       <div className="mt-10">
-        <PostCommentForm existedComment={comment} closeForm={onCloseForm} />
+        <PostCommentForm
+          existedComment={comment}
+          user={user}
+          submitFn={onEdit}
+        />
       </div>
     );
   }

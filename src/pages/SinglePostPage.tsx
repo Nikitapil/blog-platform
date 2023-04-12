@@ -32,7 +32,7 @@ export const SinglePostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
-  const { getSinglePost, addPostLike, deletePostLike, deletePostComment } =
+  const { getSinglePost, addPostLike, deletePostLike, addPostComment } =
     usePostsActions();
   const {
     singlePost,
@@ -104,6 +104,13 @@ export const SinglePostPage = () => {
     } else {
       await addPostLike(singlePost.id, user.id);
     }
+  };
+
+  const onAddComment = async (value: string) => {
+    if (!user || !singlePost) {
+      return;
+    }
+    await addPostComment(user.id, singlePost.id, value);
   };
 
   if (isSinglePostLoading) {
@@ -184,15 +191,10 @@ export const SinglePostPage = () => {
           Comments
         </h3>
         <section className={styles['single-post__comment-form']}>
-          <PostCommentForm />
+          <PostCommentForm user={user} submitFn={onAddComment} />
           {singlePostComments.map((comment) => {
             return (
-              <PostComment
-                comment={comment}
-                key={comment.id}
-                user={user}
-                deletePostComment={deletePostComment}
-              />
+              <PostComment comment={comment} key={comment.id} user={user} />
             );
           })}
         </section>

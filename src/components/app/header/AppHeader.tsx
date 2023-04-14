@@ -7,14 +7,13 @@ import { AuthFormData } from '../../../types/auth-form';
 import { useAuthActions } from '../../../hooks/store/useAuthActions';
 import { useAppSelector } from '../../../hooks/store/useAppSelector';
 import { AuthButtons } from './AuthButtons';
+import { authSelector } from '../../../store/selectors';
 
 export const AppHeader = () => {
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
   const [isSignUpModalOpened, setIsSignUpModalOpened] = useState(false);
   const { registration, setSignError, logout, login } = useAuthActions();
-  const { user, isAuthLoading, signError } = useAppSelector(
-    (state) => state.auth
-  );
+  const { user, isAuthLoading, signError } = useAppSelector(authSelector);
   const navigate = useNavigate();
 
   const onSignInModalChange = useCallback(() => {

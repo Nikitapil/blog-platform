@@ -16,6 +16,7 @@ import { imgURLToFile } from '../../helpers/img-helpers';
 import 'easymde/dist/easymde.min.css';
 import { TagInput } from '../ui/TagInput';
 import { ImagePreview } from '../ui/ImagePreview';
+import { authSelector } from '../../store/selectors';
 
 interface PostFormProps {
   submitFn: (params: TPostRequest) => Promise<AxiosResponse<TPost>>;
@@ -34,11 +35,12 @@ export const PostForm = ({
   submitButtonText,
   submitToast = ''
 }: PostFormProps) => {
-  const { user, isAuthLoading } = useAppSelector((state) => state.auth);
+  const { user, isAuthLoading } = useAppSelector(authSelector);
   const [image, setImage] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
 
   const navigate = useNavigate();
+
   const form = useFormik({
     initialValues: {
       title: post?.title || '',

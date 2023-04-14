@@ -20,6 +20,7 @@ export const PostComment = ({ comment, user }: PostCommentProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const buttonRules = usePostEditButtonRules({ user, editableItem: comment });
   const { editPostComment, deletePostComment } = usePostsActions();
+
   const date = useMemo(() => {
     return formatDate(comment.createdAt);
   }, [comment]);

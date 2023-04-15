@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../../assets/styles/profile.module.scss';
 import { useProfileActions } from '../../../hooks/store/useProfileActions';
 import { useAppSelector } from '../../../hooks/store/useAppSelector';
-import { UserListItem } from '../../../components/profile/admin/UserListItem';
+import { UserListItem } from '../../../components/profile/admin/UserListItem/UserListItem';
 import { Pagination } from '../../../components/ui/Pagination';
 
 export const AppUsers = () => {

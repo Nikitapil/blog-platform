@@ -39,7 +39,7 @@ export const BanUserModal = ({
     <Modal isOpened={isOpened} closeModal={closeModal}>
       <div className={styles['ban-modal']}>
         <h2>
-          Ban User{' '}
+          Ban User
           <span className={styles['ban-modal__username']}>{userName}</span>
         </h2>
         <AppTexArea

@@ -8,7 +8,8 @@ import {
   editPostComment,
   getPosts,
   getSinglePost,
-  getPostsWithLikes, getPostsWithViews
+  getPostsWithLikes,
+  getPostsWithViews
 } from '../../store/posts/posts-actions';
 
 export const usePostsActions = () => {

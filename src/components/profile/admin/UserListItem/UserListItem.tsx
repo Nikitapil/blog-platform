@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { TAdminUserDto } from '../../../types/admin';
-import styles from '../../../assets/styles/profile.module.scss';
-import { UserLink } from '../UserLink';
-import { AppButton } from '../../ui/AppButton';
-import { BanUserModal } from './BanUserModal';
-import { useProfileActions } from '../../../hooks/store/useProfileActions';
-import { RolesModal } from './RolesModal';
+import { TAdminUserDto } from '../../../../types/admin';
+import styles from '../../../../assets/styles/profile.module.scss';
+import { UserLink } from '../../UserLink';
+import { BanUserModal } from '../BanUserModal';
+import { useProfileActions } from '../../../../hooks/store/useProfileActions';
+import { RolesModal } from '../RolesModal';
+import { UserListItemButtons } from './UserListItemButtons';
 
-interface UserListItemProps {
+interface IUserListItemProps {
   user: TAdminUserDto;
 }
 
-export const UserListItem = ({ user }: UserListItemProps) => {
+export const UserListItem = ({ user }: IUserListItemProps) => {
   const [isBanUserModalOpened, setIsBanUserModalOpened] = useState(false);
   const [isRolesModalOpened, setIsRolesModalOpened] = useState(false);
   const { unbanUser } = useProfileActions();
+
   const onOpenBanUserModal = () => setIsBanUserModalOpened(true);
   const onCloseBanUserModal = () => setIsBanUserModalOpened(false);
+
   const onOpenRolesModal = () => setIsRolesModalOpened(true);
   const onCloseRolesModal = () => setIsRolesModalOpened(false);
 
@@ -34,23 +36,12 @@ export const UserListItem = ({ user }: UserListItemProps) => {
             avatar={user.avatar}
           />
           <div className="d-flex gap-10">
-            {!user.banned && (
-              <AppButton
-                text="Ban user"
-                color="danger"
-                onClick={onOpenBanUserModal}
-              />
-            )}
-            {user.banned && (
-              <AppButton
-                text="Unban user"
-                color="danger"
-                onClick={unbanUserHandler}
-              />
-            )}
-            {!user.banned && (
-              <AppButton text="User roles" onClick={onOpenRolesModal} />
-            )}
+            <UserListItemButtons
+              isUserBanned={user.banned}
+              unbanUserHandler={unbanUserHandler}
+              onOpenBanUserModal={onOpenBanUserModal}
+              onOpenRolesModal={onOpenRolesModal}
+            />
           </div>
         </div>
         {user.banned && (

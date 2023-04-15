@@ -7,6 +7,7 @@ import { AppCheckBox } from '../../ui/AppCheckBox';
 import { AppButton } from '../../ui/AppButton';
 import { useProfileActions } from '../../../hooks/store/useProfileActions';
 import styles from '../../../assets/styles/profile.module.scss';
+import { adminSelector } from '../../../store/selectors';
 
 interface RolesModalProps {
   isOpened: boolean;
@@ -24,7 +25,7 @@ export const RolesModal = ({
   userId
 }: RolesModalProps) => {
   const [internalRoles, setInternalRoles] = useState<TUserUiRole[]>([]);
-  const { roles } = useAppSelector((state) => state.admin);
+  const { roles } = useAppSelector(adminSelector);
   const { changeUserRoles } = useProfileActions();
 
   useEffect(() => {

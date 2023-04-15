@@ -10,14 +10,14 @@ import { imageExtensions } from '../../constants/file-extensions';
 import { AppButton } from '../../components/ui/AppButton';
 import { ChangePasswordModal } from '../../components/profile/ChangePasswordModal';
 import { ChangeTextParamModal } from '../../components/profile/ChangeTextParamModal';
-import { profileSelector } from '../../store/selectors';
+import { authSelector, profileSelector } from '../../store/selectors';
 
 export const Personal = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isNameModalOpened, setIsNameModalOpened] = useState(false);
   const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const [isEmailModalOpened, setIsEmailModalOpened] = useState(false);
-  const { user, isAuthLoading } = useAppSelector((state) => state.auth);
+  const { user, isAuthLoading } = useAppSelector(authSelector);
   const { isAvatarLoading, usernameError, emailError, passwordError } =
     useAppSelector(profileSelector);
   const { updateAvatar, deleteAvatar, updateUserName, updateEmail } =
@@ -106,6 +106,7 @@ export const Personal = () => {
         id="name"
         placeholder="Username..."
         title="Change username"
+        initialValue={user?.userName}
         closeModal={onCloseNameModal}
         submitHandler={updateUserName}
         error={usernameError}
@@ -115,6 +116,7 @@ export const Personal = () => {
         id="email"
         placeholder="Email..."
         title="Change email"
+        initialValue={user?.email}
         closeModal={onCloseEmailModal}
         submitHandler={updateEmail}
         error={emailError}

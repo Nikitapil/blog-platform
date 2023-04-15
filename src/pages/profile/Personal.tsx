@@ -10,6 +10,7 @@ import { imageExtensions } from '../../constants/file-extensions';
 import { AppButton } from '../../components/ui/AppButton';
 import { ChangePasswordModal } from '../../components/profile/ChangePasswordModal';
 import { ChangeTextParamModal } from '../../components/profile/ChangeTextParamModal';
+import { profileSelector } from '../../store/selectors';
 
 export const Personal = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -17,9 +18,8 @@ export const Personal = () => {
   const [isPasswordModalOpened, setIsPasswordModalOpened] = useState(false);
   const [isEmailModalOpened, setIsEmailModalOpened] = useState(false);
   const { user, isAuthLoading } = useAppSelector((state) => state.auth);
-  const { isAvatarLoading, usernameError, emailError } = useAppSelector(
-    (state) => state.profile
-  );
+  const { isAvatarLoading, usernameError, emailError, passwordError } =
+    useAppSelector(profileSelector);
   const { updateAvatar, deleteAvatar, updateUserName, updateEmail } =
     useProfileActions();
   const navigate = useNavigate();
@@ -121,6 +121,7 @@ export const Personal = () => {
       />
       <ChangePasswordModal
         isOpened={isPasswordModalOpened}
+        passwordError={passwordError}
         closeModal={onClosePasswordModal}
       />
     </div>

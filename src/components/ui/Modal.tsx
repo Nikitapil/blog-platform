@@ -5,13 +5,13 @@ import styles from '../../assets/styles/modal.module.scss';
 import '../../assets/styles/modal-transitions.scss';
 import { IconButton } from './IconButton';
 
-interface ModalProps {
+interface IModalProps {
   isOpened: boolean;
-  closeModal: () => void;
   children: JSX.Element | string | React.ReactNode;
+  closeModal: () => void;
 }
 
-export const Modal = ({ isOpened, children, closeModal }: ModalProps) => {
+export const Modal = ({ isOpened, children, closeModal }: IModalProps) => {
   return (
     <Transition in={isOpened} timeout={200} unmountOnExit>
       {(state) => (

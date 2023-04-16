@@ -6,17 +6,17 @@ import { IconButton } from './IconButton';
 interface ITagProps {
   text: string;
   deleteAvailable?: boolean;
-  deleteHandler?: (tag: string) => void;
   size?: 'sm' | 'md';
   onClick?: () => void;
+  deleteHandler?: (tag: string) => void;
 }
 
 export const Tag = ({
   text,
+  onClick,
   deleteAvailable = false,
   deleteHandler = () => {},
-  size = 'md',
-  onClick
+  size = 'md'
 }: ITagProps) => {
   const onDelete = useCallback(() => {
     deleteHandler(text);

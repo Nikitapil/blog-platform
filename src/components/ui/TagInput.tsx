@@ -20,10 +20,10 @@ export const TagInput = ({
   label,
   id,
   name,
-  maxLength = 20,
-  placeholder = '',
   tags,
-  setTags
+  setTags,
+  maxLength = 20,
+  placeholder = ''
 }: ITagInputProps) => {
   const [value, setValue] = useState('');
 

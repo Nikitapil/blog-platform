@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import styles from '../../assets/styles/pagination.module.scss';
 
-interface PaginationProps {
+interface IPaginationProps {
   currentPage: number;
   totalCount: number;
-  setPage: (page: number) => void;
   limit?: number;
+  setPage: (page: number) => void;
 }
 
 export const Pagination = ({
@@ -13,7 +13,7 @@ export const Pagination = ({
   totalCount,
   setPage,
   limit = 10
-}: PaginationProps) => {
+}: IPaginationProps) => {
   const pages = useMemo(() => {
     const totalPagesCount = Math.ceil(totalCount / limit);
     return Array.from({ length: totalPagesCount }, (a, b) => b + 1);

@@ -4,11 +4,10 @@ import { createImgLink } from '../../helpers/img-helpers';
 
 export const usePostImage = (post: TPost | null) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const image = useMemo(() => {
+  return useMemo(() => {
     if (!post || !post.image) {
       return null;
     }
     return createImgLink(post.image);
   }, [post]);
-  return image;
 };

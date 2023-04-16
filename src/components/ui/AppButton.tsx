@@ -2,7 +2,7 @@ import React from 'react';
 import style from '../../assets/styles/app-button.module.scss';
 
 interface IconButtonProps {
-  type?: 'button' | 'submit';
+  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   text: string;
   color?: 'primary' | 'success' | 'danger' | 'transparent';
@@ -12,8 +12,8 @@ interface IconButtonProps {
 
 export const AppButton = ({
   text,
-  type = 'button',
   onClick,
+  type = 'button',
   color = 'primary',
   disabled = false,
   size = 'sm'

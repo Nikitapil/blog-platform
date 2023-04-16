@@ -7,7 +7,7 @@ interface AppInputProps {
   type?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: FocusEvent<HTMLInputElement, Element>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => void;
   error?: string;
   touched?: boolean;
   placeholder: string;
@@ -20,12 +20,12 @@ export const AppInput = ({
   label,
   value,
   onChange,
-  type = 'text',
   error,
   touched,
   placeholder,
   name,
   onBlur,
+  type = 'text',
   disabled = false
 }: AppInputProps) => {
   const inputClassName = useMemo(() => {

@@ -5,7 +5,7 @@ import styles from '../../assets/styles/icon-button.module.scss';
 
 interface IconButtonProps {
   icon: IconProp;
-  type: 'button' | 'submit';
+  type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   onClick?: () => void;
   className?: string;

@@ -1,54 +1,43 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import styles from '../../assets/styles/profile.module.scss';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
+import { authSelector } from '../../store/selectors';
 
 export const ProfileNavbar = () => {
   const { id } = useParams();
-  const { user } = useAppSelector((state) => state.profile);
-  const { user: currentUser } = useAppSelector((state) => state.auth);
+  const { user: currentUser } = useAppSelector(authSelector);
 
   const isShowPersonalLink = useMemo(() => {
-    return user?.id === currentUser?.id;
-  }, [user, currentUser]);
+    return id === currentUser?.id.toString();
+  }, [id, currentUser]);
 
   const isShowAdminLink = useMemo(() => {
     return isShowPersonalLink && currentUser?.isAdmin;
-  }, [user, isShowPersonalLink]);
+  }, [isShowPersonalLink, currentUser?.isAdmin]);
+
+  const classNameFn = useCallback(({ isActive }: { isActive: boolean }) => {
+    return isActive ? styles.active : '';
+  }, []);
 
   return (
     <nav className={styles['profile-navbar']}>
       {isShowPersonalLink && (
-        <NavLink
-          className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to={`/profile/${id}/personal`}
-        >
+        <NavLink className={classNameFn} to={`/profile/${id}/personal`}>
           Personal
         </NavLink>
       )}
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.active : undefined)}
-        to={`/profile/${id}/user-posts`}
-      >
+      <NavLink className={classNameFn} to={`/profile/${id}/user-posts`}>
         Posts
       </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.active : undefined)}
-        to={`/profile/${id}/user-likes`}
-      >
+      <NavLink className={classNameFn} to={`/profile/${id}/user-likes`}>
         Likes
       </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.active : undefined)}
-        to={`/profile/${id}/user-comments`}
-      >
+      <NavLink className={classNameFn} to={`/profile/${id}/user-comments`}>
         Comments
       </NavLink>
       {isShowAdminLink && (
-        <NavLink
-          className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to={`/profile/${id}/admin/users`}
-        >
+        <NavLink className={classNameFn} to={`/profile/${id}/admin/users`}>
           Admin
         </NavLink>
       )}

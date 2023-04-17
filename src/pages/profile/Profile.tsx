@@ -5,11 +5,12 @@ import { ProfileNavbar } from '../../components/profile/ProfileNavbar';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { useProfileActions } from '../../hooks/store/useProfileActions';
 import { UserAvatar } from '../../components/profile/userAvatar';
+import { profileSelector } from '../../store/selectors';
+import { HorizontalLoader } from '../../components/ui/loaders/HorizontalLoader';
 
 export const Profile = () => {
-  const { user, isUserLoading, isAvatarLoading } = useAppSelector(
-    (state) => state.profile
-  );
+  const { user, isUserLoading, isAvatarLoading } =
+    useAppSelector(profileSelector);
   const { getUser } = useProfileActions();
   const { id } = useParams();
 
@@ -17,25 +18,28 @@ export const Profile = () => {
     if (id) {
       getUser(id);
     }
-  }, [id]);
+  }, [getUser, id]);
+
+  if (isUserLoading) {
+    return <HorizontalLoader />;
+  }
+
+  if (!user) {
+    return <p className="mt-10">User not found</p>;
+  }
 
   return (
     <main className="container">
-      {user && (
-        <div className={styles.profile}>
-          {user?.userName && (
-            <div className={styles.profile__header}>
-              {!isAvatarLoading && <UserAvatar src={user.avatar} />}
-              <h2 className={styles['profile__user-name']}>{user.userName}</h2>
-            </div>
-          )}
-          <ProfileNavbar />
-          <div className="mt-10 w-100">
-            <Outlet />
-          </div>
+      <div className={styles.profile}>
+        <div className={styles.profile__header}>
+          {!isAvatarLoading && <UserAvatar src={user.avatar} />}
+          <h2 className={styles['profile__user-name']}>{user.userName}</h2>
         </div>
-      )}
-      {!user && !isUserLoading && <p className="mt-10">User not found</p>}
+        <ProfileNavbar />
+        <div className="mt-10 w-100">
+          <Outlet />
+        </div>
+      </div>
     </main>
   );
 };

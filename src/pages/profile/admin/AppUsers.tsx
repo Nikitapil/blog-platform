@@ -4,16 +4,17 @@ import { useProfileActions } from '../../../hooks/store/useProfileActions';
 import { useAppSelector } from '../../../hooks/store/useAppSelector';
 import { UserListItem } from '../../../components/profile/admin/UserListItem/UserListItem';
 import { Pagination } from '../../../components/ui/Pagination';
+import { adminSelector } from '../../../store/selectors';
 
 export const AppUsers = () => {
   const [page, setPage] = useState(1);
   const { getUsers, getRoles } = useProfileActions();
-  const { users, usersCount } = useAppSelector((state) => state.admin);
+  const { users, usersCount } = useAppSelector(adminSelector);
 
   useEffect(() => {
     getUsers(page);
     getRoles();
-  }, [page]);
+  }, [getRoles, getUsers, page]);
 
   return (
     <div className={styles['users-page']}>

@@ -53,21 +53,13 @@ export const Personal = () => {
     return user?.avatar
       ? `${process.env.REACT_APP_API_URL}/${user.avatar}`
       : avatarLogo;
-  }, [user, user?.avatar]);
-
-  useEffect(() => {
-    if (!isAuthLoading) {
-      if (!user || user.id.toString() !== id) {
-        navigate('error');
-      }
-    }
-  }, [user, isAuthLoading, id]);
+  }, [user]);
 
   useEffect(() => {
     if (file) {
       updateAvatar(file);
     }
-  }, [file]);
+  }, [file, updateAvatar]);
 
   if (isAuthLoading) {
     return (
@@ -75,6 +67,10 @@ export const Personal = () => {
         <HorizontalLoader />
       </div>
     );
+  }
+
+  if (!user || user.id.toString() !== id) {
+    navigate(`/profile/${id}/user-posts`);
   }
 
   return (

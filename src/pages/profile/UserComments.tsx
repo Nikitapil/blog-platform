@@ -3,17 +3,18 @@ import { useParams } from 'react-router-dom';
 import { useProfileActions } from '../../hooks/store/useProfileActions';
 import { useAppSelector } from '../../hooks/store/useAppSelector';
 import { UserComment } from '../../components/profile/UserComment';
+import { profileSelector } from '../../store/selectors';
 
 export const UserComments = () => {
   const { id } = useParams();
   const { getUserComments } = useProfileActions();
-  const { userComments } = useAppSelector((state) => state.profile);
+  const { userComments } = useAppSelector(profileSelector);
 
   useEffect(() => {
     if (id) {
       getUserComments(id);
     }
-  }, [id]);
+  }, [getUserComments, id]);
 
   return (
     <div>

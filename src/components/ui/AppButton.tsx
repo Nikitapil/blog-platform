@@ -1,11 +1,12 @@
 import React from 'react';
 import style from '../../assets/styles/app-button.module.scss';
+import { TButtonColorType } from '../../types/common';
 
 interface IconButtonProps {
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   text: string;
-  color?: 'primary' | 'success' | 'danger' | 'transparent';
+  color?: TButtonColorType;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
 }

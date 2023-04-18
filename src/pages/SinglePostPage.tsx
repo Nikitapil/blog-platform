@@ -15,8 +15,6 @@ import styles from '../assets/styles/posts.module.scss';
 import { usePostImage } from '../hooks/posts/usePostImage';
 import { formatDate } from '../helpers/dates';
 import { IconButton } from '../components/ui/IconButton';
-import { Modal } from '../components/ui/Modal';
-import { AppButton } from '../components/ui/AppButton';
 import { useRequest } from '../hooks/utils/useRequest';
 import { PostsService } from '../services/PostsService';
 import { HorizontalLoader } from '../components/ui/loaders/HorizontalLoader';
@@ -27,11 +25,13 @@ import 'github-markdown-css/github-markdown-dark.css';
 import { PostHashTag } from '../components/posts/PostHashTag';
 import { usePostEditButtonRules } from '../hooks/posts/usePostEditButtonRules';
 import { EditDeletePostButtons } from '../components/posts/EditDeletePostButtons';
+import { authSelector, postsSelector } from '../store/selectors';
+import { ConfirmModal } from '../components/common/ConfirmModal';
 
 export const SinglePostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector(authSelector);
   const { getSinglePost, addPostLike, deletePostLike, addPostComment } =
     usePostsActions();
   const {
@@ -40,15 +40,13 @@ export const SinglePostPage = () => {
     isSinglePostLoading,
     singlePostLikes,
     singlePostComments
-  } = useAppSelector((state) => state.posts);
+  } = useAppSelector(postsSelector);
   const image = usePostImage(singlePost);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  const [deletePost, isDeleting, deletingError] = useRequest<void, null>(
-    async () => {
-      const response = await PostsService.deletePost(id!);
-      return response;
-    }
-  );
+
+  const [deletePost, , deletingError] = useRequest<void, null>(async () => {
+    return PostsService.deletePost(id!);
+  });
 
   const buttonRules = usePostEditButtonRules({
     user,
@@ -82,7 +80,7 @@ export const SinglePostPage = () => {
       return;
     }
     getSinglePost(id);
-  }, [id]);
+  }, [getSinglePost, id]);
 
   const onDeletePost = async () => {
     await deletePost();
@@ -199,25 +197,15 @@ export const SinglePostPage = () => {
           })}
         </section>
       </div>
-      <Modal isOpened={isDeleteModalOpened} closeModal={onDeleteModalChange}>
-        <div className={styles['single-post__delete']}>
-          <h3>Are you sure, you want to delete this post?</h3>
-          {deletingError && <p>{deletingError}</p>}
-          <div className={styles['single-post__delete-btns']}>
-            <AppButton
-              text="Cancel"
-              onClick={onDeleteModalChange}
-              disabled={isDeleting}
-            />
-            <AppButton
-              text="Delete"
-              color="danger"
-              onClick={onDeletePost}
-              disabled={isDeleting}
-            />
-          </div>
-        </div>
-      </Modal>
+      <ConfirmModal
+        title="Are you sure, you want to delete this post?"
+        isOpened={isDeleteModalOpened}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmColor="danger"
+        onCancel={onDeleteModalChange}
+        onConfirm={onDeletePost}
+      />
     </main>
   );
 };

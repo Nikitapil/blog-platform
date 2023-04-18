@@ -80,6 +80,7 @@ export const PostComment = ({ comment, user }: PostCommentProps) => {
         isOpened={isDeleteModalOpen}
         confirmText="Delete"
         cancelText="Cancel"
+        confirmColor="danger"
         onCancel={onDeleteModalChange}
         onConfirm={onDeleteComment}
       />

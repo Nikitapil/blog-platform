@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import styles from '../../assets/styles/confirm-modal.module.scss';
 import { AppButton } from '../ui/AppButton';
 import { Modal } from '../ui/Modal';
+import { TButtonColorType } from '../../types/common';
 
 interface IConfirmModalProps {
   title: string;
@@ -10,6 +11,7 @@ interface IConfirmModalProps {
   cancelText: string;
   onCancel: () => void;
   onConfirm: () => void;
+  confirmColor?: TButtonColorType;
 }
 
 export const ConfirmModal = memo(
@@ -19,7 +21,8 @@ export const ConfirmModal = memo(
     onCancel,
     onConfirm,
     confirmText,
-    cancelText
+    cancelText,
+    confirmColor = 'primary'
   }: IConfirmModalProps) => {
     return (
       <Modal isOpened={isOpened} closeModal={onCancel}>
@@ -27,7 +30,11 @@ export const ConfirmModal = memo(
           <h3>{title}</h3>
           <div className={styles['confirm-modal-btns']}>
             <AppButton text={cancelText} onClick={onCancel} />
-            <AppButton text={confirmText} color="danger" onClick={onConfirm} />
+            <AppButton
+              text={confirmText}
+              color={confirmColor}
+              onClick={onConfirm}
+            />
           </div>
         </div>
       </Modal>

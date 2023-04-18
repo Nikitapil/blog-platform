@@ -9,10 +9,11 @@ import { SearchPostForm } from '../components/posts/SearchPostForm';
 import { PostSidebar } from '../components/posts/post-sidebar/PostSidebar';
 import { useQuery } from '../hooks/utils/useQuery';
 import { PostListWithToggle } from '../components/posts/post-list/PostListWithToggle';
+import { authSelector, postsSelector } from '../store/selectors';
 
 export const MainPage = () => {
   const { getPosts, getPostsWithLikes, getPostsWithViews } = usePostsActions();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector(authSelector);
   const {
     totalPostsCount,
     posts,
@@ -21,7 +22,7 @@ export const MainPage = () => {
     postsWithLikes,
     isPostsWithViewsLoading,
     isPostsWithLikesLoading
-  } = useAppSelector((state) => state.posts);
+  } = useAppSelector(postsSelector);
   const { query: hashTag } = useQuery('tag');
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,9 +30,12 @@ export const MainPage = () => {
 
   useEffect(() => {
     getPosts(page, searchQuery, hashTag);
+  }, [page, searchQuery, hashTag, getPosts]);
+
+  useEffect(() => {
     getPostsWithLikes();
     getPostsWithViews();
-  }, [page, searchQuery, hashTag]);
+  }, [getPostsWithLikes, getPostsWithViews]);
 
   const navigateToCreation = () => {
     navigate('/posts/create-post');

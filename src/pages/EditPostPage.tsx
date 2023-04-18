@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useRequest } from '../hooks/utils/useRequest';
 import { TPost, TPostRequest } from '../types/posts';
 import { PostsService } from '../services/PostsService';
@@ -7,15 +7,13 @@ import { usePostsActions } from '../hooks/store/usePostsActions';
 import { useAppSelector } from '../hooks/store/useAppSelector';
 import styles from '../assets/styles/posts.module.scss';
 import { PostForm } from '../components/posts/PostForm';
+import { authSelector, postsSelector } from '../store/selectors';
 
 export const EditPostPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { getSinglePost } = usePostsActions();
-  const { user, isAuthLoading } = useAppSelector((state) => state.auth);
-  const { singlePost, singlePostError } = useAppSelector(
-    (state) => state.posts
-  );
+  const { user, isAuthLoading } = useAppSelector(authSelector);
+  const { singlePost, singlePostError } = useAppSelector(postsSelector);
   const [editPost, isEditing, editError] = useRequest<TPostRequest, TPost>(
     async (values: TPostRequest) => {
       return PostsService.editPost(values);
@@ -27,13 +25,7 @@ export const EditPostPage = () => {
       return;
     }
     getSinglePost(id);
-  }, [id]);
-
-  useEffect(() => {
-    if (singlePost && singlePost.userId !== user?.id && !isAuthLoading) {
-      navigate('/');
-    }
-  }, [singlePost, user, isAuthLoading]);
+  }, [getSinglePost, id]);
 
   if (!singlePost || singlePostError) {
     return (
@@ -47,6 +39,11 @@ export const EditPostPage = () => {
       </div>
     );
   }
+
+  if (singlePost.userId !== user?.id && !isAuthLoading) {
+    return <Navigate to={`/posts/${singlePost.id}`} />;
+  }
+
   return (
     <main className="container">
       <PostForm

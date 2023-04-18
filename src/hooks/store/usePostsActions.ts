@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
+import { useMemo } from 'react';
 import {
   addPostComment,
   addPostLike,
@@ -13,18 +14,20 @@ import {
 } from '../../store/posts/posts-actions';
 
 export const usePostsActions = () => {
-  const actions = {
-    getPosts,
-    getSinglePost,
-    addPostLike,
-    deletePostLike,
-    addPostComment,
-    editPostComment,
-    deletePostComment,
-    getPostsWithLikes,
-    getPostsWithViews
-  };
   const dispatch = useDispatch();
 
-  return bindActionCreators(actions, dispatch);
+  return useMemo(() => {
+    const actions = {
+      getPosts,
+      getSinglePost,
+      addPostLike,
+      deletePostLike,
+      addPostComment,
+      editPostComment,
+      deletePostComment,
+      getPostsWithLikes,
+      getPostsWithViews
+    };
+    return bindActionCreators(actions, dispatch);
+  }, [dispatch]);
 };

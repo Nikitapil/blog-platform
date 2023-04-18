@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { TAuthStore, TUser } from '../../types/auth-form';
 import { TReduxAction } from '../../types/common';

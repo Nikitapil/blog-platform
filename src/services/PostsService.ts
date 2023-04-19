@@ -58,7 +58,6 @@ export class PostsService {
     title,
     content,
     image,
-    userId,
     id,
     imageName,
     tags
@@ -71,7 +70,6 @@ export class PostsService {
     if (image) {
       formData.append('image', image);
     }
-    formData.append('userId', userId);
 
     tags.forEach((tag) => {
       formData.append('hashtags', tag);

@@ -51,7 +51,6 @@ export const PostForm = ({
       const response = await submitFn({
         title: values.title,
         content: values.content,
-        userId: user!.id.toString(),
         id: post?.id,
         imageName: post?.image,
         image,

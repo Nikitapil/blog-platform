@@ -68,10 +68,10 @@ export const getSinglePost = (id: string) => {
   };
 };
 
-export const addPostLike = (postId: number, userId: number) => {
+export const addPostLike = (postId: number) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await PostsService.addPostLike(postId, userId);
+      const response = await PostsService.addPostLike(postId);
       dispatch(postsSlice.actions.setPostLikes(response.data.rows));
     } catch (e: any) {
       toast.error(e.response.data.message);

@@ -93,12 +93,10 @@ export class PostsService {
   }
 
   static async addPostLike(
-    postId: number,
-    userId: number
+    postId: number
   ): Promise<AxiosResponse<TPostLikesResponse>> {
     return $api.post<TPostLikesResponse>('/posts/like', {
-      postId,
-      userId
+      postId
     });
   }
 

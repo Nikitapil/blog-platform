@@ -100,7 +100,7 @@ export const SinglePostPage = () => {
     if (isUserLiked) {
       await deletePostLike(singlePost.id);
     } else {
-      await addPostLike(singlePost.id, user.id);
+      await addPostLike(singlePost.id);
     }
   };
 

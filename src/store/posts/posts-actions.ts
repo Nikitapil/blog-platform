@@ -97,6 +97,7 @@ export const addPostComment = (
 ) => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(postsSlice.actions.setIsCommentCreating(true));
       const response = await PostsService.addComment({
         userId,
         postId,
@@ -105,6 +106,8 @@ export const addPostComment = (
       dispatch(postsSlice.actions.setPostComments(response.data.comments));
     } catch (e: any) {
       toast.error(e.response.data.message);
+    } finally {
+      dispatch(postsSlice.actions.setIsCommentCreating(false));
     }
   };
 };

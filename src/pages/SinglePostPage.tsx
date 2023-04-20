@@ -39,14 +39,17 @@ export const SinglePostPage = () => {
     singlePostError,
     isSinglePostLoading,
     singlePostLikes,
-    singlePostComments
+    singlePostComments,
+    isCommentCreating
   } = useAppSelector(postsSelector);
   const image = usePostImage(singlePost);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
 
-  const [deletePost, , deletingError] = useRequest<void, null>(async () => {
-    return PostsService.deletePost(id!);
-  });
+  const [deletePost, isDeleting, deletingError] = useRequest<void, null>(
+    async () => {
+      return PostsService.deletePost(id!);
+    }
+  );
 
   const buttonRules = usePostEditButtonRules({
     user,
@@ -189,7 +192,11 @@ export const SinglePostPage = () => {
           Comments
         </h3>
         <section className={styles['single-post__comment-form']}>
-          <PostCommentForm user={user} submitFn={onAddComment} />
+          <PostCommentForm
+            user={user}
+            submitFn={onAddComment}
+            isLoading={isCommentCreating}
+          />
           {singlePostComments.map((comment) => {
             return (
               <PostComment comment={comment} key={comment.id} user={user} />
@@ -200,6 +207,7 @@ export const SinglePostPage = () => {
       <ConfirmModal
         title="Are you sure, you want to delete this post?"
         isOpened={isDeleteModalOpened}
+        isLoading={isDeleting}
         confirmText="Delete"
         cancelText="Cancel"
         confirmColor="danger"

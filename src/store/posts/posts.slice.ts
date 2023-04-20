@@ -13,6 +13,7 @@ const initialState: PostsState = {
   singlePost: null,
   singlePostError: '',
   isSinglePostLoading: false,
+  isCommentCreating: false,
   singlePostLikes: [],
   singlePostComments: [],
   totalPostsCount: 0
@@ -57,6 +58,9 @@ export const postsSlice = createSlice({
     },
     setPostComments(state, action: TReduxAction<TPostComment[]>) {
       state.singlePostComments = action.payload;
+    },
+    setIsCommentCreating(state, action: TReduxAction<boolean>) {
+      state.isCommentCreating = action.payload;
     }
   }
 });

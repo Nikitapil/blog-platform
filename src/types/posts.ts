@@ -51,6 +51,7 @@ export type PostsState = {
   isPostsWithLikesLoading: boolean;
   isPostsWithViewsLoading: boolean;
   isSinglePostLoading: boolean;
+  isCommentCreating: boolean;
   totalPostsCount: number;
   singlePostLikes: TPostLike[];
   singlePostComments: TPostComment[];

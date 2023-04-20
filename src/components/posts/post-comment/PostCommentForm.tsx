@@ -9,12 +9,14 @@ interface IPostCommentFormProps {
   existedComment?: TPostComment;
   user: TUser | null;
   submitFn: (comment: string) => void;
+  isLoading?: boolean;
 }
 
 export const PostCommentForm = ({
   existedComment,
   user,
-  submitFn
+  submitFn,
+  isLoading
 }: IPostCommentFormProps) => {
   const [comment, setComment] = useState('');
 
@@ -29,7 +31,7 @@ export const PostCommentForm = ({
   };
 
   const isFieldDisabled = useMemo(() => {
-    return !user;
+    return !user || isLoading;
   }, [user]);
 
   const isButtonDisabled = useMemo(() => {
@@ -69,6 +71,7 @@ export const PostCommentForm = ({
         text={buttonText}
         size="lg"
         disabled={isButtonDisabled}
+        isLoading={isLoading}
       />
     </form>
   );

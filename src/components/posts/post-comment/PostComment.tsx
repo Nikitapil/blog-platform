@@ -17,7 +17,9 @@ interface PostCommentProps {
 
 export const PostComment = ({ comment, user }: PostCommentProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditInProgress, setIsEditInProgress] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteInProgress, setIsDeleteInProgress] = useState(false);
   const buttonRules = usePostEditButtonRules({ user, editableItem: comment });
   const { editPostComment, deletePostComment } = usePostsActions();
 
@@ -34,14 +36,18 @@ export const PostComment = ({ comment, user }: PostCommentProps) => {
   };
 
   const onDeleteComment = async () => {
+    setIsDeleteInProgress(true);
     await deletePostComment(comment.id);
+    setIsDeleteInProgress(false);
   };
 
   const onDeleteModalChange = () => setIsDeleteModalOpen((prev) => !prev);
 
   const onEdit = async (value: string) => {
+    setIsEditInProgress(true);
     await editPostComment(comment.id, value);
     onCloseForm();
+    setIsEditInProgress(false);
   };
 
   if (isEditing) {
@@ -50,6 +56,7 @@ export const PostComment = ({ comment, user }: PostCommentProps) => {
         <PostCommentForm
           existedComment={comment}
           user={user}
+          isLoading={isEditInProgress}
           submitFn={onEdit}
         />
       </div>
@@ -78,6 +85,7 @@ export const PostComment = ({ comment, user }: PostCommentProps) => {
       <ConfirmModal
         title="Are you sure, you want to delete this comment?"
         isOpened={isDeleteModalOpen}
+        isLoading={isDeleteInProgress}
         confirmText="Delete"
         cancelText="Cancel"
         confirmColor="danger"

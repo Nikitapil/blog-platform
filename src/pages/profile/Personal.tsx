@@ -85,12 +85,14 @@ export const Personal = () => {
             label="Update avatar"
             setFile={setFile}
             formats={imageExtensions}
+            isLoading={isAvatarLoading}
           />
           <AppButton
             text="Delete avatar"
             color="danger"
             onClick={deleteAvatar}
             disabled={!user?.avatar}
+            isLoading={isAvatarLoading}
           />
         </div>
         <AppButton text="Change username" onClick={onOpenNameModal} />

@@ -38,7 +38,6 @@ export const PostForm = ({
   const { user, isAuthLoading } = useAppSelector(authSelector);
   const [image, setImage] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
-
   const navigate = useNavigate();
 
   const form = useFormik({
@@ -162,10 +161,16 @@ export const PostForm = ({
               label={uploadLinkText}
               setFile={setImage}
               formats={imageExtensions}
+              isLoading={isSubmitting}
             />
             <ImagePreview image={image} deleteImage={deleteImage} />
           </div>
-          <AppButton text={submitButtonText} color="success" type="submit" />
+          <AppButton
+            text={submitButtonText}
+            color="success"
+            type="submit"
+            isLoading={isSubmitting}
+          />
         </div>
       </form>
     </main>

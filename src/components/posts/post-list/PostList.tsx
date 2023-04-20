@@ -15,7 +15,11 @@ export const PostList = ({
   isShowContent = true
 }: IPostListProps) => {
   if (isPostsLoading) {
-    return <HorizontalLoader />;
+    return (
+      <div className="container">
+        <HorizontalLoader />
+      </div>
+    );
   }
 
   if (!posts.length) {

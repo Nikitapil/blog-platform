@@ -12,12 +12,14 @@ interface IAuthFormProps {
   closeModal: () => void;
   onSubmit: (values: AuthFormData) => void;
   signError: string;
+  isAuthLoading: boolean;
 }
 
 export const AuthForm = ({
   closeModal,
   onSubmit,
   signError,
+  isAuthLoading,
   isSignUp = false
 }: IAuthFormProps) => {
   const form = useFormik({
@@ -50,6 +52,7 @@ export const AuthForm = ({
         placeholder="email"
         label="Email:"
         type="email"
+        disabled={isAuthLoading}
         value={form.values.email}
         onChange={form.handleChange}
         error={form.errors.email}
@@ -62,6 +65,7 @@ export const AuthForm = ({
         placeholder="password"
         label="Password:"
         type="password"
+        disabled={isAuthLoading}
         value={form.values.password}
         onChange={form.handleChange}
         error={form.errors.password}
@@ -75,6 +79,7 @@ export const AuthForm = ({
           placeholder="Your name"
           label="User name:"
           type="text"
+          disabled={isAuthLoading}
           value={form.values.userName}
           onChange={form.handleChange}
           error={form.errors.userName}
@@ -87,9 +92,15 @@ export const AuthForm = ({
           text="Cancel"
           type="button"
           color="danger"
+          isLoading={isAuthLoading}
           onClick={closeModal}
         />
-        <AppButton text={title} type="submit" color="success" />
+        <AppButton
+          text={title}
+          type="submit"
+          color="success"
+          isLoading={isAuthLoading}
+        />
       </div>
       {signError && <ErrorMessage message={signError} />}
     </form>

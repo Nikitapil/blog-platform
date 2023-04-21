@@ -80,6 +80,7 @@ export const AppHeader = () => {
           signError={signError}
           closeModal={onSignInModalChange}
           onSubmit={onSignIn}
+          isAuthLoading={isAuthLoading}
         />
       </Modal>
       <Modal isOpened={isSignUpModalOpened} closeModal={onSignUpModalChange}>
@@ -88,6 +89,7 @@ export const AppHeader = () => {
           signError={signError}
           closeModal={onSignUpModalChange}
           onSubmit={onSignUp}
+          isAuthLoading={isAuthLoading}
         />
       </Modal>
     </header>
